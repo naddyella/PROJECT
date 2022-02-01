@@ -1,0 +1,776 @@
+package project;
+import java.util.Scanner;
+public class Rice {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int num, num1, num2,staffId=0;
+		String staffName="";
+		char con;
+		//the name of the customer who made the order,date of booking,booked date, booked day and booked time.
+		String cus_name, date_of_order, bookedDate, orderTime;
+				
+		System.out.println("----------------------Welcome to Rice Shop---------------------");
+	    System.out.print("Do you want to join a survey about Healthy Life? (Y=Yes or N=No):");
+		con=sc.next().charAt(0);
+		
+		if(con=='Y')
+			showSurvey();
+					
+		Dessert.showMainMenu();
+		num=sc.nextInt();
+		
+		if(num==1) {
+		
+		do {
+			Dessert.showMainMenuStaff();
+	        num1 = sc.nextInt();
+	    
+	    if(num1==1)
+	    	Dessert.getInputOutput();
+	    
+	    else if(num1==2) {
+	    	FastFood.getDailyProfit();
+	    }
+	    else if (num1==3) {
+	    	
+	    	do {
+	    		System.out.println("\n----------------BOOKING AND ORDER-------------");
+		    	System.out.println("1-Rice Order");
+		    	System.out.println("2-Ala Carte");
+		    	System.out.println("3-Back to Main Menu");
+		    	num2=sc.nextInt();
+		    	
+		    	if(num2==1) {  		
+		    		getCustomerOrder(staffName,staffId);
+		    		
+		    	}
+					
+		    	else if(num2==2) {
+		    		//this is the Ala carte system which customers can customize their order
+		    		System.out.println("\n------------ ALA CARTE SYSTEM------------");
+		    		//get staff details
+		    		System.out.println("Staff Details:");
+		    		staffName=Rice.getName(staffName);
+		    	    staffId=Rice.getStaffId(staffId);
+		    		System.out.println("\nWelcome "+staffName+"!");
+					//get customer details
+		    		System.out.print("\nEnter customer's name : ");
+					cus_name = sc.next();
+					System.out.print("Enter date of booking (e.g.,1/2/22): ");
+					String date_of_booking = sc.next();
+					System.out.print("Enter time of booking (e.g.,1.30P.M): ");
+					orderTime = sc.next();
+				
+					String [] food = {"BERAS JATI SUPER TEMPATAN(10KG)", "BERAS FAIZA KASHMIR BASMATHI (10KG)","JASMINE SUN BROWN ORIGINAL BROWN RICE (5KG)" };
+					double [] price = {27.50, 58.30,22.00};
+				
+					//return 2 data (food and price)
+					FastFood.showMenu(food, price);
+				
+					Fruit.showReceiptAlaCarte(staffName,staffId,cus_name,date_of_booking,orderTime, food, price);
+					}
+	    		}while(num2!=3);
+			}
+	    			     
+		else
+			System.out.println("Thank you for using our system!");
+		}while(num1!=4);
+	}
+		
+		//customer code
+		else if(num==2) {
+			do {
+				Dessert.showMainMenuCustomer();
+			    num1 = sc.nextInt();
+			    
+			    if(num1==1) {
+			    	getSelfOrder();
+			    }
+			    else if(num1==2) {
+			    	do {
+			    	System.out.println("\n----------------View Information-------------");
+			    	System.out.println("1-View Donation Centre");
+			    	System.out.println("2-View Product Information");
+			    	System.out.println("3-Back to Main Menu");
+			    	num2=sc.nextInt();
+			  
+			    	if (num2==1) {
+			    		String [] a = Dessert.getInfoForDonationCentre();
+			    		int x = Dessert.getTypeForDonationCentre();
+						if(x==1)
+							System.out.println(a[0]);
+						else if(x==2)
+							System.out.println(a[1]);
+			    	}
+			    	else if(num2==2) {
+						String [] b = getInfoForProduct();
+						int x = getTypeForProductInfo();
+						if(x==1)
+							System.out.println(b[0]);
+						else if(x==2)
+							System.out.println(b[1]);
+			    	}
+			      }while(num2!=3);
+			    }
+			    else
+					System.out.println("Thank you for using our system!");
+			}while(num1!=3);
+	  }
+		
+			
+
+	}
+	
+	
+	public static void showSurvey() {
+		Scanner sc=new Scanner(System.in);
+		String n="", name;
+		char gender, gen='F';
+	    double height, h=0, weight, w=0, bmi,caloriesconsume, consume=0;
+	    double minweight,maxweight;
+	    double addweight1,addweight2,loseweight1,loseweight2;
+	    int age, a=0, activelevel,ricetype,ID,staffId=0;
+	    double[][] weights = new double[4][7];
+	    System.out.println("WELCOME TO HEALTHY LIFE SURVEY");
+	    System.out.println();
+	    
+	    System.out.println("-Information Archive-");
+	    //read information that need to be entered by user.
+	    name= getName(n);
+		gender = getGender(gen);
+		age= getAge(a);
+		height=getHeight(h);
+		weight=getWeight(w);
+	    
+	    System.out.println();
+	    System.out.print("Enter your type of rice consume"
+	    		+ "\n1.White Rice"
+	    		+ "\n2.Brown Rice"
+	    		+ "\n3.Purple Rice"
+	    		+ "\n4.Black Rice"
+	    		+ "\n5.Red Rice"
+	    		+ "\nChoose a number: ");
+	    
+	    ricetype = sc.nextInt();
+	    
+	    System.out.println();
+
+	    System.out.print("How active are you"
+	    		+ "\n1.Not active"
+	    		+ "\n2.Moderate"
+	    		+ "\n3.Active"
+	    		+ "\nChoose a number: ");
+	    activelevel = sc.nextInt();
+	    
+	    //information on the benefits 0f white rice and brown rice.
+	    System.out.println();
+	    System.out.println("-Additional Information-");
+	    WhiteBrownRice();//declare WhiteBrownRice method
+	    
+	    //calculation 
+	    System.out.println();
+	    System.out.println("-About Your Health-");
+	    
+	    bmi = BMI(weight,height);//declare BMI method that return value to bmi variable.
+	    
+	    System.out.printf("Your bmi is : %.2f",bmi);
+	    
+	    WeightStatus(bmi);//declare WeightStatus method
+	    
+	    minweight = (18.5)*Math.pow(height,2);
+	    maxweight = (25.0)*Math.pow(height,2);
+	    
+	    System.out.printf("%nHealthy weight for the height : %.2fkg - %.2fkg",minweight,maxweight);
+	    
+	    caloriesconsume = CaloriesCount(consume);//declare CaloriesCount method 
+	    
+	    AboutCalories(caloriesconsume);//declare AboutCalories method
+	    
+	    System.out.println();
+	    
+	    WaterCaloriesCut(caloriesconsume);//declare WaterCaloriesCut method
+	    
+	    System.out.print("-Advices On A Healthy Lifestyle-");
+	    
+	    do {
+	    if((weight<minweight)&&(weight<maxweight)) {
+	    	addweight1 = minweight-weight;
+	    	addweight2 = maxweight-weight;
+	    	System.out.printf("%nWeight need to be gain are in between %.2fkg to %.2fkg",addweight1,addweight2);
+	    	UnderweightAdvice();//declare UnderweightAdvice method
+	    }	
+	    else if((weight>=minweight)&&(weight<=maxweight)) {
+	    	System.out.println("\nNo need to gain or lose weight, Please maintain your weight!");
+	    	NormalAdvice();//declare NormalAdvice method
+	    }
+	    else if((weight>minweight)&&(weight>maxweight)) {
+	    	loseweight1 = weight-maxweight;
+	    	loseweight2 = weight-minweight;
+	    	System.out.printf("%nWeight need to be lose are in between %.2fkg to %.2fkg",loseweight1,loseweight2);
+	    	OverweightObeseAdvice();//declare OverweightObeseAdvice method
+	    }
+	    System.out.println();
+	    RecordWeight(weights);//Passing weight arrays to RecordWeight method
+	    System.out.println();
+	    System.out.println("Enter your weight after a month:"); 
+	    weight = sc.nextDouble();
+	    System.out.println("Advices will keep displaying until you achieve healthy weight and normal BMI.");
+	    minweight = (18.5)*Math.pow(height,2);
+	    maxweight = (25.0)*Math.pow(height,2);
+	    }while(weight<minweight || weight>maxweight);
+	    
+	    System.out.println();
+	    System.out.println("Congrats! You have reach healthy weight and normal BMI.");
+	    System.out.println("Thank you for joining HealthyLife survey, have a good day!");
+
+	}
+	
+	public static String getName (String a) {
+		Scanner sc = new Scanner (System.in);
+		System.out.println("Enter your name:");
+		a=sc.next();
+		
+		return a;
+	}
+	
+	public static int getStaffId (int a) {
+		Scanner sc = new Scanner (System.in);
+		System.out.print("Enter your staff ID: ");
+	    a = sc.nextInt();
+		
+		return a;
+	}
+	
+	public static char getGender (char a) {
+		Scanner sc = new Scanner (System.in);
+		System.out.print("Enter your gender, (Male=M/Female=F) : ");
+	    a = sc.next().charAt(0);
+		
+		return a;
+	}
+	
+	public static int getAge (int a) {
+		Scanner sc = new Scanner (System.in);
+		System.out.print("Enter your age: ");
+	    a = sc.nextInt();
+		
+		return a;
+	}
+	
+	public static double getHeight (double a) {
+		Scanner sc = new Scanner (System.in);
+	    System.out.print("Enter your height in m : ");
+	    a = sc.nextDouble();
+		
+		return a;
+	}
+	
+	public static double getWeight (double a) {
+		Scanner sc = new Scanner (System.in);
+	    System.out.print("Enter your weight in kg: ");
+	    a = sc.nextDouble();
+		
+		return a;
+	}
+	
+	public static double BMI(double w,double h) {
+		//Method take arguments weight and height from main method
+		double bmi;
+		bmi = w/Math.pow(h,2);//calculate BMI
+		return bmi;  //return BMI value
+	}
+	
+	public static void WeightStatus(double bmi) {
+		//Method take arguments BMI from the main menu
+		//method will display message that determine the weight status
+		 if(bmi<18.5)
+       	     System.out.println("\nYou are underweight and cannot afford to lose more.");
+		 
+        else if((bmi>=18.5)&&(bmi<25))
+        	 System.out.println("\nNice!! you are in healthy weight range.");
+       
+        else if((bmi>=25)&&(bmi<30))
+        	 System.out.println("\nYou are in overweight range and need to lose some weight.");
+       
+        else
+        	 System.out.println("\nYou are in obese range and need to lose weight.");
+	}
+	
+	public static void UnderweightAdvice(){
+		//method will display advices to people with Underweight BMI
+		System.out.println("\nSports suitable for underweight bmi person are yoga, pilates, swimming, weightlifting or biking");
+    	System.out.println("Suggested diet:");
+    	System.out.println("Consume plenty of good fats like avocados, nuts, plant-based oil and eat white rice");
+    	System.out.println("Men are advised to consume around 2500 calories a day.");
+    	System.out.println("Women are advised to consume around 200 calories a day.");
+	}
+	
+	public static void NormalAdvice() {
+		//method will display advices to people with normal BMI
+    	System.out.println("Sports suitable for normal bmi person are yoga, pilates, swimming, weightlifting, biking, or running");
+    	System.out.println("You can stay with your normal daily diet");
+    	System.out.println("Men are advised to consume around 2500 calories a day.");
+    	System.out.println("Women are advised to consume around 200 calories a day.");
+	}
+	
+	public static void OverweightObeseAdvice() {
+		//method will display advices to people with Overweight or Obese BMI
+		System.out.println("\nSports suitable for overweight and obese bmi person are swimming, sprinting, soccer, martial arts, or basketball");
+    	System.out.println("Suggested diet:");
+    	System.out.println("Consume plenty of fruits and vegetables, wholegrain varieties, meats, and eat brown rice that contain lots of fiber.");
+    	System.out.println("Men are advised to consume less than 1900 calories a day.");
+    	System.out.println("Women are advised to consume less than 1400 calories a day.");
+	}
+	
+	public static double CaloriesCount(double a) {
+		Scanner sc = new Scanner (System.in);
+		int mealsperday, servingpermeal;
+		double caloriesperserving;
+		System.out.println("\nEnter your meals per day that you eat rice: ");
+	    mealsperday = sc.nextInt();
+	    System.out.print("Enter how many serving of rice you eat per meal : ");
+	    servingpermeal = sc.nextInt();
+	    System.out.print("Enter how many calories in one serving of your rice: ");
+	    caloriesperserving = sc.nextDouble();
+	    //method calculate the calories consume
+		double caloriesconsume;
+		caloriesconsume = mealsperday*servingpermeal*caloriesperserving;
+		return caloriesconsume;//return the calories consume
+	}
+	
+	public static void AboutCalories(double cal){
+		//method will return message
+		double weightgain;
+	    System.out.printf("%nYour calories of rice consume per day is : %.2f",cal);
+	    System.out.println();
+	    
+	    System.out.print("\n7700 calories equal to 1 kg");	    
+	    weightgain = cal/7700;//calculate the weight gain if there is no activity done.
+	    System.out.printf("%nweight gain if no calories burn : %.2fkg%n",weightgain);	    
+	    System.out.println("30 minutes of running can burn 200 to 500 calories");
+	}
+	
+	public static void WaterCaloriesCut(double cal) {
+		//method will print out message
+		Scanner sc = new Scanner(System.in);
+		double watersum = 0;
+		double calorieslost = 0, totalcalories = 0;
+		System.out.print("Enter how many times per day you drink water: ");
+		int count = sc.nextInt();
+		double[] liters = new double[count];
+		
+		System.out.println("Enter how many liters each time you drink in one day for "+count+" times");
+		for(int i=0 ; i<liters.length ; i++) {
+			liters[i]=sc.nextDouble();
+			watersum = watersum + liters[i];//calculate sum of water drinks in liters
+		}
+		System.out.println();
+		System.out.print("Researchers conclude 2 liters of water per day can burnt extra 100 calories");
+		
+		calorieslost = ((watersum/2)*100);//calculate the calories lost by just drinking water
+		
+		if(calorieslost<cal)//only if calories lost by drinking water smaller then calories consume..
+			totalcalories = (cal-calorieslost);//calculate the calories intakes by subtracting calories consume with calories lost
+		else//else, total calories consume for today is zero
+			totalcalories = 0;
+		
+		System.out.printf("%nCalories lost by drinking water is %.2fcal ",calorieslost );
+		
+		System.out.printf("%nTotal calories consume in one day: %.2fcal %n", totalcalories );
+		System.out.println();
+	}
+	
+	public static void WhiteBrownRice() {
+		//method WhiteBrownRice will print out message
+		Scanner sc = new Scanner(System.in);
+		char status = 'Y';
+		System.out.println("Press Y to know benefit about brown and white rice, Press N if vice versa");
+		status = sc.next().charAt(0);
+		
+		if(status=='Y') {
+			System.out.println("Benefits of brown rice: "
+					+"\n1) It lowers colesterol"
+					+"\n2) Assist cancer prevention"
+					+"\n3) Helps in diabetes control"
+					+"\n4) It is a good aid for weight loss");
+			System.out.println();
+			System.out.println("Benefits of white rice: "
+					+"\n1) Great source of energy"
+					+"\n2) Easy to digest"
+					+"\n3) It is gluten-free"
+					+"\n4) It is comforting and easy to access");
+		}	
+	}
+	
+	public static void RecordWeight(double[][] w) {
+		//method take weights arrays as the argument from the main method
+		//method take input from user 
+		//method print out message
+		Scanner sc = new Scanner(System.in);
+		char status = 'Y';
+		
+		System.out.println("Press Y to record weight for a month, Press N if vice versa");
+		status = sc.next().charAt(0);
+		
+		if(status=='Y') {
+		System.out.println("Enter weight from day 1 to day 7 for 4 weeks");
+		
+		for(int r = 0; r<w.length; r++) { //record weights for 4 weeks
+		System.out.println("Enter weight for week "+(r+1));
+		for(int c = 0; c<w[r].length; c++) {
+			w[r][c] = sc.nextDouble();
+		    }
+	    }
+		for(int r = 0; r<w.length; r++) {
+			System.out.print("week "+(r+1)+" : ");
+			for(int c = 0; c<w[r].length; c++) {
+				System.out.print(w[r][c]+" ");
+			    }
+			System.out.println();
+		    }
+		}	
+		}
+	
+	public static void getCustomerOrder(String staffName,int staffId) {
+		Scanner sc = new Scanner(System.in);
+		String cus_name, date_of_booking, bookedTime;
+		String specialReq = "",orderId;
+		int foodPackage,set = 0; //food packages represented by numbers
+		double normPrice = 0,disc=0,paid=0;
+		
+		//this system is use for get order from customer if customer want to book the package meal
+		System.out.println("\n------------ CUSTOMER'S ORDER SYSTEM------------");
+		//get staff detail
+		System.out.println("Staff Details:");
+		staffName=Rice.getName(staffName);
+	    staffId=Rice.getStaffId(staffId);
+		System.out.println("\nWelcome "+staffName+"!");
+		System.out.println("\nDo you have booking from customers?");
+		System.out.println("You need to enter all the customer's details and customer orders below.");
+		//get customer's detail
+		System.out.print("\nEnter customer's name : ");
+		cus_name = sc.next();
+		System.out.print("Enter date of booking (e.g.,1/1/22): ");
+		date_of_booking = sc.next();
+		System.out.print("Enter time of booking (e.g.,1.20P.M): ");
+		bookedTime = sc.next();
+		
+		//choose food package base on customer's order
+		System.out.println("\n****************PACKAGE WE PROVIDE*****************");
+		System.out.println("1-BERAS JATI SUPER TEMPATAN (10KG)");
+		System.out.println("2-BERAS FAIZA KASHMIR BASMATHI (10KG)");
+		System.out.println("3-JASMINE SUN BROWN ORIGINAL BROWN RICE (5KG)");
+		System.out.print("\nPlease choose your food package : ");
+		foodPackage = sc.nextInt();
+		
+		if (foodPackage==1) {
+			System.out.println("\n///////////////////////////////////////////////////////");
+			System.out.println("BERAS JATI SUPER TEMPATAN(RM27.50/pack)");
+			System.out.println("15% OFF FOR CHINESE NEW YEAR !!!");
+			System.out.println("///////////////////////////////////////////////////////");
+			System.out.print("Enter number of pack            : ");
+			set = sc.nextInt();
+			normPrice=27.5*set;
+			System.out.printf("\nPrice before discount          : RM%.2f",normPrice);
+			
+			disc = 0.15 * normPrice;
+			System.out.printf("\nDiscount                       : RM%.2f " , disc);
+			
+			paid = normPrice-disc;
+			System.out.printf("\nTotal price                    : RM%.2f", paid);
+			
+		}
+		
+		else if (foodPackage==2) {
+			System.out.println("\n///////////////////////////////////////////////////////");
+			System.out.println("BERAS FAIZA KASHMIR BASMATHI (RM58.30/pack)");
+			System.out.println("10% OFF FOR CHINESE NEW YEAR !!!");
+			System.out.println("///////////////////////////////////////////////////////");
+			
+			System.out.print("Enter number of pack            : ");
+			set = sc.nextInt();
+			normPrice=58.3*set;
+			System.out.printf("\nPrice before discount          : RM%.2f",normPrice);
+			
+			disc = 0.1 * normPrice;
+			System.out.printf("\nDiscount                       : RM%.2f " , disc);
+			
+			paid = normPrice-disc;
+			System.out.printf("\nTotal price                    : RM%.2f", paid);
+		}
+		
+		else if (foodPackage==3) {
+			System.out.println("\n///////////////////////////////////////////////////////");
+			System.out.println("JASMINE SUN BROWN ORIGINAL BROWN RICE(RM22/pack)");
+			System.out.println("5% OFF FOR CHINESE NEW YEAR !!!");
+			System.out.println("///////////////////////////////////////////////////////");
+			
+			System.out.print("Enter number of pack            : ");
+			set = sc.nextInt();
+			normPrice=22*set;
+			System.out.printf("\nPrice before discount          : RM%.2f",normPrice);
+			
+			disc = 0.05 * normPrice;
+			System.out.printf("\nDiscount                       : RM%.2f " , disc);
+			
+			paid = normPrice-disc;
+			System.out.printf("\nTotal price                    : RM%.2f", paid);
+		}
+		
+		
+		
+		else {
+			System.out.println("\nPackage is not available.Please choose another package.");
+		}
+	        
+		
+		getReceiptCustomerOrder(staffName,staffId,specialReq,cus_name,date_of_booking,bookedTime,normPrice,disc,paid,foodPackage,set);
+	}
+	
+	public static void getReceiptCustomerOrder(String staffName,int staffId,String specialReq,String cus_name,String date_of_booking,
+			   String bookedTime,double normPrice,double disc,double paid,int foodPackage,int set) {
+		Scanner sc = new Scanner (System.in);
+		String date_of_delivery ="" ,dineDate="",deliverTime="",dineTime="",pickDate="",pickTime="",orderId;		
+		//create 6-digit random number for ORDER ID 
+		orderId=Dessert.getRandomNumberString();
+		System.out.println();		
+		System.out.print("\nDelivery(1) or Pick-up(2)      : ");
+		String [] Package = {"BERAS JATI SUPER TEMPATAN (10KG)","BERAS FAIZA KASHMIR BASMATHI (10KG)","JASMINE SUN BROWN ORIGINAL BROWN RICE (5KG)"};
+		
+		int del = sc.nextInt();
+		if (del==1) {
+			System.out.println("\nWe only deliver up to 10 km from our place for RM 5.00");
+			System.out.print("Enter date of delivery (e.g., 12/2/22): ");
+			date_of_delivery = sc.next();
+			System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
+			deliverTime=sc.next();
+			System.out.println("We will deliver customer's order 15 minutes early.");
+		}
+		
+		else if(del==2) {
+			System.out.println("Enter date of Pick-up (e.g., 12/2/22): ");
+			pickDate=sc.next();			
+			System.out.println("Enter time to Pick-up (e.g.,12.30 P.M): ");
+			pickTime=sc.next();
+			System.out.println("\nPlease come early on the day to pick-up.");
+		}
+		
+		else
+			System.out.println("Invalid.");
+		
+		System.out.println("Customer's special request :");
+		specialReq = sc.next();
+		
+		if(del==1) { 		  //Delivery Receipt
+			double delRate=5;
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+			System.out.println("\t\tSTAFF ID        : " +staffId);
+			System.out.println("\t\tORDER ID        : " +orderId);
+			System.out.println("\n\t\tCUSTOMER NAME   : " +cus_name);
+			System.out.println("\t\tDATE OF BOOKING : "+ date_of_booking);
+			System.out.println("\t\tTIME OF BOOKING : "+ bookedTime);
+			System.out.println("\t\tDATE TO DELIVER : "+ date_of_delivery);
+			System.out.println("\t\tTIME TO DELIVER : "+ deliverTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED : "+Package[foodPackage-1]+"x"+set);
+			System.out.println("\t\tCUSTOMER REQUEST: "+ specialReq);
+			System.out.printf("\n\t\tDISCOUNT RECEIVE: RM%.2f" ,disc);
+			System.out.printf("\n\t\tSUBTOTAL        : RM%.2f", paid);
+			System.out.printf("\n\t\tDELIVERY CHARGE : RM%.2f" ,delRate);
+			paid+=delRate;
+			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", paid);		
+			System.out.println("\n\t###########################################");
+		}
+		
+		
+		else if(del==2) {	  //Pick-up Receipt
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\n\t\tSTAFF NAME       : " +staffName);
+			System.out.println("\t\tSTAFF ID         : " +staffId);
+			System.out.println("\t\tORDER ID         : " +orderId);
+			System.out.println("\n\t\tCUSTOMER NAME    : " +cus_name);
+			System.out.println("\t\tDATE OF BOOKING  : "+ date_of_booking);
+			System.out.println("\t\tDATE TO PICK-UP  : "+ pickDate);
+			System.out.println("\t\tTIME TO PICK-UP  : "+ pickTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED  : "+Package[foodPackage-1]+"x"+set);
+			System.out.println("\t\tCUSTOMER REQUEST : "+ specialReq);
+			System.out.printf("\t\tDISCOUNT RECEIVE : RM%.2f" ,disc);
+			System.out.printf("\n\t\tTOTAL PAYMENT    : RM%.2f", paid);
+			System.out.println("\n\t###########################################");
+		
+			}
+		}
+	
+	public static void getSelfOrder() {
+		Scanner sc=new Scanner(System.in);
+		
+		String name,date_of_order,orderDay,orderTime;
+		
+		//this is the Ala carte system which customers can customize their order
+		System.out.println("\n------------ WELCOME TO SELF-ORDER SYSTEM------------");
+		System.out.print("\nEnter your name : ");
+		name = sc.next();
+		System.out.print("Enter date of order (e.g., 12/2/22): ");
+		date_of_order = sc.next();	
+		System.out.print("Enter day of order (e.g.,SATURDAY): ");
+		orderDay = sc.next();
+		System.out.print("Enter time of order (e.g.,12.30 P.M): ");
+		orderTime = sc.next();
+	
+		String [] food = {"BERAS JATI SUPER TEMPATAN(10KG)", "BERAS FAIZA KASHMIR BASMATHI (10KG)","JASMINE SUN BROWN ORIGINAL BROWN RICE (5KG)" };
+		double [] price = {27.50, 58.30,22.00};
+		
+		//return 2 data (food and price)
+		FastFood.showMenu(food, price);
+	
+		Fruit.showReceiptSelfOrder(name,date_of_order,orderDay, food, price); 
+
+		}
+	
+	public static void showReceiptAlaCarte(String staffName,int staffId,String cus_name, String date_of_order,String orderTime, String[] food,
+			   double[] price) {
+		Scanner sc = new Scanner(System.in);
+		String date_of_delivery ="" ,deliverTime="",pickDate="",pickTime="",orderId;		
+		double total = 0;
+		int x,choice;
+		//create 6-digit random number for ORDER ID 
+		orderId=Dessert.getRandomNumberString();
+
+		//User input how many type of product they want
+		System.out.println("Enter the number of Fruit Type you want:");
+		x=sc.nextInt();
+		
+		String[] foodChosen = new String[x];
+		int [] qttChosen = new int[x];
+		double[] priceChosen = new double [x];
+		
+		for(int i=0;i<x;i++) {
+			int y=i+1;
+			System.out.println("Fruit no "+y);
+			choice=Dessert.getChoice();
+			foodChosen[i]=Dessert.getFoodName(food,choice);
+			qttChosen[i]=Dessert.getQuantity();
+			priceChosen[i]=Dessert.getFoodTotal(price,choice)*qttChosen[i];
+			}
+		
+		for(int i=0;i<x;i++) {
+			total=total+priceChosen[i];
+			}
+		
+		System.out.print("\nDelivery(1)or Pick-up(2)      : ");
+		int del = sc.nextInt();
+		if (del==1) {
+			System.out.println("\nWe only deliver up to 10 km from our place for RM 5.00");
+			System.out.print("Enter date of delivery (e.g., 12/2/22): ");
+			date_of_delivery = sc.next();
+			System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
+			deliverTime=sc.next();
+			System.out.println("We will deliver customer's order 15 minutes early.");
+			}
+		
+		else if(del==2) {
+			System.out.println("Enter date of Pick-up (e.g., 12/2/22): ");
+			pickDate=sc.next();
+			
+			System.out.println("Enter time to Pick-up (e.g.,12.30 P.M): ");
+			pickTime=sc.next();
+			System.out.println("\nPlease come early on the day to pick-up.");
+			}
+		
+		else
+			System.out.println("Invalid.");
+		
+		System.out.println("Customer's special request :");
+		String specialReq = sc.next();
+		if(del==1) { 		  //Delivery Receipt
+			double delRate=5;
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\t\tORDER ID        : " +orderId);
+			System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+			System.out.println("\t\tSTAFF ID        : " +staffId);
+			System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
+			System.out.println("\t\tDATE OF BOOKING : "+ date_of_order );
+			System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
+			System.out.println("\t\tDATE TO DELIVER : "+ date_of_delivery);
+			System.out.println("\t\tTIME TO DELIVER : "+ deliverTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED : ");
+			for(int i=0;i<x;i++) {
+			System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+			}	
+			System.out.printf("\n\t\tSUBTOTAL        : RM%.2f", total);
+			System.out.printf("\n\t\tDELIVERY CHARGE : RM%.2f" ,delRate);
+			total=total+delRate;
+			System.out.println("\n\t\tCUSTOMER REQUEST: "+ specialReq);
+			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+			
+			System.out.println("\n\t###########################################");
+			}
+		
+		else if(del==2) {	  //Pick-up Receipt
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\t\tORDER ID        : " +orderId);
+			System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+			System.out.println("\t\tSTAFF ID        : " +staffId);
+			System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
+			System.out.println("\t\tDATE OF BOOKING : "+ date_of_order);
+			System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
+			System.out.println("\t\tDATE TO PICK-UP : "+ pickDate);
+			System.out.println("\t\tTIME TO PICK-UP : "+ pickTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED : ");
+			for(int i=0;i<x;i++) {
+			System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+			}
+			System.out.println("\t\tCUSTOMER REQUEST: "+ specialReq);		
+			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+			
+			System.out.println("\n\t###########################################");
+			}
+			
+		}
+	
+	public static int getTypeForProductInfo() {
+		// This method will return the type to main() whether e.g. 1-Tart,2-Pie or 3-Pudding
+		//declare and assign array donate
+		 	Scanner sc = new Scanner (System.in);
+			int num2;
+			
+			System.out.println("---------------Welcome to Product Information---------------- ");
+		    System.out.println("List of products: ");
+		    System.out.println("1-Brown Rice ");
+		    System.out.println("2-White Rice  ");
+		    // input 1 or 2 to view the information
+		    System.out.println("\nChoose 1 or 2  to view the information of Brown Rice or White Rice respectively.");
+		    num2=sc.nextInt();
+		    
+		    return num2;
+	 }
+	
+	public static String[] getInfoForProduct() {
+		 //This method will return the info from the array based on the type specified to main ()
+		//Declare and assign array product
+		 String[] product = {"Benefits of brown rice: "
+						+"\n1) It lowers colesterol"
+						+"\n2) Assist cancer prevention"
+						+"\n3) Helps in diabetes control"
+						+"\n4) It is a good aid for weight loss",
+						"Benefits of white rice: "
+						+"\n1) Great source of energy"
+						+"\n2) Easy to digest"
+						+"\n3) It is gluten-free"
+						+"\n4) It is comforting and easy to access"};
+		 
+		 return product;
+	 }
+	
+	
+}

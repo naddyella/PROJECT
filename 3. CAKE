@@ -1,0 +1,1447 @@
+package project;
+import java.util.Scanner;
+public class Cake {
+	
+	public static void main(String[] args) {
+			/* This program show menu of cake and packaging material to user. and they may choose it.
+			 * after answer all the question about the cake that they want, program will calculate the total amount that they need to pay
+			 * then, a receipt will be print
+			 */
+		Scanner sc = new Scanner(System.in);
+		int num, num1, num2,staffId=0;
+		String staffName="";
+		char con;
+		//the name of the customer who made the order,date of booking,booked date, booked day and booked time.
+		String cus_name, date_of_order, bookedDate, orderTime;
+		System.out.println("----------------------Welcome to Cake Shop---------------------"); 
+		System.out.print("Do you want to join a survey about Healthy Life? (Y=Yes or N=No):");
+		con=sc.next().charAt(0);
+		if(con=='Y')
+			Rice.showSurvey();
+		
+		Dessert.showMainMenu();
+		num=sc.nextInt();
+		
+		if(num==1) {
+		
+		do {
+		Dessert.showMainMenuStaff();
+	    num1 = sc.nextInt();
+	    
+	    if(num1==1)
+	    	Dessert.getInputOutput();
+	    
+	    else if(num1==2) {
+	    	FastFood.getDailyProfit();
+	    }
+	    else if (num1==3) {
+	    	
+	    	do {
+	    		System.out.println("\n----------------BOOKING AND ORDER-------------");
+		    	System.out.println("1-Cake Order");
+		    	System.out.println("2-Ala Carte");
+		    	System.out.println("3-Back to Main Menu");
+		    	num2=sc.nextInt();
+		    	
+		    	if(num2==1) {  
+		    		//this system is use for get order from customer if customer want to book the package meal
+					System.out.println("\n------------ CUSTOMER'S ORDER SYSTEM------------");
+		    		getCustomerOrder(staffName,staffId);
+		    	}
+					
+		    	else if(num2==2) {
+		    		//this is the Ala carte system which customers can customize their order
+		    		System.out.println("\n------------ ALA CARTE SYSTEM------------");
+		    		getCustomerOrder(staffName,staffId);
+					}
+	    		}while(num2!=3);
+			}
+	    			     
+		else
+			System.out.println("Thank you for using our system!");
+		}while(num1!=4);
+		}
+		
+		//customer code
+		else if(num==2) {
+			do {
+				Dessert.showMainMenuCustomer();
+			    num1 = sc.nextInt();
+			    
+			    if(num1==1) {
+			    	System.out.println("\n------------ WELCOME TO SELF-ORDER SYSTEM------------");	
+			    	getSelfOrder();
+			    }
+			    else if(num1==2) {
+			    	do {
+			    	System.out.println("\n---------------View Information-------------");
+			    	System.out.println("1-View Donation Centre");
+			    	System.out.println("2-View Product Information");
+			    	System.out.println("3-Back to Main Menu");
+			    	num2=sc.nextInt();
+			  
+			    	if (num2==1) {
+			    		String [] a = Dessert.getInfoForDonationCentre();
+			    		int x = Dessert.getTypeForDonationCentre();
+						if(x==1)
+							System.out.println(a[0]);
+						else if(x==2)
+							System.out.println(a[1]);
+			    	}
+			    	else if(num2==2) {
+						String [] b = getInfoForProduct();
+						int x = getTypeForProductInfo();
+						if(x==1)
+							System.out.println(b[0]);
+						else if(x==2)
+							System.out.println(b[1]);
+						else if(x==3)
+							System.out.println(b[2]);
+			    	}
+			      }while(num2!=3);
+			    }
+			    else
+					System.out.println("Thank you for using our system!");
+		}while(num1!=3);
+	  }
+		
+	}//last bracket for main method
+		
+		public static void getCustomerOrder(String staffName,int staffId) {
+			Scanner sc = new Scanner(System.in);
+			String cus_name, date_of_booking, bookedTime;
+			String specialReq = "",orderId;
+			int foodPackage,set = 0; //food packages represented by numbers
+			double normPrice = 0,disc=0,paid=0;
+			
+			//get staff detail
+			System.out.println("Staff Details:");
+			staffName=Rice.getName(staffName);
+		    staffId=Rice.getStaffId(staffId);
+			System.out.println("\nWelcome "+staffName+"!");
+			System.out.println("\nDo you have booking from customers?");
+			System.out.println("You need to enter all the customer's details and customer orders below.");
+			//get customer's detail
+			System.out.print("\nEnter customer's name : ");
+			cus_name = sc.next();
+			System.out.print("Enter date of booking (e.g.,1/1/22): ");
+			date_of_booking = sc.next();
+			System.out.print("Enter time of booking (e.g.,1.20P.M): ");
+			bookedTime = sc.next();
+			menuToChoose(staffName,staffId);
+		}
+		
+		public static void getSelfOrder() {
+			//this is the Ala carte system which customers can customize their order							
+			menuForSelfOrder();
+			
+		}
+			
+		public static int getTypeForProductInfo() {
+			// This method will return the type to main() whether e.g. 1-Tart,2-Pie or 3-Pudding
+			//declare and assign array donate
+			 	Scanner sc = new Scanner (System.in);
+				int num2;
+				
+				System.out.println("---------------Welcome to Product Information---------------- ");
+			    System.out.println("List of products: ");
+			    System.out.println("1-Tart ");
+			    System.out.println("2-Pie  ");
+			    System.out.println("3-Pudding ");
+			    // input 1 or 2 to view the information
+			    System.out.println("\nChoose 1, 2 or 3 to view the information of Tart, Pie and Pudding respectively.");
+			    num2=sc.nextInt();
+			    
+			    return num2;
+			 }
+			
+		public static String[] getInfoForProduct() {
+			//This method will return the info from the array based on the type specified to main ()
+			//Declare and assign array product
+			 String[] product = {""};
+			 
+			 return product;
+		}
+		
+			//all method include in main step for SELF ORDER SYSTEM
+			public static void menuForSelfOrder() {
+				
+				Scanner sc = new Scanner (System.in);
+				int ans_service;
+					
+				System.out.println("\n\tThe services we offer are :"); 
+				System.out.print("\t 1. Special Choose \n\t 2. Special Slice \n\t 3. Special Cupcake \n\n\t Which service do you prefer: "); 
+				ans_service = sc.nextInt();
+					
+					if (ans_service == 1) {	
+						categoryOne();
+					}	
+					else if (ans_service == 2) {	
+						categoryTwo();
+					}	
+					else if (ans_service == 3) {	
+						categoryThree();
+					}
+					else {
+						categoryFour();
+					}
+					
+			}		
+					
+					public static void categoryOne() {
+						
+						//start: the variables used
+						Scanner sc = new Scanner (System.in);
+						
+						String  colour_pack;
+						int a=0,b=0,c=0,d=0;
+						int e=0,f=0,g=0,h=0;
+						double i=0, j=0, k=0, l=0;
+						
+						
+						int    type_pack, ans_service, ans_state=0 ;
+						double price_one_cake, to_price, price_pack, dis_rec, sum_all, pay, tot_payment;
+						double y=0, m=0, n=0, p=0;
+						
+						
+						String[] sA = {"\t  6 [6]", "\t  8 [8]"};
+						String[] nA = {"\t Tiramisu [9]", "\t New York Cheese Cake [10]", "\t Black Forest[11]", "\t Caramel Cream[7]",  "\t Oreo Cake[8]", "\t Old Fashion Chocolate Cake[12]"};
+						String[] tA = {"\t Baked [40]", "\t Steam [42]", "\t Ice cream [60]"};
+						String[] noA = {"\t 1 [1]", "\t 2 [2]", "\t 3 [3]","\t 4 [4]", "\t 5 [5]"};
+						String[] hA = {"\t  4 [4]", "\t  5 [5]","\t Square [1]", "\t Rectangle [1]", "\t Round[1]" };
+						String[] mA = {"\t Glass [46]", "\t Clay [35]", "\t Wood [35]", "\t Aluminium[11]"};
+						 
+						//end	
+						
+
+						// step 1: user need to fill in their information detail
+							System.out.print("\n\n\t     Please fill the information detail "); 
+							String name = ansName(""); //must contain "" & need to suruh print nnti at resit..
+							double contact = ansContact(y);
+							String address = ansAddress("");
+							
+								
+						//step 2: user choose the date of order and pick up's date	
+									
+							int pickUp = dateDetail(e, f, g, h);
+							
+						//menu for category 1
+						System.out.println("\n\n\t####################################################################################################################");
+						System.out.println("\t\t\t\t\t\t Category 1: Special Choose");
+						System.out.println("\t####################################################################################################################");
+						System.out.println("\n\t Size(inch) [code] \tWeight (kg) \tHeight(inch) \tType [code] \tName [code] \t\t\tPrice (RM)");
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    94");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    100");
+						System.out.println("       \t      \t\t       \t\t\t\t\t Baked[40]\tBlack Forest[11] \t\t    106");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    82");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    88");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    112"); 
+							
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    96");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    102");
+						System.out.println("\t     6[6]\t\t   0.7 \t\t     5 \t\t Steam[42]\tBlack Forest[11] \t\t    108");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    84");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    90");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    114"); 
+							
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    114");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    120");
+						System.out.println("       \t       \t\t      \t\t\t\t\tIce cream[60]\tBlack Forest[11] \t\t    126");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    104");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    108");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    132"); 
+						System.out.println("\t#####################################################################################################################");
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    112");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    120");
+						System.out.println("       \t      \t\t       \t\t\t\t\t Baked[40]\tBlack Forest[11] \t\t    128");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    96");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    104");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    136"); 
+							
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    114");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    122");
+						System.out.println("\t     8[8]\t\t   1.3 \t\t     5 \t\t Steam[42]\tBlack Forest[11] \t\t    130");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    98");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    106");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    138"); 
+							
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    132");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    140");
+						System.out.println("\t       \t\t       \t\t      \t\t\tIce cream[60]\tBlack Forest[11] \t\t    148");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    116");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    124");
+						System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    136"); 
+						System.out.println("\n\t#####################################################################################################################");
+						System.out.println("\t#####################################################################################################################");
+						System.out.print("\n\tFor the first 3 questions below, Please state the CODE : \n\n");
+
+						
+						// step 4: instruction that ask customer to choose their cake						
+						Q1Array(sA);
+						double ans_size1 = sizeCake(i);
+						
+						Q2Array(nA);
+						double ans_code1 = codeCake(j);
+						
+						Q3Array(tA);
+						double ans_type1 = typeCake(k);
+						
+						Q4Array(noA);
+						double ans_no1 = numberOfCake(l);
+					
+						//step 5: packaging based on category
+						packCategoryOne();
+						
+						// step 6: instruction that ask customer to choose their packaging cake
+						
+						System.out.print("\n\tFor the questions below, Please state the CODE : \n");
+						Q1Array4(hA);
+						double size_pack = sizePackaging(m);
+						
+						Q2Array4(mA);
+						double mater_pack = materialPackaging(n);
+						
+						
+						// step 7: calculate the total price
+						price_one_cake= (ans_size1 * ans_code1)+ ans_type1;
+						to_price= (ans_no1*price_one_cake);
+						price_pack= (size_pack*mater_pack)* ans_no1;
+						sum_all= (price_pack + to_price) ;
+						
+						dis_rec=(0.05*sum_all);
+						pay=(sum_all - dis_rec);
+						
+						
+						//step 8: print the receipt
+						System.out.println("\n\n\t###########################################");
+						System.out.println("\t\tCUSTOMER'S RECEIPT");
+						System.out.println("\n\t\tNAME: " +name);
+						System.out.println("\t\tDATE TO PICK UP: "+ pickUp);
+						
+						System.out.println("\n\t\tDETAILS");
+						System.out.println("\t\tCODE FOR SIZE OF CAKE: " +ans_size1);  //if want 
+						System.out.println("\t\tCODE FOR CAKE: "+ ans_code1);
+						System.out.println("\t\tCODE FOR TYPE OF CAKE: "+ ans_type1);
+						System.out.println("\t\tQUANTITY OF CAKE: "+ ans_no1);
+						System.out.println("\t\tCODE FOR PACKAGING SIZE: "+ size_pack);
+						System.out.println("\t\tCODE FOR PACKAGING MATERIAL: " + mater_pack);
+						
+						System.out.println("\n\t\tSUBTOTAL: " +sum_all);
+						System.out.printf("\t\tDISCOUNT RECEIVE: %.1f" ,dis_rec);
+						System.out.printf("\n\t\tTOTAL PAYMENT: %.1f", pay);
+						System.out.print("\n\n\t       *Please bring your container\n\t\t3 days before date of pick up\n\t\tThank you for purchase from us*");
+						System.out.println("\n\n\t###########################################");			
+						
+						
+				}
+					
+					public static void categoryTwo() {
+
+						//start: the variables used
+						Scanner sc = new Scanner (System.in);
+						
+						String  colour_pack;
+						int a=0,b=0,c=0,d=0;
+						int e=0,f=0,g=0,h=0;
+						double i=0, j=0, k=0, l=0;
+						
+						
+						int    type_pack, ans_service, ans_state=0 ;
+						double price_one_cake, to_price, price_pack, dis_rec, sum_all, pay, tot_payment;
+						double y=0, p=0, m=0, n=0;
+						
+						
+						String[] sA = {"\t  2 [2]", "\t  2.5 [2.5]"};
+						String[] nA = {"\t Banana [1.5]", "\t Carrot [2.5]", "\t Chocolate[1.0]", "\t Vanilla[0.5]"};
+						String[] tA = {"\t Baked [1]", "\t Steam [1.5]", "\t Ice cream [1]"};
+						String[] noA = {"\t 1 [1]", "\t 2 [2]", "\t 3 [3]","\t 4 [4]", "\t 5 [5]"};
+						String[] hA = {"\t 3 [1]"};
+						String[] mA = {"\tAluminium foil [2]", "\t Bagasse Paper [3]", "\t Shop's container [8]","\t Container [0]"};
+						 
+						 
+						//end
+						
+						// step 1: user need to fill in their information detail
+						System.out.print("\n\n\t     Please fill the information detail "); 
+						String name = ansName(""); //must contain "" & need to suruh print nnti at resit..
+						double contact = ansContact(y);
+						String address = ansAddress("");
+						
+							
+						//step 2: user choose the date of order and pick up's date	
+								
+						int pickUp = dateDetail(e, f, g, h);
+						
+						//menu for category 2
+						System.out.print("\n\n\t\t####################################################################################################################");
+						System.out.println("\n\t\t\t\t\t\t\tCategory 2: Special Cupcake");
+						System.out.println("\t\t####################################################################################################################");
+						System.out.println("\n\t\t Size(inch) [code] \tWeight (kg) \tHeight(inch) \tType [code] \tName [code] \t\t\tPrice (RM)"); //2.2.2.4.4tab //
+						
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    4");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    6");
+						System.out.println("\t\t       \t\t      \t\t       \t\t\t Baked[1]\tChocolate[1.0] \t\t\t    3");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    2");
+					
+						
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    4.5");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    6.5");
+						System.out.println("\t\t     2.0[2]\t\t   0.08 \t     1.5 \t Steam[1.5]\tChocolate[1.0] \t\t\t    3.5");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    2.5");
+
+						
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    5");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    7");
+						System.out.println("\t\t       \t\t      \t\t       \t\t\t Ice cream[1]\tChocolate[1.0] \t\t\t    4");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    3");
+
+						System.out.println("\t\t#####################################################################################################################");
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    4.75");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    7.25");
+						System.out.println("\t\t       \t\t      \t\t       \t\t\t Baked[1]\tChocolate[1.0] \t\t\t    3.5");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    2.25");
+						
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    5.25");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    7.75");
+						System.out.println("\t\t     2.5[2.5]\t\t   0.08 \t     1.5 \t Steam[1.5]\tChocolate[1.0] \t\t\t    4");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    2.75");
+						
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    5.75");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    8.25");
+						System.out.println("\t\t       \t\t      \t\t       \t\t\t Ice cream[1]\tChocolate[1.0] \t\t\t    4.5");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    3.25"); 
+						System.out.println("\n\t\t#####################################################################################################################");
+						System.out.println("\t\t#####################################################################################################################");
+						System.out.print("\n\tFor the first 3 questions below, Please state the CODE : \n\n");
+
+						
+						
+						// step 4: instruction that ask customer to choose their cake
+						
+						System.out.print("\n\tFor the questions below, Please state the CODE : \n");
+						Q1Array2(sA);
+						double ans_size1 = sizeCake(i);
+						
+						Q2Array2(nA);
+						double ans_code1 = codeCake(j);
+						
+						Q3Array2(tA);
+						double ans_type1 = typeCake(k);
+						
+						Q4Array(noA);
+						double ans_no1 = numberOfCake(l);
+						
+						
+						//step 5: packaging based on category
+						packCategoryTwo();
+						
+						// step 6: instruction that ask customer to choose their packaging cake
+						
+						Q1Array5(hA);
+						double size_pack = sizePackaging(m);
+						
+						Q2Array5(mA);
+						double mater_pack = materialPackaging(n);
+						
+						
+						// step 7: calculate the total price
+						price_one_cake= (ans_size1 * ans_code1)+ ans_type1;
+						to_price= (ans_no1*price_one_cake);
+						price_pack= (size_pack*mater_pack)* ans_no1;
+						sum_all= (price_pack + to_price) ;
+						
+						dis_rec=(0.05*sum_all);
+						pay=(sum_all - dis_rec);
+						
+						
+						//step 8: print the receipt
+						System.out.println("\n\n\t###########################################");
+						System.out.println("\t\tCUSTOMER'S RECEIPT");
+						System.out.println("\n\t\tNAME: " +name);
+						System.out.println("\t\tDATE TO PICK UP: "+ pickUp);
+						
+						System.out.println("\n\t\tDETAILS");
+						System.out.println("\t\tCODE FOR SIZE OF CAKE: " +ans_size1);  //if want 
+						System.out.println("\t\tCODE FOR CAKE: "+ ans_code1);
+						System.out.println("\t\tCODE FOR TYPE OF CAKE: "+ ans_type1);
+						System.out.println("\t\tQUANTITY OF CAKE: "+ ans_no1);
+						System.out.println("\t\tCODE FOR PACKAGING SIZE: "+ size_pack);
+						System.out.println("\t\tCODE FOR PACKAGING MATERIAL: " + mater_pack);
+						
+						System.out.println("\n\t\tSUBTOTAL: " +sum_all);
+						System.out.printf("\t\tDISCOUNT RECEIVE: %.1f" ,dis_rec);
+						System.out.printf("\n\t\tTOTAL PAYMENT: %.1f", pay);
+						System.out.print("\n\n\t       *Please bring your container\n\t\t3 days before date of pick up\n\t\tThank you for purchase from us*");
+						System.out.println("\n\n\t###########################################");
+						
+						
+						
+						
+					
+					}
+				
+					public static void categoryThree() {
+						
+						//start: the variables used
+						Scanner sc = new Scanner (System.in);
+						
+						String  colour_pack;
+						int a=0,b=0,c=0,d=0;
+						int e=0,f=0,g=0,h=0;
+						double i=0, j=0, k=0, l=0;
+						
+						
+						int    type_pack, ans_service, ans_state=0 ;
+						double price_one_cake, to_price, price_pack, dis_rec, sum_all, pay, tot_payment;
+						double y=0, p=0, m=0, n=0;
+						
+						String[] sA = {"\t  2 [0]"};
+						String[] nA = {"\t Burnt Cheese [3]", "\t Red velvet [4]", "\t Rainbow [15]", "\t Creamy Vanila Fruit Cake[6]", "\t Chocolate Truffle Cream Cake[13]", "\t Classic Almond Cake[14]"};
+						String[] tA = {"\t Baked [10]"};
+						String[] noA = {"\t 1 [1]", "\t 2 [2]", "\t 3 [3]","\t 4 [4]", "\t 5 [5]"};
+						String[] hA = {"\t 6 [2]"};
+						String[] mA = {"\t Aluminium foil [0.7]", "\t Bagasse Paper [0.5]", "\t Shop's container [2]","\t Container [0]"};
+						 
+						//end
+						
+						// step 1: user need to fill in their information detail
+						System.out.print("\n\n\t	Please fill the information detail "); 
+						String name = ansName(""); //must contain "" & need to suruh print nnti at resit..
+						double contact = ansContact(y);
+						String address = ansAddress("");
+						
+							
+						//step 2: user choose the date of order and pick up's date	
+								
+						int pickUp = dateDetail(e, f, g, h);
+						
+						//menu for category 3
+						System.out.print("\n\n\t\t####################################################################################################################");
+						System.out.println("\n\t\t\t\t\t\t\tCategory 3: Special Slice");
+						System.out.println("\t\t####################################################################################################################");
+						System.out.println("\n\t\t Size(inch) [code] \tShape (kg) \tHeight(inch) \tType [code] \tName [code] \t\t\tPrice (RM)"); //2.2.2.4.4tab //
+						
+						System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBurnt Cheese[3] \t\t    10");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tRed velvet[4] \t\t\t    10");
+						System.out.println("\t\t       2[0]\t\tTriangular\t     5       \t Baked[10]\tRainbow[15] \t\t\t    10");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tCreamy Vanila Fruit Cake[6] \t    10");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tChocolate Truffle Cream Cake[13]    10");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t\tClassic Almond Cake[14] \t    10");
+
+						System.out.println("\n\t\t#####################################################################################################################");
+						System.out.println("\t\t#####################################################################################################################");
+						System.out.print("\n\tFor the first 3 questions below, Please state the CODE : \n\n");
+
+						
+						// step 4: instruction that ask customer to choose their cake
+						
+						System.out.print("\n\tFor the questions below, Please state the CODE : \n");
+						Q1Array3(sA);
+						double ans_size1 = sizeCake(i);
+						
+						Q2Array3(nA);
+						double ans_code1 = codeCake(j);
+						
+						Q3Array3(tA);
+						double ans_type1 = typeCake(k);
+						
+						Q4Array(noA);
+						double ans_no1 = numberOfCake(l);
+						
+						
+						//step 5: packaging based on category
+						packCategoryThree();
+						
+						// step 6: instruction that ask customer to choose their packaging cake
+						
+						Q1Array6(hA);
+						double size_pack = sizePackaging(m);
+						
+						Q2Array6(mA);
+						double mater_pack = materialPackaging(n);
+						
+						
+						// step 7: calculate the total price
+						price_one_cake= (ans_size1 * ans_code1)+ ans_type1;
+						to_price= (ans_no1*price_one_cake);
+						price_pack= (size_pack*mater_pack)* ans_no1;
+						sum_all= (price_pack + to_price) ;
+						
+						dis_rec=(0.05*sum_all);
+						pay=(sum_all - dis_rec);
+						
+						
+						//step 8: print the receipt
+						System.out.println("\n\n\t###########################################");
+						System.out.println("\t\tCUSTOMER'S RECEIPT");
+						System.out.println("\n\t\tNAME: " +name);
+						System.out.println("\t\tDATE TO PICK UP: "+ pickUp);
+						
+						System.out.println("\n\t\tDETAILS");
+						System.out.println("\t\tCODE FOR SIZE OF CAKE: " +ans_size1);  //if want 
+						System.out.println("\t\tCODE FOR CAKE: "+ ans_code1);
+						System.out.println("\t\tCODE FOR TYPE OF CAKE: "+ ans_type1);
+						System.out.println("\t\tQUANTITY OF CAKE: "+ ans_no1);
+						System.out.println("\t\tCODE FOR PACKAGING SIZE: "+ size_pack);
+						System.out.println("\t\tCODE FOR PACKAGING MATERIAL: " + mater_pack);
+						
+						System.out.println("\n\t\tSUBTOTAL: " +sum_all);
+						System.out.printf("\t\tDISCOUNT RECEIVE: %.1f" ,dis_rec);
+						System.out.printf("\n\t\tTOTAL PAYMENT: %.1f", pay);
+						System.out.print("\n\n\t       *Please bring your container\n\t\t3 days before date of pick up\n\t\tThank you for purchase from us*");
+						System.out.println("\n\n\t###########################################");				
+					}
+										
+					public static void categoryFour() {
+						
+						System.out.println("\n\n\tInvalid. Choose again.\n");
+						menuForSelfOrder();		
+
+					}
+			//end of main step
+					
+					
+		//all method include in main step for CUSTOMER ORDER SYSTEM
+			public static void menuToChoose(String staffName,int staffId) {
+				
+				Scanner sc = new Scanner (System.in);
+				int ans_service;
+					
+				System.out.println("\n\tThe services we offer are :"); 
+				System.out.print("\t 1. Special Choose \n\t 2. Special Slice \n\t 3. Special Cupcake \n\n\t Which service do you prefer: "); 
+				ans_service = sc.nextInt();
+					
+					if (ans_service == 1) {	
+						categoryOne(staffName,staffId);
+					}	
+					else if (ans_service == 2) {	
+						categoryTwo(staffName,staffId);
+					}	
+					else if (ans_service == 3) {	
+						categoryThree(staffName,staffId);
+					}
+					else {
+						categoryFour(staffName,staffId);
+					}
+					
+			}		
+					
+				public static void categoryOne(String staffName,int staffId) {
+				
+				//start: the variables used
+				Scanner sc = new Scanner (System.in);
+				//create 6-digit random number for ORDER ID 
+				String orderId = Dessert.getRandomNumberString();
+				String  colour_pack;
+				int a=0,b=0,c=0,d=0;
+				int e=0,f=0,g=0,h=0;
+				double i=0, j=0, k=0, l=0;
+				
+				
+				int    type_pack, ans_service, ans_state=0 ;
+				double price_one_cake, to_price, price_pack, dis_rec, sum_all, pay, tot_payment;
+				double y=0, m=0, n=0, p=0;
+				
+				
+				String[] sA = {"\t  6 [6]", "\t  8 [8]"};
+				String[] nA = {"\t Tiramisu [9]", "\t New York Cheese Cake [10]", "\t Black Forest[11]", "\t Caramel Cream[7]",  "\t Oreo Cake[8]", "\t Old Fashion Chocolate Cake[12]"};
+				String[] tA = {"\t Baked [40]", "\t Steam [42]", "\t Ice cream [60]"};
+				String[] noA = {"\t 1 [1]", "\t 2 [2]", "\t 3 [3]","\t 4 [4]", "\t 5 [5]"};
+				String[] hA = {"\t  4 [4]", "\t  5 [5]","\t Square [1]", "\t Rectangle [1]", "\t Round[1]" };
+				String[] mA = {"\t Glass [46]", "\t Clay [35]", "\t Wood [35]", "\t Aluminium[11]"};
+				 
+				//end	
+				
+
+				// step 1: user need to fill in their information detail
+					System.out.print("\n\n\t     Please fill the information detail "); 
+					String name = ansName(""); //must contain "" & need to suruh print nnti at resit..
+					double contact = ansContact(y);
+					String address = ansAddress("");
+					
+						
+				//step 2: user choose the date of order and pick up's date	
+							
+					int pickUp = dateDetail(e, f, g, h);
+					
+				//menu for category 1
+				System.out.println("\n\n\t####################################################################################################################");
+				System.out.println("\t\t\t\t\t\t Category 1: Special Choose");
+				System.out.println("\t####################################################################################################################");
+				System.out.println("\n\t Size(inch) [code] \tWeight (kg) \tHeight(inch) \tType [code] \tName [code] \t\t\tPrice (RM)");
+				System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    94");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    100");
+				System.out.println("       \t      \t\t       \t\t\t\t\t Baked[40]\tBlack Forest[11] \t\t    106");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    82");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    88");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    112"); 
+					
+				System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    96");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    102");
+				System.out.println("\t     6[6]\t\t   0.7 \t\t     5 \t\t Steam[42]\tBlack Forest[11] \t\t    108");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    84");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    90");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    114"); 
+					
+				System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    114");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    120");
+				System.out.println("       \t       \t\t      \t\t\t\t\tIce cream[60]\tBlack Forest[11] \t\t    126");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    104");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    108");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    132"); 
+				System.out.println("\t#####################################################################################################################");
+				System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    112");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    120");
+				System.out.println("       \t      \t\t       \t\t\t\t\t Baked[40]\tBlack Forest[11] \t\t    128");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    96");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    104");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    136"); 
+					
+				System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    114");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    122");
+				System.out.println("\t     8[8]\t\t   1.3 \t\t     5 \t\t Steam[42]\tBlack Forest[11] \t\t    130");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    98");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    106");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    138"); 
+					
+				System.out.println("\n\t\t\t\t\t\t\t\t\t\tTiramisu[9] \t\t\t    132");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tNew York Cheese Cake[10] \t    140");
+				System.out.println("\t       \t\t       \t\t      \t\t\tIce cream[60]\tBlack Forest[11] \t\t    148");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tCaramel Cream[7] \t\t    116");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOreo Cake[8] \t\t\t    124");
+				System.out.println("\t\t\t\t\t\t\t\t\t\tOld Fashion Chocolate Cake[12]\t    136"); 
+				System.out.println("\n\t#####################################################################################################################");
+				System.out.println("\t#####################################################################################################################");
+				System.out.print("\n\tFor the first 3 questions below, Please state the CODE : \n\n");
+
+				
+				// step 4: instruction that ask customer to choose their cake						
+				Q1Array(sA);
+				double ans_size1 = sizeCake(i);
+				
+				Q2Array(nA);
+				double ans_code1 = codeCake(j);
+				
+				Q3Array(tA);
+				double ans_type1 = typeCake(k);
+				
+				Q4Array(noA);
+				double ans_no1 = numberOfCake(l);
+			
+				//step 5: packaging based on category
+				packCategoryOne();
+				
+				// step 6: instruction that ask customer to choose their packaging cake
+				
+				System.out.print("\n\tFor the questions below, Please state the CODE : \n");
+				Q1Array4(hA);
+				double size_pack = sizePackaging(m);
+				
+				Q2Array4(mA);
+				double mater_pack = materialPackaging(n);
+				
+				
+				// step 7: calculate the total price
+				price_one_cake= (ans_size1 * ans_code1)+ ans_type1;
+				to_price= (ans_no1*price_one_cake);
+				price_pack= (size_pack*mater_pack)* ans_no1;
+				sum_all= (price_pack + to_price) ;
+				
+				dis_rec=(0.05*sum_all);
+				pay=(sum_all - dis_rec);
+				
+				
+				//step 8: print the receipt
+				System.out.println("\n\n\t###########################################");
+				System.out.println("\t\tCUSTOMER'S RECEIPT");
+				System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+				System.out.println("\t\tSTAFF ID        : " +staffId);
+				System.out.println("\t\tORDER ID        : " +orderId);
+				System.out.println("\n\t\tNAME: " +name);
+				System.out.println("\t\tDATE TO PICK UP: "+ pickUp);
+				
+				System.out.println("\n\t\tDETAILS");
+				System.out.println("\t\tCODE FOR SIZE OF CAKE: " +ans_size1);  //if want 
+				System.out.println("\t\tCODE FOR CAKE: "+ ans_code1);
+				System.out.println("\t\tCODE FOR TYPE OF CAKE: "+ ans_type1);
+				System.out.println("\t\tQUANTITY OF CAKE: "+ ans_no1);
+				System.out.println("\t\tCODE FOR PACKAGING SIZE: "+ size_pack);
+				System.out.println("\t\tCODE FOR PACKAGING MATERIAL: " + mater_pack);
+				
+				System.out.println("\n\t\tSUBTOTAL: " +sum_all);
+				System.out.printf("\t\tDISCOUNT RECEIVE: %.1f" ,dis_rec);
+				System.out.printf("\n\t\tTOTAL PAYMENT: %.1f", pay);
+				System.out.print("\n\n\t       *Please bring your container\n\t\t3 days before date of pick up\n\t\tThank you for purchase from us*");
+				System.out.println("\n\n\t###########################################");			
+				
+				
+		}
+								
+				public static void categoryTwo(String staffName,int staffId) {
+
+					//start: the variables used
+					Scanner sc = new Scanner (System.in);
+					//create 6-digit random number for ORDER ID 
+					String orderId = Dessert.getRandomNumberString();
+					String  colour_pack;
+					int a=0,b=0,c=0,d=0;
+					int e=0,f=0,g=0,h=0;
+					double i=0, j=0, k=0, l=0;
+					
+					
+					int    type_pack, ans_service, ans_state=0 ;
+					double price_one_cake, to_price, price_pack, dis_rec, sum_all, pay, tot_payment;
+					double y=0, p=0, m=0, n=0;
+					
+					
+					String[] sA = {"\t  2 [2]", "\t  2.5 [2.5]"};
+					String[] nA = {"\t Banana [1.5]", "\t Carrot [2.5]", "\t Chocolate[1.0]", "\t Vanilla[0.5]"};
+					String[] tA = {"\t Baked [1]", "\t Steam [1.5]", "\t Ice cream [1]"};
+					String[] noA = {"\t 1 [1]", "\t 2 [2]", "\t 3 [3]","\t 4 [4]", "\t 5 [5]"};
+					String[] hA = {"\t 3 [1]"};
+					String[] mA = {"\tAluminium foil [2]", "\t Bagasse Paper [3]", "\t Shop's container [8]","\t Container [0]"};
+					 
+					 
+					//end
+					
+					// step 1: user need to fill in their information detail
+					System.out.print("\n\n\t     Please fill the information detail "); 
+					String name = ansName(""); //must contain "" & need to suruh print nnti at resit..
+					double contact = ansContact(y);
+					String address = ansAddress("");
+					
+						
+					//step 2: user choose the date of order and pick up's date	
+							
+					int pickUp = dateDetail(e, f, g, h);
+					
+					//menu for category 2
+					System.out.print("\n\n\t\t####################################################################################################################");
+					System.out.println("\n\t\t\t\t\t\t\tCategory 2: Special Cupcake");
+					System.out.println("\t\t####################################################################################################################");
+					System.out.println("\n\t\t Size(inch) [code] \tWeight (kg) \tHeight(inch) \tType [code] \tName [code] \t\t\tPrice (RM)"); //2.2.2.4.4tab //
+					
+					System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    4");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    6");
+					System.out.println("\t\t       \t\t      \t\t       \t\t\t Baked[1]\tChocolate[1.0] \t\t\t    3");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    2");
+				
+					
+					System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    4.5");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    6.5");
+					System.out.println("\t\t     2.0[2]\t\t   0.08 \t     1.5 \t Steam[1.5]\tChocolate[1.0] \t\t\t    3.5");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    2.5");
+
+					
+					System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    5");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    7");
+					System.out.println("\t\t       \t\t      \t\t       \t\t\t Ice cream[1]\tChocolate[1.0] \t\t\t    4");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    3");
+
+					System.out.println("\t\t#####################################################################################################################");
+					System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    4.75");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    7.25");
+					System.out.println("\t\t       \t\t      \t\t       \t\t\t Baked[1]\tChocolate[1.0] \t\t\t    3.5");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    2.25");
+					
+					System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    5.25");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    7.75");
+					System.out.println("\t\t     2.5[2.5]\t\t   0.08 \t     1.5 \t Steam[1.5]\tChocolate[1.0] \t\t\t    4");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    2.75");
+					
+					System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBanana[1.5] \t\t\t    5.75");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tCarrot[2.5] \t\t\t    8.25");
+					System.out.println("\t\t       \t\t      \t\t       \t\t\t Ice cream[1]\tChocolate[1.0] \t\t\t    4.5");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tVanila[0.5] \t\t\t    3.25"); 
+					System.out.println("\n\t\t#####################################################################################################################");
+					System.out.println("\t\t#####################################################################################################################");
+					System.out.print("\n\tFor the first 3 questions below, Please state the CODE : \n\n");
+
+					
+					
+					// step 4: instruction that ask customer to choose their cake
+					
+					System.out.print("\n\tFor the questions below, Please state the CODE : \n");
+					Q1Array2(sA);
+					double ans_size1 = sizeCake(i);
+					
+					Q2Array2(nA);
+					double ans_code1 = codeCake(j);
+					
+					Q3Array2(tA);
+					double ans_type1 = typeCake(k);
+					
+					Q4Array(noA);
+					double ans_no1 = numberOfCake(l);
+					
+					
+					//step 5: packaging based on category
+					packCategoryTwo();
+					
+					// step 6: instruction that ask customer to choose their packaging cake
+					
+					Q1Array5(hA);
+					double size_pack = sizePackaging(m);
+					
+					Q2Array5(mA);
+					double mater_pack = materialPackaging(n);
+					
+					
+					// step 7: calculate the total price
+					price_one_cake= (ans_size1 * ans_code1)+ ans_type1;
+					to_price= (ans_no1*price_one_cake);
+					price_pack= (size_pack*mater_pack)* ans_no1;
+					sum_all= (price_pack + to_price) ;
+					
+					dis_rec=(0.05*sum_all);
+					pay=(sum_all - dis_rec);
+					
+					
+					//step 8: print the receipt
+					System.out.println("\n\n\t###########################################");
+					System.out.println("\t\tCUSTOMER'S RECEIPT");
+					System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+					System.out.println("\t\tSTAFF ID        : " +staffId);
+					System.out.println("\t\tORDER ID        : " +orderId);
+					System.out.println("\n\t\tNAME: " +name);
+					System.out.println("\t\tDATE TO PICK UP: "+ pickUp);
+					
+					System.out.println("\n\t\tDETAILS");
+					System.out.println("\t\tCODE FOR SIZE OF CAKE: " +ans_size1);  //if want 
+					System.out.println("\t\tCODE FOR CAKE: "+ ans_code1);
+					System.out.println("\t\tCODE FOR TYPE OF CAKE: "+ ans_type1);
+					System.out.println("\t\tQUANTITY OF CAKE: "+ ans_no1);
+					System.out.println("\t\tCODE FOR PACKAGING SIZE: "+ size_pack);
+					System.out.println("\t\tCODE FOR PACKAGING MATERIAL: " + mater_pack);
+					
+					System.out.println("\n\t\tSUBTOTAL: " +sum_all);
+					System.out.printf("\t\tDISCOUNT RECEIVE: %.1f" ,dis_rec);
+					System.out.printf("\n\t\tTOTAL PAYMENT: %.1f", pay);
+					System.out.print("\n\n\t       *Please bring your container\n\t\t3 days before date of pick up\n\t\tThank you for purchase from us*");
+					System.out.println("\n\n\t###########################################");
+					
+					
+					
+					
+				
+				}
+				
+				public static void categoryThree(String staffName,int staffId) {
+					
+					//start: the variables used
+					Scanner sc = new Scanner (System.in);
+					//create 6-digit random number for ORDER ID 
+					String orderId = Dessert.getRandomNumberString();
+					String  colour_pack;
+					int a=0,b=0,c=0,d=0;
+					int e=0,f=0,g=0,h=0;
+					double i=0, j=0, k=0, l=0;
+					
+					
+					int    type_pack, ans_service, ans_state=0 ;
+					double price_one_cake, to_price, price_pack, dis_rec, sum_all, pay, tot_payment;
+					double y=0, p=0, m=0, n=0;
+					
+					String[] sA = {"\t  2 [0]"};
+					String[] nA = {"\t Burnt Cheese [3]", "\t Red velvet [4]", "\t Rainbow [15]", "\t Creamy Vanila Fruit Cake[6]", "\t Chocolate Truffle Cream Cake[13]", "\t Classic Almond Cake[14]"};
+					String[] tA = {"\t Baked [10]"};
+					String[] noA = {"\t 1 [1]", "\t 2 [2]", "\t 3 [3]","\t 4 [4]", "\t 5 [5]"};
+					String[] hA = {"\t 6 [2]"};
+					String[] mA = {"\t Aluminium foil [0.7]", "\t Bagasse Paper [0.5]", "\t Shop's container [2]","\t Container [0]"};
+					 
+					//end
+					
+					// step 1: user need to fill in their information detail
+					System.out.print("\n\n\t	Please fill the information detail "); 
+					String name = ansName(""); //must contain "" & need to suruh print nnti at resit..
+					double contact = ansContact(y);
+					String address = ansAddress("");
+					
+						
+					//step 2: user choose the date of order and pick up's date	
+							
+					int pickUp = dateDetail(e, f, g, h);
+					
+					//menu for category 3
+					System.out.print("\n\n\t\t####################################################################################################################");
+					System.out.println("\n\t\t\t\t\t\t\tCategory 3: Special Slice");
+					System.out.println("\t\t####################################################################################################################");
+					System.out.println("\n\t\t Size(inch) [code] \tShape (kg) \tHeight(inch) \tType [code] \tName [code] \t\t\tPrice (RM)"); //2.2.2.4.4tab //
+					
+					System.out.println("\n\t\t\t\t\t\t\t\t\t\t\tBurnt Cheese[3] \t\t    10");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tRed velvet[4] \t\t\t    10");
+					System.out.println("\t\t       2[0]\t\tTriangular\t     5       \t Baked[10]\tRainbow[15] \t\t\t    10");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tCreamy Vanila Fruit Cake[6] \t    10");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tChocolate Truffle Cream Cake[13]    10");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t\tClassic Almond Cake[14] \t    10");
+
+					System.out.println("\n\t\t#####################################################################################################################");
+					System.out.println("\t\t#####################################################################################################################");
+					System.out.print("\n\tFor the first 3 questions below, Please state the CODE : \n\n");
+
+					
+					// step 4: instruction that ask customer to choose their cake
+					
+					System.out.print("\n\tFor the questions below, Please state the CODE : \n");
+					Q1Array3(sA);
+					double ans_size1 = sizeCake(i);
+					
+					Q2Array3(nA);
+					double ans_code1 = codeCake(j);
+					
+					Q3Array3(tA);
+					double ans_type1 = typeCake(k);
+					
+					Q4Array(noA);
+					double ans_no1 = numberOfCake(l);
+					
+					
+					//step 5: packaging based on category
+					packCategoryThree();
+					
+					// step 6: instruction that ask customer to choose their packaging cake
+					
+					Q1Array6(hA);
+					double size_pack = sizePackaging(m);
+					
+					Q2Array6(mA);
+					double mater_pack = materialPackaging(n);
+					
+					
+					// step 7: calculate the total price
+					price_one_cake= (ans_size1 * ans_code1)+ ans_type1;
+					to_price= (ans_no1*price_one_cake);
+					price_pack= (size_pack*mater_pack)* ans_no1;
+					sum_all= (price_pack + to_price) ;
+					
+					dis_rec=(0.05*sum_all);
+					pay=(sum_all - dis_rec);
+					
+					
+					//step 8: print the receipt
+					System.out.println("\n\n\t###########################################");
+					System.out.println("\t\tCUSTOMER'S RECEIPT");
+					System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+					System.out.println("\t\tSTAFF ID        : " +staffId);
+					System.out.println("\t\tORDER ID        : " +orderId);
+					System.out.println("\n\t\tNAME: " +name);
+					System.out.println("\t\tDATE TO PICK UP: "+ pickUp);
+					
+					System.out.println("\n\t\tDETAILS");
+					System.out.println("\t\tCODE FOR SIZE OF CAKE: " +ans_size1);  //if want 
+					System.out.println("\t\tCODE FOR CAKE: "+ ans_code1);
+					System.out.println("\t\tCODE FOR TYPE OF CAKE: "+ ans_type1);
+					System.out.println("\t\tQUANTITY OF CAKE: "+ ans_no1);
+					System.out.println("\t\tCODE FOR PACKAGING SIZE: "+ size_pack);
+					System.out.println("\t\tCODE FOR PACKAGING MATERIAL: " + mater_pack);
+					
+					System.out.println("\n\t\tSUBTOTAL: " +sum_all);
+					System.out.printf("\t\tDISCOUNT RECEIVE: %.1f" ,dis_rec);
+					System.out.printf("\n\t\tTOTAL PAYMENT: %.1f", pay);
+					System.out.print("\n\n\t       *Please bring your container\n\t\t3 days before date of pick up\n\t\tThank you for purchase from us*");
+					System.out.println("\n\n\t###########################################");				
+				}
+								
+				public static void categoryFour(String staffName,int staffId) {
+					
+					System.out.println("\n\n\tInvalid. Choose again.\n");
+					menuToChoose(staffName, staffId);		
+
+				}
+		//end of main step
+	
+				
+				//all method include in step 1
+				public static String ansName(String x) {
+					Scanner sc = new Scanner (System.in);
+					String name;
+					
+					System.out.print("\n\n\tPlease state your name: ");
+					name = sc.next();
+					
+					return name;
+					
+				}
+				
+				
+				public static double ansContact(double y) {
+					Scanner sc = new Scanner (System.in);
+					double contact;
+					
+					System.out.print("\tPlease state your contact number: ");
+					contact = sc.nextDouble();
+					return contact;
+				
+				}
+
+				
+				public static String ansAddress(String z) {
+					Scanner sc = new Scanner (System.in);
+					String address;
+					
+					System.out.print("\tPlease state your address: ");
+					address=sc.next();
+					return address;
+					
+				}
+				// end of step 1
+					
+				
+				//all method include in step 2
+				public static int dateDetail(int e, int f, int g, int h) {
+						
+					Scanner sc = new Scanner(System.in);
+						
+					int a=0,b=0,c=0,d=0;
+						
+						
+					int order = orderDetail(a);
+					int order_month = orderMonthDetail(b);
+					int pickUp = pickUpDetail(c);
+					int pickUp_month = pickUpMonthDetail(d);
+						
+					if (pickUp_month == order_month) {
+						while (!((pickUp - order) >= 7 && ((pickUp - order) <= 29))) { 
+							System.out.print("\n\tInvalid date. Choose another date: ");
+							System.out.print("\n\tPlease state date to pick up (7 days after date of order): ");
+							pickUp=sc.nextInt();
+						}
+
+					}
+						
+					else { 
+						while (!((pickUp - order) >= -23 && ((pickUp - order) <= 29))) {				
+							System.out.print("\n\tInvalid date. Choose another date: ");
+							System.out.print("\n\tPlease state date to pick up (7 days after date of order): ");
+							pickUp=sc.nextInt();
+							}
+						}
+
+							
+					return pickUp;
+						
+						
+					}
+				
+				
+					public static int orderDetail(int a) {
+							
+						Scanner sc = new Scanner (System.in);
+						int order;
+							
+						System.out.print("\n\tPlease state the date of order (The date only): "); 
+						order=sc.nextInt(); //put line, terus dia short cut next line
+								
+						return order;
+					}
+						
+						
+					public static int orderMonthDetail(int b) {
+							
+						Scanner sc = new Scanner (System.in);
+						int order_month;
+							
+						System.out.print("\tPlease state the month of order: "); 
+						order_month=sc.nextInt();
+							
+						return order_month;
+					}
+								
+								
+					public static int pickUpDetail(int c) {
+							
+						Scanner sc = new Scanner (System.in);
+						int pickUp;
+							
+						System.out.print("\n\tPlease state date to pick up (7 days after date of order): ");
+						pickUp=sc.nextInt(); 
+							
+						return pickUp;
+					}
+						
+						
+					public static int pickUpMonthDetail(int d) {
+							
+						Scanner sc = new Scanner (System.in);
+						int pickUp_month;
+						
+						System.out.print("\tPlease state the month of pick up: "); 
+						pickUp_month=sc.nextInt(); 
+						
+						return pickUp_month;
+					}
+					
+					//end of step 2
+				
+		
+		
+		//all method include in step 3
+		public static double sizeCake(double i) {
+			Scanner sc = new Scanner (System.in);
+			double ans_size1;
+			
+			
+			System.out.print("\n\tWhich size do you want? : ");
+			ans_size1=sc.nextDouble();
+			return ans_size1;
+		
+		}
+			
+		
+		public static double codeCake(double j) {
+			Scanner sc = new Scanner (System.in);
+			double ans_code1;
+			
+			System.out.print("\n\tWhat is the name of cake that you want to order? : ");
+			ans_code1=sc.nextDouble();
+			return ans_code1;
+		
+		}
+		
+		
+		public static double typeCake(double k) {
+			Scanner sc = new Scanner (System.in);
+			double ans_type1;
+			
+			System.out.print("\n\tWhat type of cake do you prefer? : ");
+			ans_type1=sc.nextDouble();
+			return ans_type1;
+		
+		}
+		
+		
+		public static double numberOfCake(double l) {
+			Scanner sc = new Scanner (System.in);
+			double ans_no1;
+			
+			System.out.print("\tHow many cakes do you want?: ");
+			ans_no1=sc.nextInt();
+			return ans_no1;
+		}
+			
+			//Question using PassingArray
+			public static void Q1Array(String[] size) {
+			
+			System.out.println("\n\tThe size provided:"); 
+			for (int i = 0; i< size.length; i++){  
+				System.out.println(size[i]); 
+			}
+		}
+
+			
+			public static void Q2Array(String[] name) {
+				
+				System.out.println("\n\n\tThe cake provided:\n"); 
+				for (int i = 0; i< name.length; i++){  
+					System.out.println(name[i]); 
+				}
+			}
+			
+			
+			public static void Q3Array(String[] type) {
+				
+				System.out.println("\n\n\tThe type of cake provided:\n"); 
+				for (int i = 0; i< type.length; i++){  
+					System.out.println(type[i]); 
+				}
+			}
+			
+			
+			public static void Q4Array(String[] number) {
+				
+				System.out.println("\n\n\tThe number of cake you can choose:"); 
+				for (int i = 0; i< number.length; i++){  
+					System.out.println(number[i]); 
+					}
+			}			
+			
+			
+			public static void Q1Array2(String[] size) {
+				
+				System.out.println("\n\tThe size provided:"); 
+				for (int i = 0; i< size.length; i++){  
+					System.out.println(size[i]); 
+				}
+			}
+
+				
+				public static void Q2Array2(String[] name) {
+					
+					System.out.println("\n\n\tThe name provided:"); 
+					for (int i = 0; i< name.length; i++){  
+						System.out.println(name[i]); 
+					}
+					
+				}
+				public static void Q3Array2(String[] type) {
+						
+						System.out.println("\n\n\tThe type of cake provided:\n"); 
+						for (int i = 0; i< type.length; i++){  
+							System.out.println(type[i]); 
+						}
+					}					
+					
+				public static void Q1Array3(String[] size) {
+					
+					System.out.println("\n\tThe size provided:"); 
+					for (int i = 0; i< size.length; i++){  
+						System.out.println(size[i]); 
+					}
+				}
+
+					
+					public static void Q2Array3(String[] name) {
+						
+						System.out.println("\n\n\tThe name provided:"); 
+						for (int i = 0; i< name.length; i++){  
+							System.out.println(name[i]); 
+						}
+					}
+					
+					
+					public static void Q3Array3(String[] type) {
+						
+						System.out.println("\n\n\tThe type of cake provided:"); 
+						for (int i = 0; i< type.length; i++){  
+							System.out.println(type[i]); 
+						}
+					}		
+					
+			//end of question			
+										
+		//end of step 3
+		
+		
+		//all method include in step 4
+		public static void packCategoryOne(){
+
+			System.out.println("\n\t####################################################################################################################");
+			System.out.println("\t\t\t\t\tPackaging for Category 1: Special Choose");
+			System.out.println("\t####################################################################################################################");
+			System.out.println("\t Type \t\tHeight(inch)/Shape [code] \tDecoration colour/colour \tMaterial Used [code] \tPrice (RM)"); //2.2.2.4.4tab //
+			System.out.println("\n\t\t \t\t      \t\t\t\tWhite \t\t\t  Glass[46] \t\t    184");
+			System.out.println("\t\t\t\t4[4]    \t\t\tSilver\t\t\t  Clay[35] \t\t    140");
+			System.out.println("\t\t\t\t\t\t\t\tGold \t\t\t  Wood[35] \t\t    44");
+			System.out.println("\tCake_Stand\t\t\t\t\t\t\t\t\t  Aluminium[11] \t    28");
+			System.out.println("\n\t\t \t\t      \t\t\t\tWhite \t\t\t  Glass]46] \t\t    230");
+			System.out.println("\t\t\t\t5[5]    \t\t\tSilver\t\t\t  Clay[35] \t\t    175");
+			System.out.println("\t\t\t\t\t\t\t\tGold \t\t\t  Wood[35] \t\t    55");
+			System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Aluminium[11] \t    35");
+			System.out.println("\t#########################################################################################################################");
+			System.out.println("\t\t\t    Square[1] \t\t\t\tWhite \t\t\t  Glass[46] \t\t    46");
+			System.out.println("\tCake_Board\t    Rectangle[1]  \t\t\tSilver\t\t\t  Clay[35] \t\t    35");
+			System.out.println("\t\t\t    Round[1]\t\t\t\tGold \t\t\t  Wood[7] \t\t    11");
+			System.out.println("\t\t\t\t\t\t\t\t\t\t\t  Aluminium[11]\t\t    7");
+			System.out.println("\n\t#########################################################################################################################");
+			System.out.println("\t#########################################################################################################################");
+			
+				}
+		
+		public static void packCategoryTwo() {
+			System.out.println("\n\n\t#####################################################################");
+			System.out.println("\t\t\t Packaging for Category 2: Special Cupcake");
+			System.out.println("\t#####################################################################");
+			System.out.println("\t Type  \t\tHeight/code \tMaterial Used [code] \tPrice (RM)"); //2.2.2.4.4tab //
+			System.out.println("\n\t\t \t\t      \tAluminium foil[2]  \t    2");
+			System.out.println("\tBox_of_\t\t  3[1]\t\tBagasse Paper[3] \t    3");
+			System.out.println("\t6_cups\t\t\t\tShop's container[8] \t    8");
+			System.out.println("\t\t\t\t\tContainer[0] \t\t    0");
+			System.out.println("\n\t#####################################################################");
+			System.out.println("\t#####################################################################");
+		
+		}
+		
+		public static void packCategoryThree() {
+			System.out.println("\n\n\t#####################################################################");
+			System.out.println("\t\t\t Packaging for Category 3: Special Slice");
+			System.out.println("\t#####################################################################");
+			System.out.println("\t Type  \t\tHeight/code \tMaterial Used [code] \tPrice (RM)"); //2.2.2.4.4tab //
+			System.out.println("\n\t\t \t\t      \tAluminium foil[0.7]  \t    1.4");
+			System.out.println("\tBox_of_\t\t  6[2]\t\tBagasse Paper[0.5] \t    1");
+			System.out.println("\t2_slices\t\t\tShop's container[2] \t    4");
+			System.out.println("\t\t\t\t\tContainer[0] \t\t    0");
+		
+			System.out.println("\n\t#####################################################################");
+			System.out.println("\t#####################################################################");
+		}
+		// end of step 4	
+			
+			//all method include in step 5
+			public static double sizePackaging(double m) {
+				Scanner sc = new Scanner (System.in);
+				double size_pack;
+				
+				System.out.print("\n\tWhat is the height/shape of packaging : ");
+				size_pack=sc.nextDouble();
+				return size_pack;
+			
+			}
+				
+			
+			public static double materialPackaging(double n) {
+				Scanner sc = new Scanner (System.in);
+				double mater_pack;
+				
+				System.out.print("\n\tWhat is the material used to create the packaging? : ");
+				mater_pack=sc.nextDouble();
+				return mater_pack;
+			
+			}
+			
+						
+			//C1
+			public static void Q1Array4(String[] height_shape) {
+			
+			System.out.println("\n\tThe size provided:"); 
+			for (int i = 0; i< height_shape.length; i++){  
+				System.out.println(height_shape[i]); 
+			}
+		}
+
+			
+			public static void Q2Array4(String[] material) {
+				
+				System.out.println("\n\n\tThe material of packaging you can choose:"); 
+				for (int i = 0; i< material.length; i++){  
+					System.out.println(material[i]); 
+				}
+			}
+			
+						
+			//c2
+			public static void Q1Array5(String[] height_shape) {
+				
+				System.out.println("\n\tThe size provided:"); 
+				for (int i = 0; i< height_shape.length; i++){  
+					System.out.println(height_shape[i]); 
+				}
+			}	
+				
+			public static void Q2Array5(String[] material) {
+					
+				System.out.println("\n\n\tThe material of packaging you can choose:"); 
+				for (int i = 0; i< material.length; i++){  
+					System.out.println(material[i]); 
+					}
+			}	
+
+			//c3
+			public static void Q1Array6(String[] height_shape) {
+				
+				System.out.println("\n\tThe size provided:"); 
+				for (int i = 0; i<height_shape.length; i++){  
+					System.out.println(height_shape[i]); 
+				}
+			}	
+				
+			public static void Q2Array6(String[] material) {
+					
+				System.out.println("\n\n\tThe material of packaging you can choose:"); 
+				for (int i = 0; i< material.length; i++){  
+					System.out.println(material[i]); 
+					}
+			}
+			
+			//end of step 5
+			
+     }

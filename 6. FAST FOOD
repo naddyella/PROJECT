@@ -1,0 +1,564 @@
+package project;
+import java.util.Scanner;
+public class FastFood {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		
+		int system;
+		//the name of the customer who made the order,date of booking,booked date, booked day and booked time.
+		int num, num1, num2,staffId=0;
+				String staffName="";
+				char con;
+				//the name of the customer who made the order,date of booking,booked date, booked day and booked time.
+				String cus_name, date_of_order, bookedDate, orderTime;
+						
+				System.out.println("----------------------Welcome to Fast Food Shop---------------------");
+				
+				System.out.print("Do you want to join a survey about Healthy Life? (Y=Yes or N=No):");
+				con=sc.next().charAt(0);
+				if(con=='Y')
+					Rice.showSurvey();
+				
+				Dessert.showMainMenu();
+				num=sc.nextInt();
+				
+				if(num==1) {
+				
+				do {
+				Dessert.showMainMenuStaff();
+			    num1 = sc.nextInt();
+			    
+			    if(num1==1)
+			    	Dessert.getInputOutput();
+			    
+			    else if(num1==2) {
+			    	getDailyProfit();
+			    }
+			    else if (num1==3) {
+			    	
+			    	do {
+			    		System.out.println("\n----------------BOOKING AND ORDER-------------");
+				    	System.out.println("1-Customer Order");
+				    	System.out.println("2-Ala Carte");
+				    	System.out.println("3-Back to Main Menu");
+				    	num2=sc.nextInt();
+				    	
+				    	if(num2==1) {  		
+				    		Dessert.getCustomerOrder(staffName,staffId);
+				    	}
+							
+				    	else if(num2==2) {
+				    		//this is the Ala carte system which customers can customize their order
+				    		System.out.println("\n------------ ALA CARTE SYSTEM------------");
+				    		//get staff details
+				    		System.out.println("Staff Details:");
+				    		staffName=Rice.getName(staffName);
+				    	    staffId=Rice.getStaffId(staffId);
+				    		System.out.println("\nWelcome "+staffName+"!");
+							//get customer details
+				    		System.out.print("\nEnter customer's name : ");
+							cus_name = sc.next();
+							System.out.print("Enter date of booking (e.g.,1/2/22): ");
+							date_of_order = sc.next();
+							System.out.print("Enter time of booking (e.g.,1.30P.M): ");
+							orderTime = sc.next();
+						
+							String [] food = {"CHICKEN(1PC)", "CLASSIC BURGER","CHEZZY BURGER","CHEZZY WEDGES", 
+							          "LOADED POTATO BOWL","WHIPPED POTATO","NUGGETS(9PC)","COLESLAW", 
+							          "NASI LEMAK","CHOCOLATE BANANA CAKE","RED VELVET CAKE", "POPCORN CHICKEN", "ICED MILO", "PEPSI BLACK", 
+							          "ICED LEMON TEA", "SJORA MANGO PEACH","TROPICANA TWISTER", "NESTLE LEMONADE" };
+							double [] price = {5.99, 11.99, 12.70, 6.99, 7.49, 7.99, 13.99, 7.99, 3.99,7.99,8.99, 10.99, 5.99, 4.70, 5.99, 5.99, 5.99, 5.99};
+						
+							//return 2 data (food and price)
+							showMenu(food, price);
+					
+							showReceiptAlaCarte(staffName,staffId,cus_name,date_of_order,orderTime, food, price);
+							}
+			    		}while(num2!=3);
+					}
+			    			     
+				else
+					System.out.println("Thank you for using our system!");
+				}while(num1!=4);
+				}
+				
+				//customer code
+				else if(num==2) {
+					do {
+						Dessert.showMainMenuCustomer();
+					    num1 = sc.nextInt();
+					    
+					    if(num1==1) {
+					    	getSelfOrder();
+					    }
+					    else if(num1==2) {
+					    	do {
+					    	System.out.println("\n----------------View Information-------------");
+					    	System.out.println("1-View Donation Centre");
+					    	System.out.println("2-View Product Information");
+					    	System.out.println("3-Back to Main Menu");
+					    	num2=sc.nextInt();
+					  
+					    	if (num2==1) {
+					    		String [] a = Dessert.getInfoForDonationCentre();
+					    		int x = Dessert.getTypeForDonationCentre();
+								if(x==1)
+									System.out.println(a[0]);
+								else if(x==2)
+									System.out.println(a[1]);
+					    	}
+					    	else if(num2==2) {
+								String [] b = getInfoForProduct();
+								int x = getTypeForProductInfo();
+								if(x==1)
+									System.out.println(b[0]);
+								else if(x==2)
+									System.out.println(b[1]);
+								else if(x==3)
+									System.out.println(b[2]);
+					    	}
+					      }while(num2!=3);
+					    }
+					    else
+							System.out.println("Thank you for using our system!");
+				}while(num1!=3);
+			  }
+				
+			}
+	public static void getSelfOrder() {
+		Scanner sc=new Scanner(System.in);
+		
+		String name,date_of_order,orderDay,orderTime;
+		
+		//this is the Ala carte system which customers can customize their order
+		System.out.println("\n------------ WELCOME TO SELF-ORDER SYSTEM------------");
+		System.out.print("\nEnter your name : ");
+		name = sc.next();
+		System.out.print("Enter date of order (e.g., 12/2/22): ");
+		date_of_order = sc.next();	
+		System.out.print("Enter day of order (e.g.,SATURDAY): ");
+		orderDay = sc.next();
+		System.out.print("Enter time of order (e.g.,12.30 P.M): ");
+		orderTime = sc.next();
+	
+		String [] food = {"CHICKEN(1PC)", "CLASSIC BURGER","CHEZZY BURGER","CHEZZY WEDGES", 
+		          "LOADED POTATO BOWL","WHIPPED POTATO","NUGGETS(9PC)","COLESLAW", 
+		          "NASI LEMAK","CHOCOLATE BANANA CAKE","RED VELVET CAKE", "POPCORN CHICKEN", "ICED MILO", "PEPSI BLACK", 
+		          "ICED LEMON TEA", "SJORA MANGO PEACH","TROPICANA TWISTER", "NESTLE LEMONADE" };
+		double [] price = {5.99, 11.99, 12.70, 6.99, 7.49, 7.99, 13.99, 7.99, 3.99,7.99,8.99, 10.99, 5.99, 4.70, 5.99, 5.99, 5.99, 5.99};
+		
+		//return 2 data (food and price)
+		showMenu(food, price);
+	
+		showReceiptSelfOrder(name,date_of_order,orderDay, food, price); 
+
+		}
+	
+	public static void showReceiptSelfOrder(String name, String date_of_order, String orderTime, String[] food, double[]price) {
+		Scanner sc = new Scanner(System.in);
+		String date_of_delivery ="" ,dineDate="",deliverTime="",dineTime="",pickDate="",pickTime="",orderId;		
+		double total = 0;
+		int x,choice;
+		//create 6-digit random number for ORDER ID 
+		orderId=Dessert.getRandomNumberString();
+		
+		//User input how many type of product they want
+		System.out.println("Enter the number of item(s) to purchase: ");
+		x=sc.nextInt();
+		
+		String[] foodChosen = new String[x];
+		int [] qttChosen = new int[x];
+		double[] priceChosen = new double [x];
+		
+		//Loop for customer choice
+		for(int i=0;i<x;i++) {
+			int y=i+1;
+			System.out.println("\nItem No. "+y);
+			choice=Dessert.getChoice();
+			foodChosen[i]=Dessert.getFoodName(food,choice);
+			qttChosen[i]=Dessert.getQuantity();
+			priceChosen[i]=Dessert.getFoodTotal(price,choice)*qttChosen[i];
+		}
+		for(int i=0;i<x;i++) {
+			total=total+priceChosen[i];
+		}
+		
+		System.out.print("\nDelivery(1), Dine-in(2) or Pick-up(3)      : ");
+		int del = sc.nextInt();
+		if (del==1) {
+			System.out.println("\nWe only deliver up to 10 km from our place for RM 5.00");
+			System.out.print("Enter date of delivery (e.g., 12/2/22): ");
+			date_of_delivery = sc.next();
+			System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
+			deliverTime=sc.next();
+			System.out.println("We will deliver customer's order 15 minutes early.");
+		}
+		else if(del==2) {
+			System.out.println("Enter date of Dine-in (e.g., 12/2/22): ");
+			dineDate=sc.next();
+			
+			System.out.println("Enter time to Dine-in (e.g.,12.30 P.M): ");
+			dineTime=sc.next();
+			System.out.println("\nA table will be reserved for you.");
+		}
+			
+		
+		else if(del==3) {
+			System.out.println("Enter date of Pick-up (e.g., 12/2/22): ");
+			pickDate=sc.next();
+			
+			System.out.println("Enter time to Pick-up (e.g.,12.30 P.M): ");
+			pickTime=sc.next();
+			System.out.println("\nPlease come early on the day to pick-up.");
+		}
+		
+		else
+			System.out.println("Invalid.");
+		
+		System.out.println("Customer's special request :");
+		String specialReq = sc.next();
+		if(del==1) { 		  //Delivery Receipt
+			double delRate=5;
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\t\tORDER ID        : " +orderId);
+			System.out.println("\t\tCUSTOMER NAME   : " +name);
+			System.out.println("\t\tDATE OF ORDER   : "+ date_of_order );
+			System.out.println("\t\tTIME OF ORDER   : "+ orderTime);
+			System.out.println("\t\tDATE TO DELIVER : "+ date_of_delivery);
+			System.out.println("\t\tTIME TO DELIVER : "+ deliverTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED : ");
+			for(int i=0;i<x;i++) {
+				System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+			}	
+			System.out.printf("\n\t\tSUBTOTAL        : RM%.2f", total);
+			System.out.printf("\n\t\tDELIVERY CHARGE : RM%.2f" ,delRate);
+			total=total+delRate;
+			System.out.println("\n\t\tCUSTOMER REQUEST: "+ specialReq);
+			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+			
+			System.out.println("\n\t###########################################");
+		}
+		else if(del==2) {		//Dine-in Receipt
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\t\tORDER ID        : " +orderId);
+			System.out.println("\t\tCUSTOMER NAME   : " +name);
+			System.out.println("\t\tDATE OF ORDER   : "+ date_of_order);
+			System.out.println("\t\tTIME OF ORDER   : "+ orderTime);
+			System.out.println("\t\tDATE OF DINE-IN : "+ dineDate);
+			System.out.println("\t\tTIME TO DINE-IN : "+ dineTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED : ");
+			for(int i=0;i<x;i++) {
+				System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+			}
+			System.out.println("\t\tCUSTOMER REQUEST: "+ specialReq);		
+			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+			
+			System.out.println("\n\t###########################################");
+		}
+		else if(del==3) {	  //Pick-up Receipt
+		System.out.println("\n\t###########################################");
+		System.out.println("\t\tCUSTOMER'S RECEIPT");
+		System.out.println("\t\tORDER ID        : " +orderId);
+		System.out.println("\t\tCUSTOMER NAME   : " +name);
+		System.out.println("\t\tDATE OF ORDER   : "+ date_of_order);
+		System.out.println("\t\tTIME OF ORDER   : "+ orderTime);
+		System.out.println("\t\tDATE TO PICK-UP : "+ pickDate);
+		System.out.println("\t\tTIME TO PICK-UP : "+ pickTime);
+		System.out.println("\n\t\tDETAILS");
+		System.out.println("\t\tPRODUCT ORDERED : ");
+		for(int i=0;i<x;i++) {
+			System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+		}
+		System.out.println("\t\tCUSTOMER REQUEST: "+ specialReq);		
+		System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+		
+		System.out.println("\n\t###########################################");
+		}
+		
+	}
+
+	public static void showReceiptAlaCarte(String staffName,int staffId,String cus_name, String date_of_order,String orderTime, String[] food,
+			   double[] price) {
+		Scanner sc = new Scanner(System.in);
+		String date_of_delivery ="" ,dineDate="",deliverTime="",dineTime="",pickDate="",pickTime="",orderId;		
+		double total = 0;
+		int x,choice;
+		//create 6-digit random number for ORDER ID 
+		orderId=Dessert.getRandomNumberString();
+
+		//User input how many type of product they want
+		System.out.println("Enter the number of item(s) to purchase: ");
+		x=sc.nextInt();
+		
+		String[] foodChosen = new String[x];
+		int [] qttChosen = new int[x];
+		double[] priceChosen = new double [x];
+		
+		for(int i=0;i<x;i++) {
+			int y=i+1;
+			System.out.println("Item No. "+y);
+			choice=Dessert.getChoice();
+			foodChosen[i]=Dessert.getFoodName(food,choice);
+			qttChosen[i]=Dessert.getQuantity();
+			priceChosen[i]=Dessert.getFoodTotal(price,choice)*qttChosen[i];
+			}
+		
+		for(int i=0;i<x;i++) {
+			total=total+priceChosen[i];
+			}
+		
+		System.out.print("\nDelivery(1), Dine-in(2) or Pick-up(3)      : ");
+		int del = sc.nextInt();
+		if (del==1) {
+			System.out.println("\nWe only deliver up to 10 km from our place for RM 5.00");
+			System.out.print("Enter date of delivery (e.g., 12/2/22): ");
+			date_of_delivery = sc.next();
+			System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
+			deliverTime=sc.next();
+			System.out.println("We will deliver customer's order 15 minutes early.");
+			}
+		else if(del==2) {
+			System.out.println("Enter date of Dine-in (e.g., 12/2/22): ");
+			dineDate=sc.next();
+			
+			System.out.println("Enter time to Dine-in (e.g.,12.30 P.M): ");
+			dineTime=sc.next();
+			System.out.println("\nA table will be reserved for you.");
+			}
+		
+		else if(del==3) {
+			System.out.println("Enter date of Pick-up (e.g., 12/2/22): ");
+			pickDate=sc.next();
+			
+			System.out.println("Enter time to Pick-up (e.g.,12.30 P.M): ");
+			pickTime=sc.next();
+			System.out.println("\nPlease come early on the day to pick-up.");
+			}
+		
+		else
+			System.out.println("Invalid.");
+		
+		System.out.println("Customer's special request :");
+		String specialReq = sc.next();
+		if(del==1) { 		  //Delivery Receipt
+			double delRate=5;
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\t\tORDER ID        : " +orderId);
+			System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+			System.out.println("\t\tSTAFF ID        : " +staffId);
+			System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
+			System.out.println("\t\tDATE OF BOOKING : "+ date_of_order );
+			System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
+			System.out.println("\t\tDATE TO DELIVER : "+ date_of_delivery);
+			System.out.println("\t\tTIME TO DELIVER : "+ deliverTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED : ");
+			for(int i=0;i<x;i++) {
+			System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+			}	
+			System.out.printf("\n\t\tSUBTOTAL        : RM%.2f", total);
+			System.out.printf("\n\t\tDELIVERY CHARGE : RM%.2f" ,delRate);
+			total=total+delRate;
+			System.out.println("\n\t\tCUSTOMER REQUEST: "+ specialReq);
+			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+			
+			System.out.println("\n\t###########################################");
+			}
+		else if(del==2) {		//Dine-in Receipt
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\t\tORDER ID        : " +orderId);
+			System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+			System.out.println("\t\tSTAFF ID        : " +staffId);
+			System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
+			System.out.println("\t\tDATE OF BOOKING : "+ date_of_order);
+			System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
+			System.out.println("\t\tDATE OF DINE-IN : "+ dineDate);
+			System.out.println("\t\tTIME TO DINE-IN : "+ dineTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED : ");
+			for(int i=0;i<x;i++) {
+			System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+			}
+			System.out.println("\t\tCUSTOMER REQUEST: "+ specialReq);		
+			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+			
+			System.out.println("\n\t###########################################");
+			}
+		else if(del==3) {	  //Pick-up Receipt
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\t\tORDER ID        : " +orderId);
+			System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+			System.out.println("\t\tSTAFF ID        : " +staffId);
+			System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
+			System.out.println("\t\tDATE OF BOOKING : "+ date_of_order);
+			System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
+			System.out.println("\t\tDATE TO PICK-UP : "+ pickDate);
+			System.out.println("\t\tTIME TO PICK-UP : "+ pickTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED : ");
+			for(int i=0;i<x;i++) {
+			System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+			}
+			System.out.println("\t\tCUSTOMER REQUEST: "+ specialReq);		
+			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+			
+			System.out.println("\n\t###########################################");
+			}
+			
+		}
+
+	public static void getDailyProfit() {
+		Scanner sc = new Scanner(System.in);
+		String username;
+		String day,date;
+		int foodType, beverageType, employee;
+		String foodPrepared;
+		double capital,salePrice,grossProfit,salary,bill1,bill2,totalBillPrice,rentalCosts,hiddenCosts,netProfits;
+		
+		System.out.println("\n------------ DAILY PROFIT CALCULATION SYSTEM------------");
+		System.out.println("\nDo you want to know your profit amount today?");
+		System.out.println("You need to enter all the details below.");
+		System.out.println();
+		//user need to enter their name, day and date 
+		System.out.print("Username : ");
+		username = sc.next();
+		System.out.print("Day : ");
+		day = sc.next();
+		System.out.print("Date: ");
+		date = sc.next();
+		//user need to enter how much the available fast food and beverage for that day 
+		System.out.print("Number of available food : ");
+		foodType = sc.nextInt();
+		System.out.print("Number of available beverage : ");
+		beverageType = sc.nextInt();
+		//user list the fast foods and beverages
+		System.out.print("Available food and beverage: ");
+		foodPrepared = sc.next();
+		//the user enters the total price of the ingredients purchased for cooking and making the drinks. This is also called as capital. 
+		System.out.print("Enter total price for ingredient needed(capital) : RM");
+		capital=sc.nextDouble();
+		//the user enters the total sales price earned on that day.
+		System.out.print("Enter total sales today: RM");
+		salePrice=sc.nextDouble();
+		//calculate the gross profit 
+		grossProfit = salePrice - capital;
+		System.out.printf("Your gross profit for today is RM%.2f" , grossProfit);
+		//calculate the hidden costs
+		System.out.print("\nEnter the number of employee you have : ");
+		employee=sc.nextInt();
+		
+		System.out.print("\nEnter employee's daily wage : RM");
+		salary=sc.nextDouble();
+		//Let RM 3000 as rent price for a month, so RM3000/30=RM100
+		System.out.print("Enter daily store rental costs : RM");
+		rentalCosts=sc.nextDouble();
+		//let RM900 be the basic a month electric bill, so RRM900/30=RM30 
+		System.out.print("Enter daily electric bill price : RM");
+		bill1=sc.nextDouble();
+		//let RM200 be the basic a month electric bill, so RM300/30=RM10 
+		System.out.print("Enter daily water bill price : RM");
+		bill2=sc.nextDouble();
+		
+		totalBillPrice = bill1 + bill2;
+		System.out.printf("Total bill price : RM%.2f " , totalBillPrice);
+		
+		hiddenCosts = employee*salary + rentalCosts +  totalBillPrice;
+		System.out.printf("\nYour hidden costs is RM%.2f" , hiddenCosts);
+		
+		//calculate the net profit
+		netProfits = grossProfit - hiddenCosts;
+		System.out.printf("\nYour net profit for today is RM%.2f " , netProfits);
+		System.out.println();
+		System.out.println();
+		
+		System.out.println("\t\t**************************************************");
+		System.out.println("\t\t**********************Summary*********************");		
+		System.out.println("\t\tUsername : " + username);
+		System.out.println("\t\tDay : " + day);
+		System.out.println("\t\tDate: " + date);
+		System.out.println("\t\tNumber of available fast food : " + foodType);
+		System.out.println("\t\tNumber of available beverage : " + beverageType);
+		System.out.println("\t\tAvailable fast food and beverage: " + foodPrepared );
+		System.out.printf("\t\tTotal price for ingredient needed(capital) : RM%.2f" , capital);
+		System.out.printf("\n\t\tTotal sale price : RM%.2f " , salePrice);
+		System.out.printf("\n\t\tGross profit for today is RM%.2f" , grossProfit);
+		System.out.printf("\n\t\tNet profit for today is RM%.2f " , netProfits);
+		System.out.println();
+		System.out.println("\n\t\t**************************************************");
+		System.out.println("\t\t**************************************************");
+	}
+	
+	public static void showMenu(String[] food, double[] price) {
+		Scanner sc = new Scanner(System.in);
+				
+		System.out.println("\nMENU");
+		for (int a = 0; a < food.length; a++) {
+			System.out.println("\n"+Integer.toString(a+1) + ". " + food[a]);
+			System.out.printf("    --> RM%.2f" , price[a]);
+			System.out.println();
+		}
+		System.out.println();
+			
+		}
+		
+	public static void showTotal(int[] choice, String[] food, double[]price) {
+		int noFood = choice[0]-1; //array index start with 0 
+		int qtt = choice[1]; //array choice[1] represent quantity 
+					
+		double total = qtt * price[noFood];
+		System.out.println("FOOD ORDERED : " + food[noFood]);
+		System.out.printf("TOTAL PRICE  : RM%.2f " , total);
+			
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.print("\nDelivery(1) or Dine-in(2)      : ");
+		int del5 = sc.nextInt();
+		if(del5==1) {
+			System.out.println("We will deliver customer's order 15 minutes early.");
+		}
+		else {
+			System.out.println("Customers want to sit and eat in the restaurant.");
+		}
+			
+		System.out.println("Customer's special request :");
+		String specialReq1 = sc.next();
+				
+	}
+	
+	public static int getTypeForProductInfo() {
+		// This method will return the type to main() whether e.g. 1-Tart,2-Pie or 3-Pudding
+		//declare and assign array donate
+		 	Scanner sc = new Scanner (System.in);
+			int num2;
+			
+			System.out.println("---------------Welcome to Product Information---------------- ");
+		    System.out.println("List of products: ");
+		    System.out.println("1-Fried Chicken ");
+		    System.out.println("2-Burger");
+		    // input 1 or 2 to view the information
+		    System.out.println("\nChoose 1 or 2 to view the information ofFried Chicken or Burger respectively.");
+		    num2=sc.nextInt();
+		    
+		    return num2;
+	 }
+	
+	public static String[] getInfoForProduct() {
+		 //This method will return the info from the array based on the type specified to main ()
+		//Declare and assign array product
+		 String[] product = {"Fried chicken, also known as Southern fried chicken is a dish consisting of chicken pieces that have been coated with seasoned flour or batter and pan-fried,"
+		 					+ "\ndeep fried, pressure fried, or air fried. The breading adds a crisp coating or crust to the exterior of the chicken while retaining juices in the meat",
+		 					"A hamburger is a food, typically considered a sandwich, consisting of one or more cooked patties—usually ground meat, "
+		 					+ "\ntypically beef—placed inside a sliced bread roll or bun. The patty may be pan fried, grilled, smoked or flame broiled."};
+		 return product;
+	}
+	
+}

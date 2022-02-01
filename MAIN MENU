@@ -1,0 +1,54 @@
+package project;
+import java.util.Scanner;
+public class MainMenu {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner (System.in);
+		int type;
+		do {
+		System.out.println("Welcome to Food&Drink Mart!");
+		System.out.println("We are offering five different kinds of foodstuff!");
+		System.out.println("\n\tWhat would you like to buy?");
+		System.out.println("\t================================");
+		System.out.println("\t1- Bread!");
+		System.out.println("\t2- Cake!");
+		System.out.println("\t3- Rice!");
+		System.out.println("\t4- Desserts!");
+		System.out.println("\t5- Fast Food!");
+		System.out.println("\t6- Fruits!");
+		System.out.println("\t0. Log out!");
+		System.out.println("\t================================");
+		System.out.println();
+		System.out.print("Please Enter your selection:");
+		type = sc.nextInt();
+		
+		if (type==1) {
+			Bread Bread= new Bread();
+			Bread.main(args);
+		}
+		else if (type==2) {
+			Cake Cake= new Cake();
+			Cake.main(args);
+		}
+		else if (type==3) {
+			Rice Rice= new Rice();
+			Rice.main(args);
+		}
+		else if (type==4) {
+			Dessert Dessert= new Dessert();
+			Dessert.main(args);
+		}
+		else if (type==5) {
+			FastFood FastFood= new FastFood();
+			FastFood.main(args);
+		}
+		else if (type==6) {
+			Fruit Fruit= new Fruit();
+			Fruit.main(args);
+		}
+
+		
+	}while(type!=0);
+  }
+
+}

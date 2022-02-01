@@ -11,9 +11,9 @@ public class Cake {
 		int num, num1, num2,staffId=0;
 		String staffName="";
 		char con;
-		//the name of the customer who made the order,date of booking,booked date, booked day and booked time.
-		String cus_name, date_of_order, bookedDate, orderTime;
-		System.out.println("----------------------Welcome to Cake Shop---------------------"); 
+		//the name of the customer who made the order,date of booking,and booked time.
+		String  date_of_order, orderTime;
+		System.out.println("\n----------------------Welcome to Cake Shop---------------------"); 
 		System.out.print("Do you want to join a survey about Healthy Life? (Y=Yes or N=No):");
 		con=sc.next().charAt(0);
 		if(con=='Y')

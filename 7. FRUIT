@@ -44,7 +44,7 @@ public class Fruit {
 	static Scanner input = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		System.out.println("----------------------Welcome to Fruit Shop---------------------");
+		System.out.println("\n----------------------Welcome to Fruit Shop---------------------");
 		
 		System.out.print("Do you want to join a survey about Healthy Life? (Y=Yes or N=No):");
 		con=input.next().charAt(0);

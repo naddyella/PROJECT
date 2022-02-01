@@ -9,9 +9,9 @@ public class Dessert {
 		String staffName="";
 		char con;
 		//the name of the customer who made the order,date of booking,booked date, booked day and booked time.
-		String cus_name, date_of_order, bookedDate, orderTime;
+		String cus_name, date_of_order, orderTime;
 				
-		System.out.println("----------------------Welcome to Dessert Shop---------------------");
+		System.out.println("\n----------------------Welcome to Dessert Shop---------------------");
 		
 		System.out.print("Do you want to join a survey about Healthy Life? (Y=Yes or N=No):");
 		con=sc.next().charAt(0);
@@ -695,4 +695,3 @@ public class Dessert {
 		 return product;
 	 }
 	}
-

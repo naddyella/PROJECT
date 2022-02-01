@@ -8,7 +8,7 @@ public class Dessert {
 		int num, num1, num2,staffId=0;
 		String staffName="";
 		char con;
-		//the name of the customer who made the order,date of booking,booked date, booked day and booked time.
+		//the name of the customer who made the order,date of order and order time.
 		String cus_name, date_of_order, orderTime;
 				
 		System.out.println("\n----------------------Welcome to Dessert Shop---------------------");

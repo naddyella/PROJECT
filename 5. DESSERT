@@ -8,7 +8,7 @@ public class Dessert {
 		int num, num1, num2,staffId=0;
 		String staffName="";
 		char con;
-		//the name of the customer who made the order,date of order and order time.
+		//the name of the customer who made the order,date of booking,booked date, booked day and booked time.
 		String cus_name, date_of_order, orderTime;
 				
 		System.out.println("\n----------------------Welcome to Dessert Shop---------------------");
@@ -141,7 +141,7 @@ public class Dessert {
 	public static void showMainMenuCustomer() {  
 		System.out.println("\n---------------------Customer Main Menu--------------------- ");
 		System.out.println("\nPlease choose your actions: ");
-	    System.out.println("1-Self order ");
+	    System.out.println("1-Self Order ");
 	    System.out.println("2-View Information");	   
 	    System.out.println("3-Exit the system");
 	    
@@ -233,7 +233,7 @@ public class Dessert {
 	public static void getCustomerOrder(String staffName,int staffId) {
 		Scanner sc = new Scanner(System.in);
 		String cus_name, date_of_booking, bookedTime;
-		String specialReq = "",orderId;
+		String specialReq = "";
 		int foodPackage,set = 0; //food packages represented by numbers
 		double normPrice = 0,disc=0,paid=0;
 		
@@ -695,3 +695,4 @@ public class Dessert {
 		 return product;
 	 }
 	}
+

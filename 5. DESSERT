@@ -62,8 +62,8 @@ public class Dessert {
 					System.out.print("Enter time of booking (e.g.,1.30P.M): ");
 					orderTime = sc.next();
 				
-					String [] food = {"Tart(5pc)", "Pie(5pc)","Pudding(2pc)" };
-					double [] price = {5.00, 5.00, 5.00};
+					String [] food = {"TART(5pc)", "PIE(5pc)","PUDDING(2pc)" };
+					double [] price = {5.00, 10.00, 6.00};
 				
 					//return 2 data (food and price)
 					FastFood.showMenu(food, price);
@@ -255,25 +255,24 @@ public class Dessert {
 		bookedTime = sc.next();
 		
 		//choose food package base on customer's order
-		System.out.println("\n****************PACKAGE WE PROVIDE*****************");
-		System.out.println("1-FAMILY PACKAGE<3 (meals for 8 people)");
-		System.out.println("2-HAPPY MEALS PACKAGE<3 (meals for 4 people)");
-		System.out.println("3-COUPLE PACKAGE<3 (meals for 2 people)");
-		System.out.println("4-SINGLE MEAL<3 (meals for 1 person only)");
-		System.out.print("\nPlease choose your food package : ");
+		System.out.println("\n****************PRODUCT WE PROVIDE*****************");
+		System.out.println("1-TART(5pc)");
+		System.out.println("2-PIE (5pc)");
+		System.out.println("3-PUDDING (2pc)");
+		System.out.print("\nPlease choose your product : ");
 		foodPackage = sc.nextInt();
 		
 		if (foodPackage==1) {
 			System.out.println("\n///////////////////////////////////////////////////////");
-			System.out.println("FAMILY PACKAGE<3(RM80/set)");
-			System.out.println("15% OFF FOR FAMILY PACKAGE!!");
+			System.out.println("TART(5pc)(RM5/set)");
+			System.out.println("5% OFF FOR CHINESE NEW YEAR !!!");
 			System.out.println("///////////////////////////////////////////////////////");
 			System.out.print("Enter number of set            : ");
 			set = sc.nextInt();
-			normPrice=80*set;
+			normPrice=5*set;
 			System.out.printf("\nPrice before discount          : RM%.2f",normPrice);
 			
-			disc = 0.15 * normPrice;
+			disc = 0.05 * normPrice;
 			System.out.printf("\nDiscount                       : RM%.2f " , disc);
 			
 			paid = normPrice-disc;
@@ -283,31 +282,13 @@ public class Dessert {
 		
 		else if (foodPackage==2) {
 			System.out.println("\n///////////////////////////////////////////////////////");
-			System.out.println("HAPPY MEALS PACKAGE<3(RM50/set)");
-			System.out.println("10% OFF FOR HAPPY MEALS PACKAGE!!");
+			System.out.println("Pie(5pc)(RM10/set)");
+			System.out.println("5% OFF FOR CHINESE NEW YEAR !!!");
 			System.out.println("///////////////////////////////////////////////////////");
 			
 			System.out.print("Enter number of set            : ");
 			set = sc.nextInt();
-			normPrice=50*set;
-			System.out.printf("\nPrice before discount          : RM%.2f",normPrice);
-			
-			disc = 0.1 * normPrice;
-			System.out.printf("\nDiscount                       : RM%.2f " , disc);
-			
-			paid = normPrice-disc;
-			System.out.printf("\nTotal price                    : RM%.2f", paid);
-		}
-		
-		else if (foodPackage==3) {
-			System.out.println("\n///////////////////////////////////////////////////////");
-			System.out.println("COUPLE PACKAGE<3(RM25/set)");
-			System.out.println("5% OFF FOR COUPLE PACKAGE!!");
-			System.out.println("///////////////////////////////////////////////////////");
-			
-			System.out.print("Enter number of set            : ");
-			set = sc.nextInt();
-			normPrice=25*set;
+			normPrice=10*set;
 			System.out.printf("\nPrice before discount          : RM%.2f",normPrice);
 			
 			disc = 0.05 * normPrice;
@@ -317,16 +298,22 @@ public class Dessert {
 			System.out.printf("\nTotal price                    : RM%.2f", paid);
 		}
 		
-		else if (foodPackage==4) {
+		else if (foodPackage==3) {
 			System.out.println("\n///////////////////////////////////////////////////////");
-			System.out.println("SINGLE MEAL<3(RM15/set)");
+			System.out.println("PUDDING(2pc)(RM6/set)");
+			System.out.println("5% OFF FOR CHINESE NEW YEAR !!!");
 			System.out.println("///////////////////////////////////////////////////////");
 			
 			System.out.print("Enter number of set            : ");
 			set = sc.nextInt();
-			paid=15*set;
-			System.out.printf("\nTotal price           : RM%.2f",paid);
+			normPrice=6*set;
+			System.out.printf("\nPrice before discount          : RM%.2f",normPrice);
 			
+			disc = 0.05 * normPrice;
+			System.out.printf("\nDiscount                       : RM%.2f " , disc);
+			
+			paid = normPrice-disc;
+			System.out.printf("\nTotal price                    : RM%.2f", paid);
 		}
 		
 		else {
@@ -345,7 +332,7 @@ public class Dessert {
 		orderId=getRandomNumberString();
 		System.out.println();		
 		System.out.print("\nDelivery(1), Dine-in(2) or Pick-up(3)      : ");
-		String [] Package = {"FAMILY PACKAGE","HAPPY MEALS PACKAGE","COUPLE PACKAGE","SINGLE MEAL"};
+		String [] Package = {"TART(5pc)","PIE(5pc)","PUDDING(2pc)"};
 		int del = sc.nextInt();
 		if (del==1) {
 			System.out.println("\nWe only deliver up to 10 km from our place for RM 5.00");
@@ -695,4 +682,3 @@ public class Dessert {
 		 return product;
 	 }
 	}
-

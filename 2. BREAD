@@ -7,7 +7,7 @@ public class Bread {
 		int num, num1, num2,staffId=0;
 		String staffName="";
 		char con;
-		//the name of the customer who made the order,date of order and order time.
+		//the name of the customer who made the order,date of booking,booked date, booked day and booked time.
 		String cus_name, date_of_order, orderTime;
 				
 		System.out.println("\n----------------------Welcome to Bread Shop---------------------");
@@ -147,11 +147,11 @@ public class Bread {
 		bookedTime = sc.next();
 		
 		//choose food package base on customer's order
-		System.out.println("\n****************PACKAGE WE PROVIDE*****************");
+		System.out.println("\n****************PRODUCT WE PROVIDE*****************");
 		System.out.println("1- GARDENIA WHOLEMEAL (400g) ");
 		System.out.println("2- GARDENIA HIGH FIBRE (400g)");
 		System.out.println("3- GARDENIA CHOCOLATE CHIP LOAF (400G)");
-		System.out.print("\nPlease choose your food package : ");
+		System.out.print("\nPlease choose your product : ");
 		foodPackage = sc.nextInt();
 		
 		if (foodPackage==1) {

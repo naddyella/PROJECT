@@ -45,7 +45,7 @@ public class FastFood {
 				    	num2=sc.nextInt();
 				    	
 				    	if(num2==1) {  		
-				    		Dessert.getCustomerOrder(staffName,staffId);
+				    		getCustomerOrder(staffName,staffId);
 				    	}
 							
 				    	else if(num2==2) {
@@ -126,6 +126,216 @@ public class FastFood {
 			  }
 				
 			}
+	
+	public static void getCustomerOrder(String staffName,int staffId) {
+		Scanner sc = new Scanner(System.in);
+		String cus_name, date_of_booking, bookedTime;
+		String specialReq = "";
+		int foodPackage,set = 0; //food packages represented by numbers
+		double normPrice = 0,disc=0,paid=0;
+		
+		//this system is use for get order from customer if customer want to book the package meal
+		System.out.println("\n------------ CUSTOMER'S ORDER SYSTEM------------");
+		//get staff detail
+		System.out.println("Staff Details:");
+		staffName=Rice.getName(staffName);
+	    staffId=Rice.getStaffId(staffId);
+		System.out.println("\nWelcome "+staffName+"!");
+		System.out.println("\nDo you have booking from customers?");
+		System.out.println("You need to enter all the customer's details and customer orders below.");
+		//get customer's detail
+		System.out.print("\nEnter customer's name : ");
+		cus_name = sc.next();
+		System.out.print("Enter date of booking (e.g.,1/1/22): ");
+		date_of_booking = sc.next();
+		System.out.print("Enter time of booking (e.g.,1.20P.M): ");
+		bookedTime = sc.next();
+		
+		//choose food package base on customer's order
+		System.out.println("\n****************PACKAGE WE PROVIDE*****************");
+		System.out.println("1-FAMILY PACKAGE<3 (meals for 8 people)");
+		System.out.println("2-HAPPY MEALS PACKAGE<3 (meals for 4 people)");
+		System.out.println("3-COUPLE PACKAGE<3 (meals for 2 people)");
+		System.out.println("4-SINGLE MEAL<3 (meals for 1 person only)");
+		System.out.print("\nPlease choose your food package : ");
+		foodPackage = sc.nextInt();
+		
+		if (foodPackage==1) {
+			System.out.println("\n///////////////////////////////////////////////////////");
+			System.out.println("FAMILY PACKAGE<3(RM80/set)");
+			System.out.println("15% OFF FOR FAMILY PACKAGE!!");
+			System.out.println("///////////////////////////////////////////////////////");
+			System.out.print("Enter number of set            : ");
+			set = sc.nextInt();
+			normPrice=80*set;
+			System.out.printf("\nPrice before discount          : RM%.2f",normPrice);
+			
+			disc = 0.15 * normPrice;
+			System.out.printf("\nDiscount                       : RM%.2f " , disc);
+			
+			paid = normPrice-disc;
+			System.out.printf("\nTotal price                    : RM%.2f", paid);
+			
+		}
+		
+		else if (foodPackage==2) {
+			System.out.println("\n///////////////////////////////////////////////////////");
+			System.out.println("HAPPY MEALS PACKAGE<3(RM50/set)");
+			System.out.println("10% OFF FOR HAPPY MEALS PACKAGE!!");
+			System.out.println("///////////////////////////////////////////////////////");
+			
+			System.out.print("Enter number of set            : ");
+			set = sc.nextInt();
+			normPrice=50*set;
+			System.out.printf("\nPrice before discount          : RM%.2f",normPrice);
+			
+			disc = 0.1 * normPrice;
+			System.out.printf("\nDiscount                       : RM%.2f " , disc);
+			
+			paid = normPrice-disc;
+			System.out.printf("\nTotal price                    : RM%.2f", paid);
+		}
+		
+		else if (foodPackage==3) {
+			System.out.println("\n///////////////////////////////////////////////////////");
+			System.out.println("COUPLE PACKAGE<3(RM25/set)");
+			System.out.println("5% OFF FOR COUPLE PACKAGE!!");
+			System.out.println("///////////////////////////////////////////////////////");
+			
+			System.out.print("Enter number of set            : ");
+			set = sc.nextInt();
+			normPrice=25*set;
+			System.out.printf("\nPrice before discount          : RM%.2f",normPrice);
+			
+			disc = 0.05 * normPrice;
+			System.out.printf("\nDiscount                       : RM%.2f " , disc);
+			
+			paid = normPrice-disc;
+			System.out.printf("\nTotal price                    : RM%.2f", paid);
+		}
+		
+		else if (foodPackage==4) {
+			System.out.println("\n///////////////////////////////////////////////////////");
+			System.out.println("SINGLE MEAL<3(RM15/set)");
+			System.out.println("///////////////////////////////////////////////////////");
+			
+			System.out.print("Enter number of set            : ");
+			set = sc.nextInt();
+			paid=15*set;
+			System.out.printf("\nTotal price           : RM%.2f",paid);
+			
+		}
+		
+		else {
+			System.out.println("\nPackage is not available.Please choose another package.");
+		}
+	        
+		
+		getReceiptCustomerOrder(staffName,staffId,specialReq,cus_name,date_of_booking,bookedTime,normPrice,disc,paid,foodPackage,set);
+	}
+	
+	public static void getReceiptCustomerOrder(String staffName,int staffId,String specialReq,String cus_name,String date_of_booking,
+			   String bookedTime,double normPrice,double disc,double paid,int foodPackage,int set) {
+		Scanner sc = new Scanner (System.in);
+		String date_of_delivery ="" ,dineDate="",deliverTime="",dineTime="",pickDate="",pickTime="",orderId;		
+		//create 6-digit random number for ORDER ID 
+		orderId=Dessert.getRandomNumberString();
+		System.out.println();		
+		System.out.print("\nDelivery(1), Dine-in(2) or Pick-up(3)      : ");
+		String [] Package = {"FAMILY PACKAGE","HAPPY MEALS PACKAGE","COUPLE PACKAGE","SINGLE MEAL"};
+		int del = sc.nextInt();
+		if (del==1) {
+			System.out.println("\nWe only deliver up to 10 km from our place for RM 5.00");
+			System.out.print("Enter date of delivery (e.g., 12/2/22): ");
+			date_of_delivery = sc.next();
+			System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
+			deliverTime=sc.next();
+			System.out.println("We will deliver customer's order 15 minutes early.");
+		}
+		
+		else if(del==2) {
+			System.out.println("Enter date of Dine-in (e.g., 12/2/22): ");
+			dineDate=sc.next();			
+			System.out.println("Enter time to Dine-in (e.g.,12.30 P.M): ");
+			dineTime=sc.next();
+			System.out.println("\nA table will be reserved for you.");
+		}		
+		
+		else if(del==3) {
+			System.out.println("Enter date of Pick-up (e.g., 12/2/22): ");
+			pickDate=sc.next();			
+			System.out.println("Enter time to Pick-up (e.g.,12.30 P.M): ");
+			pickTime=sc.next();
+			System.out.println("\nPlease come early on the day to pick-up.");
+		}
+		
+		else
+			System.out.println("Invalid.");
+		
+		System.out.println("Customer's special request :");
+		specialReq = sc.next();
+		
+		if(del==1) { 		  //Delivery Receipt
+			double delRate=5;
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+			System.out.println("\t\tSTAFF ID        : " +staffId);
+			System.out.println("\t\tORDER ID        : " +orderId);
+			System.out.println("\n\t\tCUSTOMER NAME   : " +cus_name);
+			System.out.println("\t\tDATE OF BOOKING : "+ date_of_booking);
+			System.out.println("\t\tTIME OF BOOKING : "+ bookedTime);
+			System.out.println("\t\tDATE TO DELIVER : "+ date_of_delivery);
+			System.out.println("\t\tTIME TO DELIVER : "+ deliverTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED : "+Package[foodPackage-1]+"x"+set);
+			System.out.println("\t\tCUSTOMER REQUEST: "+ specialReq);
+			System.out.printf("\n\t\tDISCOUNT RECEIVE: RM%.2f" ,disc);
+			System.out.printf("\n\t\tSUBTOTAL        : RM%.2f", paid);
+			System.out.printf("\n\t\tDELIVERY CHARGE : RM%.2f" ,delRate);
+			paid+=delRate;
+			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", paid);		
+			System.out.println("\n\t###########################################");
+		}
+		
+		else if(del==2) {		//Dine-in Receipt
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\n\t\tSTAFF NAME       : " +staffName);
+			System.out.println("\t\tSTAFF ID         : " +staffId);
+			System.out.println("\t\tORDER ID         : " +orderId);
+			System.out.println("\n\t\tCUSTOMER NAME    : " +cus_name);
+			System.out.println("\t\tDATE OF BOOKING  : "+ date_of_booking);
+			System.out.println("\t\tDATE OF DINE-IN  : "+ dineDate);
+			System.out.println("\t\tTIME TO DINE-IN  : "+ dineTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED  : "+Package[foodPackage-1]+"x"+set);
+			System.out.println("\t\tCUSTOMER REQUEST : "+ specialReq);
+			System.out.printf("\t\tDISCOUNT RECEIVE : RM%.2f" ,disc);
+			System.out.printf("\n\t\tTOTAL PAYMENT    : RM%.2f", paid);		
+			System.out.println("\n\t###########################################");
+		}
+		
+		else if(del==3) {	  //Pick-up Receipt
+			System.out.println("\n\t###########################################");
+			System.out.println("\t\tCUSTOMER'S RECEIPT");
+			System.out.println("\n\t\tSTAFF NAME       : " +staffName);
+			System.out.println("\t\tSTAFF ID         : " +staffId);
+			System.out.println("\t\tORDER ID         : " +orderId);
+			System.out.println("\n\t\tCUSTOMER NAME    : " +cus_name);
+			System.out.println("\t\tDATE OF BOOKING  : "+ date_of_booking);
+			System.out.println("\t\tDATE TO PICK-UP  : "+ pickDate);
+			System.out.println("\t\tTIME TO PICK-UP  : "+ pickTime);
+			System.out.println("\n\t\tDETAILS");
+			System.out.println("\t\tPRODUCT ORDERED  : "+Package[foodPackage-1]+"x"+set);
+			System.out.println("\t\tCUSTOMER REQUEST : "+ specialReq);
+			System.out.printf("\t\tDISCOUNT RECEIVE : RM%.2f" ,disc);
+			System.out.printf("\n\t\tTOTAL PAYMENT    : RM%.2f", paid);
+			System.out.println("\n\t###########################################");
+		
+			}
+		}
+	
 	public static void getSelfOrder() {
 		Scanner sc=new Scanner(System.in);
 		

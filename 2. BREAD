@@ -30,7 +30,7 @@ public class Bread {
 	    	Dessert.getInputOutput();
 	    
 	    else if(num1==2) {
-	    	FastFood.getDailyProfit();
+	    	getDailyProfit();
 	    }
 	    else if (num1==3) {
 	    	
@@ -121,7 +121,8 @@ public class Bread {
 			
 
 	}
-		
+	
+	
 	public static void getCustomerOrder(String staffName,int staffId) {
 		Scanner sc = new Scanner(System.in);
 		String cus_name, date_of_booking, bookedTime;
@@ -274,6 +275,92 @@ public class Bread {
 		
 			}
 		}
+	
+
+	public static void getDailyProfit() {
+		Scanner sc = new Scanner(System.in);
+		String username;
+		String day,date;
+		int  employee;
+		double salary,bill1,bill2,totalBillPrice,rentalCosts,hiddenCosts,netProfits;
+		System.out.println("\n------------ DAILY PROFIT CALCULATION SYSTEM------------");
+		System.out.println("\nDo you want to know your profit amount today?");
+		System.out.println("You need to enter all the details below.");
+		System.out.println();
+		//user need to enter their name, day and date 
+		System.out.print("Username : ");
+		username = sc.next();
+		System.out.print("Day : ");
+		day = sc.next();
+		System.out.print("Date: ");
+		date = sc.next();
+		//user need to enter how much the available fast food and beverage for that day
+		//declare variable for number of product type
+		int x;
+		double sum = 0;
+		//input amount of product type
+		System.out.print("Number of available bread : ");
+		x = sc.nextInt();
+		String [] breadName   = new String [x];
+		double [] breadSold   = new double [x];
+		// input product name for every product type
+		System.out.println("Please enter the bread name:");
+		for(int i =0; i<breadName.length; i++) {
+			breadName[i] = sc.next();
+		}	
+		//calculate the gross profit
+		for(int i =0; i<breadName.length; i++) {
+			System.out.print("Please enter the total price for "+breadName[i]+" sold today: RM");
+			breadSold[i] = sc.nextDouble();
+			sum+=breadSold[i];
+		}
+		
+		System.out.printf("\nYour gross profit for today is RM%.2f" , sum);
+		//calculate the hidden costs
+		System.out.print("\nEnter the number of employee you have : ");
+		employee=sc.nextInt();
+		
+		System.out.print("\nEnter employee's daily wage : RM");
+		salary=sc.nextDouble();
+		//Let RM 3000 as rent price for a month, so RM3000/30=RM100
+		System.out.print("Enter daily store rental costs : RM");
+		rentalCosts=sc.nextDouble();
+		//let RM900 be the basic a month electric bill, so RRM900/30=RM30 
+		System.out.print("Enter daily electric bill price : RM");
+		bill1=sc.nextDouble();
+		//let RM200 be the basic a month electric bill, so RM300/30=RM10 
+		System.out.print("Enter daily water bill price : RM");
+		bill2=sc.nextDouble();
+		
+		totalBillPrice = bill1 + bill2;
+		System.out.printf("Total bill price : RM%.2f " , totalBillPrice);
+		
+		hiddenCosts = employee*salary + rentalCosts +  totalBillPrice;
+		System.out.printf("\nYour hidden costs is RM%.2f" , hiddenCosts);
+		
+		//calculate the net profit
+		netProfits = sum - hiddenCosts;
+		System.out.printf("\nYour net profit for today is RM%.2f " , netProfits);
+		System.out.println();
+		System.out.println();
+		
+		System.out.println("\t\t**************************************************");
+		System.out.println("\t\t**********************Summary*********************");		
+		System.out.println("\t\tUsername : " + username);
+		System.out.println("\t\tDay : " + day);
+		System.out.println("\t\tDate: " + date);
+		System.out.println("\t\tNumber of available bread: " + x);
+		System.out.println("\t\tAvailable bread: " );
+		for(int i =0; i<breadName.length; i++) {
+			System.out.println("\t\t--> " + breadName[i]);
+		}
+	
+		System.out.printf("\n\t\tGross profit for today is RM%.2f" , sum);
+		System.out.printf("\n\t\tNet profit for today is RM%.2f " , netProfits);
+		System.out.println();
+		System.out.println("\n\t\t**************************************************");
+		System.out.println("\t\t**************************************************");
+	}
 	
 	public static void getSelfOrder() {
 		Scanner scan = new Scanner (System.in);

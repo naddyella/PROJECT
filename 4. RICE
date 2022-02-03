@@ -21,6 +21,7 @@ public class Rice {
 		Dessert.showMainMenu();
 		num=sc.nextInt();
 		
+		//coding staff
 		if(num==1) {
 		
 		do {
@@ -28,7 +29,7 @@ public class Rice {
 	        num1 = sc.nextInt();
 	    
 	    if(num1==1)
-	    	Dessert.getInputOutput();
+	    	getInputOutput();
 	    
 	    else if(num1==2) {
 	    	FastFood.getDailyProfit();
@@ -123,6 +124,71 @@ public class Rice {
 
 	}
 	
+	public static void getInputOutput() {
+		Scanner sc = new Scanner (System.in);
+
+		
+		System.out.println("\n---------------Welcome to Input and Output Data---------------- ");
+		//declare variable for number of product type
+		int x;
+		
+		//input amount of product type
+		System.out.println("Please enter the number of product types:");
+		x = sc.nextInt();
+		
+		//declare all the array for each of the product type
+		double[]  productSoldLastMonth = new double [x];
+		  int []  avgProductMade       = new int [x];
+		  int [] productMade   = new int [x];
+		  int [] productSold   = new int [x];
+		  int [] productLeft   = new int [x];
+		  int [] productDonate = new int [x];
+			
+		// declare an array for productName[]
+		String [] productName = new String [x];
+		
+		// input product name for every product type
+		System.out.println("Please enter the products name:");
+		for(int i =0; i<productName.length; i++) {
+			productName[i] = sc.next();
+		}
+				    		
+		for(int i =0; i<productName.length; i++) {
+					
+			//User input product sold last month
+			System.out.println("\nPlease enter the amounts of "+productName[i]+" sold last month:");
+			productSoldLastMonth[i] = sc.nextDouble();
+
+			//User input product made today
+			System.out.println("\nPlease enter the amounts of "+productName[i]+" bought this month:");
+			productMade[i] = sc.nextInt();
+
+			//User input product sold today
+			System.out.println("Please enter the amounts of "+productName[i]+" sold this month:");
+			productSold[i] = sc.nextInt();
+
+
+			//Calculation for leftovers product
+			productLeft[i]= productMade[i]-productSold[i];
+			
+			//Calculation for product donated to be equally distributed
+			productDonate[i]=productLeft[i]/2;
+			
+		}
+		
+		
+		System.out.println("\nAmounts of product donated to food bank:");
+		for(int i =0; i<productName.length; i++) {
+			//Output the amount of product donated to food bank			
+			System.out.println(productName[i]+" donated is " + productDonate[i]+" PACK");
+		}
+		
+		System.out.println("\nAmount of product donated to homeless people:");
+		for(int i =0; i<productName.length; i++) {
+			//Output the amount of product donated to homeless people		
+			System.out.println(productName[i]+" donated is " + productDonate[i]+" PACK");
+		}
+	 }
 	
 	public static void showSurvey() {
 		Scanner sc=new Scanner(System.in);
@@ -773,3 +839,5 @@ public class Rice {
 	
 	
 }
+
+

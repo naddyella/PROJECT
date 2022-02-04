@@ -224,18 +224,17 @@ public class Cake {
 		}
 			
 		public static int getTypeForProductInfo() {
-			// This method will return the type to main() whether e.g. 1-Tart,2-Pie or 3-Pudding
 			//declare and assign array donate
 			 	Scanner sc = new Scanner (System.in);
 				int num2;
 				
 				System.out.println("---------------Welcome to Product Information---------------- ");
 			    System.out.println("List of products: ");
-			    System.out.println("1-Tart ");
-			    System.out.println("2-Pie  ");
-			    System.out.println("3-Pudding ");
+			    System.out.println("1-Cheese Cake ");
+			    System.out.println("2-Chocolate Cake  ");
+			    System.out.println("3-Chiffon Cake ");
 			    // input 1 or 2 to view the information
-			    System.out.println("\nChoose 1, 2 or 3 to view the information of Tart, Pie and Pudding respectively.");
+			    System.out.println("\nChoose 1, 2 or 3 to view the information of Cheese Cake, Chocolate Cake and Chiffon Cake respectively.");
 			    num2=sc.nextInt();
 			    
 			    return num2;
@@ -244,7 +243,11 @@ public class Cake {
 		public static String[] getInfoForProduct() {
 			//This method will return the info from the array based on the type specified to main ()
 			//Declare and assign array product
-			 String[] product = {""};
+			 String[] product = {"Cheese cake is a sweet dessert consisting of one or more layers. The main, and thickest, layer consists of a mixture of a soft, fresh cheese, eggs, and sugar. "
+			 					+ "\nIf there is a bottom layer, it most often consists of a crust or base made from crushed cookies, graham crackers, pastry, or sometimes sponge cake.",
+			 					"Chocolate cake or chocolate gâteau is a cake flavored with melted chocolate, cocoa powder, or both.",
+			 					"A chiffon cake is a very light cake made with vegetable oil, eggs, sugar, flour, baking powder, and flavorings. "
+			 					+ "\nBeing made with vegetable oil, instead of a traditional solid fat such as butter or shortening, it is easier to beat air into the batter."};
 			 
 			 return product;
 		}

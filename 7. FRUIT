@@ -1,1216 +1,1247 @@
+
 package project;
 import java.util.Arrays;
 import java.util.Scanner;
-import project.Dessert;
 public class Fruit {
-	
+  
 //declare
 
-	int kilogram = 0, voucher;
-	
-	static int num1, fruitprice, gram, gramneeded, peratusdiskaun1, choice, item,
-		       kilogram1, kilogram2, kilogram3;
+  int kilogram = 0, voucher;
+  
+  static int num1, fruitprice, gram, gramneeded, peratusdiskaun1, choice, item, kilogram1, kilogram2, kilogram3;
 
-	static String orderbuah, buah, location = null, suhubilik, buah1, cus_name, date_of_booking, bookedTime, orderTime;
-	
-	static double totalorder = 0, percentage, totalorder1 = 0, total = 0;
-	
-	double peratusdiskaun;
-	
-	static char Y, GetVoucher, checkFruitResistance, deliveryProceed, claimVoucher;
-	
-	static int num,num2,staffId=0;
-	static String staffName="";
-	static char con;
-	//the name of the customer who made the order,date of booking,booked date, booked day and booked time.
-	
-	
-//initialize	
-	static int k_buah_bilik = 5;
-	static int k_buah_sejuk = 25;
-	static int k_buah_peti = 15;
-	static int tanggal = 0;
-	static int bulan = 0;
-	static int tahun = 0;
-	static int tarikh = 0;
-	static int jaraklokasi = 0;
-	static int cajpenghantaran = 0;
-	static int order;
-	static int l = 1;
+  static String orderbuah, buah, location = null, suhubilik, buah1, cus_name, date_of_booking, bookedTime, orderTime;
+  
+  static double totalorder = 0, percentage, totalorder1 = 0, total = 0;
+  
+  double peratusdiskaun;
+  
+  static char Y, GetVoucher, checkFruitResistance, deliveryProceed, claimVoucher;
+  
+  static int num,num2,staffId=0;
+  static String staffName="";
+  static char con;
+  //the name of the customer who made the order,date of booking,booked date, booked day and booked time.
+  
+  
+//initialize  
+  static int k_buah_bilik = 5;
+  static int k_buah_sejuk = 25;
+  static int k_buah_peti = 15;
+  static int tanggal = 0;
+  static int bulan = 0;
+  static int tahun = 0;
+  static int tarikh = 0;
+  static int jaraklokasi = 0;
+  static int cajpenghantaran = 0;
+  static int order;
+  static int l = 1;
 
 // emoji
-	static String satu = "😄";
-
-	static Scanner input = new Scanner(System.in);
-
-	public static void main(String[] args) {
-		System.out.println("\n----------------------Welcome to Fruit Shop---------------------");
-		
-		System.out.print("Do you want to join a survey about Healthy Life? (Y=Yes or N=No):");
-		con=input.next().charAt(0);
-		
-		if(con=='Y')
-			Rice.showSurvey();
-					
-		Dessert.showMainMenu();
-		num=input.nextInt();
-		
-		if(num==1) {
-		
-		do {
-			Dessert.showMainMenuStaff();
-	        num1 = input.nextInt();
-	    
-	    if(num1==1)
-	    	getInputOutput();
-	    
-	    else if(num1==2) {
-	    	getDailyProfit();
-	    }
-	    else if (num1==3) {
-	    	
-	    	do {
-	    		System.out.println("\n----------------BOOKING AND ORDER-------------");
-		    	System.out.println("1-Fruit Order");
-		    	System.out.println("2-Ala Carte");
-		    	System.out.println("3-Back to Main Menu");
-		    	num2=input.nextInt();
-		    	
-		    	if(num2==1) {  		
-		    		getCustomerOrder(staffName,staffId);
-		    		resistancecondition();
-		    		resistance();
-		    		
-		    	}
-					
-		    	else if(num2==2) {
-		    		//this is the Ala carte system which customers can customize their order
-		    		System.out.println("\n------------ ALA CARTE SYSTEM------------");
-		    		//get staff details
-		    		System.out.println("Staff Details:");
-		    		staffName=Rice.getName(staffName);
-		    	    staffId=Rice.getStaffId(staffId);
-		    		System.out.println("\nWelcome "+staffName+"!");
-					//get customer details
-		    		System.out.print("\nEnter customer's name : ");
-					cus_name = input.next();
-					System.out.print("Enter date of booking (e.g.,1/2/22): ");
-					date_of_booking = input.next();
-					System.out.print("Enter time of booking (e.g.,1.30P.M): ");
-					orderTime = input.next();
-				
-					String [] food = {"Apple(5pc)", "Grape(1Box)","Orange(5pc)" };
-					double [] price = {5.00, 5.00, 5.00};
-				
-					//return 2 data (food and price)
-					FastFood.showMenu(food, price);
-				
-					showReceiptAlaCarte(staffName,staffId,cus_name,date_of_booking,orderTime, food, price);
-					}
-	    		}while(num2!=3);
-			}
-	    			     
-		else
-			System.out.println("Thank you for using our system!");
-		}while(num1!=4);
-	}
-		
-		//customer code
-		else if(num==2) {
-			do {
-				Dessert.showMainMenuCustomer();
-			    num1 = input.nextInt();
-			    
-			    if(num1==1) {
-			    	getSelfOrder();
-			    }
-			    else if(num1==2) {
-			    	do {
-			    	System.out.println("\n----------------View Information-------------");
-			    	System.out.println("1-View Donation Centre");
-			    	System.out.println("2-View Product Information");
-			    	System.out.println("3-Back to Main Menu");
-			    	num2=input.nextInt();
-			  
-			    	if (num2==1) {
-			    		String [] a = Dessert.getInfoForDonationCentre();
-			    		int x = Dessert.getTypeForDonationCentre();
-						if(x==1)
-							System.out.println(a[0]);
-						else if(x==2)
-							System.out.println(a[1]);
-			    	}
-			    	else if(num2==2) {
-						String [] b = getInfoForProduct();
-						int x = getTypeForProductInfo();
-						if(x==1)
-							System.out.println(b[0]);
-						else if(x==2)
-							System.out.println(b[1]);
-			    	}
-			      }while(num2!=3);
-			    }
-			    else
-					System.out.println("Thank you for using our system!");
-			}while(num1!=3);
-	  }
-		
-			
-
-	}
-	
-	public static void getInputOutput() {
-		Scanner sc = new Scanner (System.in);
-
-		
-		System.out.println("\n---------------Welcome to Input and Output Data---------------- ");
-		//declare variable for number of product type
-		int x;
-		
-		//input amount of product type
-		System.out.println("Please enter the number of product types:");
-		x = sc.nextInt();
-		
-		//declare all the array for each of the product type
-		double[]  productSoldLastMonth = new double [x];
-		  int [] productMade   = new int [x];
-		  int [] productSold   = new int [x];
-		  int [] productLeft   = new int [x];
-		  int [] productDonate = new int [x];
-			
-		// declare an array for productName[]
-		String [] productName = new String [x];
-		
-		// input product name for every product type
-		System.out.println("Please enter the products name:");
-		for(int i =0; i<productName.length; i++) {
-			productName[i] = sc.next();
-		}
-				    		
-		for(int i =0; i<productName.length; i++) {
-					
-			//User input product sold last month
-			System.out.println("\nPlease enter the amounts of "+productName[i]+" sold last month:");
-			productSoldLastMonth[i] = sc.nextDouble();
-
-			//User input product made today
-			System.out.println("\nPlease enter the amounts of "+productName[i]+" bought this month:");
-			productMade[i] = sc.nextInt();
-
-			//User input product sold today
-			System.out.println("Please enter the amounts of "+productName[i]+" sold this month:");
-			productSold[i] = sc.nextInt();
-
-
-			//Calculation for leftovers product
-			productLeft[i]= productMade[i]-productSold[i];
-			
-			//Calculation for product donated to be equally distributed
-			productDonate[i]=productLeft[i]/2;
-			
-		}
-		
-		
-		System.out.println("\nAmounts of product donated to food bank:");
-		for(int i =0; i<productName.length; i++) {
-			//Output the amount of product donated to food bank			
-			System.out.println(productName[i]+" donated is " + productDonate[i]+" PACK");
-		}
-		
-		System.out.println("\nAmount of product donated to homeless people:");
-		for(int i =0; i<productName.length; i++) {
-			//Output the amount of product donated to homeless people		
-			System.out.println(productName[i]+" donated is " + productDonate[i]+" PACK");
-		}
-	 }
-	
-	public static void getDailyProfit() {
-		Scanner sc = new Scanner(System.in);
-		String username;
-		String day,date;
-		int  employee;
-		double salary,bill1,bill2,totalBillPrice,rentalCosts,hiddenCosts,netProfits;
-		System.out.println("\n------------ DAILY PROFIT CALCULATION SYSTEM------------");
-		System.out.println("\nDo you want to know your profit amount today?");
-		System.out.println("You need to enter all the details below.");
-		System.out.println();
-		//user need to enter their name, day and date 
-		System.out.print("Username : ");
-		username = sc.next();
-		System.out.print("Day : ");
-		day = sc.next();
-		System.out.print("Date: ");
-		date = sc.next();
-		//user need to enter how much the available fast food and beverage for that day
-		//declare variable for number of product type
-		int x;
-		double sum = 0;
-		//input amount of product type
-		System.out.print("Number of available fruit : ");
-		x = sc.nextInt();
-		String [] fruitName   = new String [x];
-		double [] fruitSold   = new double [x];
-		// input product name for every product type
-		System.out.println("Please enter the fruit name:");
-		for(int i =0; i<fruitName.length; i++) {
-			fruitName[i] = sc.next();
-		}	
-		//calculate the gross profit
-		for(int i =0; i<fruitName.length; i++) {
-			System.out.print("Please enter the total price for "+fruitName[i]+" sold today: RM");
-			fruitSold[i] = sc.nextDouble();
-			sum+=fruitSold[i];
-		}
-		
-		System.out.printf("\nYour gross profit for today is RM%.2f" , sum);
-		//calculate the hidden costs
-		System.out.print("\nEnter the number of employee you have : ");
-		employee=sc.nextInt();
-		
-		System.out.print("\nEnter employee's daily wage : RM");
-		salary=sc.nextDouble();
-		//Let RM 3000 as rent price for a month, so RM3000/30=RM100
-		System.out.print("Enter daily store rental costs : RM");
-		rentalCosts=sc.nextDouble();
-		//let RM900 be the basic a month electric bill, so RRM900/30=RM30 
-		System.out.print("Enter daily electric bill price : RM");
-		bill1=sc.nextDouble();
-		//let RM200 be the basic a month electric bill, so RM300/30=RM10 
-		System.out.print("Enter daily water bill price : RM");
-		bill2=sc.nextDouble();
-		
-		totalBillPrice = bill1 + bill2;
-		System.out.printf("Total bill price : RM%.2f " , totalBillPrice);
-		
-		hiddenCosts = employee*salary + rentalCosts +  totalBillPrice;
-		System.out.printf("\nYour hidden costs is RM%.2f" , hiddenCosts);
-		
-		//calculate the net profit
-		netProfits = sum - hiddenCosts;
-		System.out.printf("\nYour net profit for today is RM%.2f " , netProfits);
-		System.out.println();
-		System.out.println();
-		
-		System.out.println("\t\t**************************************************");
-		System.out.println("\t\t**********************Summary*********************");		
-		System.out.println("\t\tUsername : " + username);
-		System.out.println("\t\tDay : " + day);
-		System.out.println("\t\tDate: " + date);
-		System.out.println("\t\tNumber of available fruit: " + x);
-		System.out.println("\t\tAvailable fruit: " );
-		for(int i =0; i<fruitName.length; i++) {
-			System.out.println("\t\t--> " + fruitName[i]);
-		}
-	
-		System.out.printf("\n\t\tGross profit for today is RM%.2f" , sum);
-		System.out.printf("\n\t\tNet profit for today is RM%.2f " , netProfits);
-		System.out.println();
-		System.out.println("\n\t\t**************************************************");
-		System.out.println("\t\t**************************************************");
-	}
-	
-	public static void getCustomerOrder(String staffName2, int staffId2) {
-		Scanner sc = new Scanner (System.in);
-		String tarikh;
-		System.out.println("\n------------BULK ORDER SYSTEM------------");
-		//get staff detail
-		System.out.println("Staff Details:");
-		staffName=Rice.getName(staffName);
-	    staffId=Rice.getStaffId(staffId);
-		System.out.println("\nWelcome "+staffName+"!");
-		System.out.println("\nDo you have booking from customers?");
-		System.out.println("You need to enter all the customer's details and customer orders below.");
-		//get customer's detail
-		System.out.print("\nEnter customer's name : ");
-		cus_name = sc.next();
-		
-		System.out.print("Enter time of booking (e.g.,1.20P.M): ");
-		orderTime = sc.next();
-		
-		tarikh=tarikh();		
-		listbuah();
-		checkharga();
-		order(cus_name,tarikh,orderTime);
-		
-		
-	}
-	
-	public static void getSelfOrder() {
-		Scanner sc=new Scanner(System.in);
-		
-		String name,date_of_order,orderDay,orderTime;
-		
-		//this is the Ala carte system which customers can customize their order
-		System.out.println("\n------------ WELCOME TO SELF-ORDER SYSTEM------------");
-		System.out.print("\nEnter your name : ");
-		name = sc.next();
-		System.out.print("Enter date of order (e.g., 12/2/22): ");
-		date_of_order = sc.next();	
-		System.out.print("Enter day of order (e.g.,SATURDAY): ");
-		orderDay = sc.next();
-		System.out.print("Enter time of order (e.g.,12.30 P.M): ");
-		orderTime = sc.next();
-	
-		String [] food = {"Apple(5pc)", "Grape(1Box)","Orange(5pc)" };
-		double [] price = {5.00, 5.00, 5.00};
-		
-		//return 2 data (food and price)
-		FastFood.showMenu(food, price);
-	
-		showReceiptSelfOrder(name,date_of_order,orderDay, food, price); 
-
-		}
-	
-	public static void showReceiptSelfOrder(String name, String date_of_order,String orderTime, String[] food,
-			   double[] price) {
-		Scanner sc = new Scanner(System.in);
-		String date_of_delivery ="" ,deliverTime="",pickDate="",pickTime="",orderId;		
-		double total = 0;
-		int x,choice;
-		//create 6-digit random number for ORDER ID 
-		orderId=Dessert.getRandomNumberString();
-
-		//User input how many type of product they want
-		System.out.println("Enter the number of item(s) to purchase:");
-		x=sc.nextInt();
-		
-		String[] foodChosen = new String[x];
-		int [] qttChosen = new int[x];
-		double[] priceChosen = new double [x];
-		
-		for(int i=0;i<x;i++) {
-			int y=i+1;
-			System.out.println("Item No. "+y);
-			choice=Dessert.getChoice();
-			foodChosen[i]=Dessert.getFoodName(food,choice);
-			qttChosen[i]=Dessert.getQuantity();
-			priceChosen[i]=Dessert.getFoodTotal(price,choice)*qttChosen[i];
-			}
-		
-		for(int i=0;i<x;i++) {
-			total=total+priceChosen[i];
-			}
-		
-		System.out.print("\nDelivery(1) or Pick-up(2)      : ");
-		int del = sc.nextInt();
-		if (del==1) {
-			System.out.println("\nWe only deliver up to 10 km from our place for RM 5.00");
-			System.out.print("Enter date of delivery (e.g., 12/2/22): ");
-			date_of_delivery = sc.next();
-			System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
-			deliverTime=sc.next();
-			System.out.println("We will deliver customer's order 15 minutes early.");
-			}
-		
-		else if(del==2) {
-			System.out.println("Enter date of Pick-up (e.g., 12/2/22): ");
-			pickDate=sc.next();
-			
-			System.out.println("Enter time to Pick-up (e.g.,12.30 P.M): ");
-			pickTime=sc.next();
-			System.out.println("\nPlease come early on the day to pick-up.");
-			}
-		
-		else
-			System.out.println("Invalid.");
-		
-		System.out.println("Customer's special request :");
-		String specialReq = sc.next();
-		if(del==1) { 		  //Delivery Receipt
-			double delRate=5;
-			System.out.println("\n\t###########################################");
-			System.out.println("\t\tCUSTOMER'S RECEIPT");
-			System.out.println("\t\tORDER ID        : " +orderId);
-			System.out.println("\t\tCUSTOMER NAME   : " +name);
-			System.out.println("\t\tDATE OF BOOKING : "+ date_of_order );
-			System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
-			System.out.println("\t\tDATE TO DELIVER : "+ date_of_delivery);
-			System.out.println("\t\tTIME TO DELIVER : "+ deliverTime);
-			System.out.println("\n\t\tDETAILS");
-			System.out.println("\t\tPRODUCT ORDERED : ");
-			for(int i=0;i<x;i++) {
-			System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
-			}	
-			System.out.printf("\n\t\tSUBTOTAL        : RM%.2f", total);
-			System.out.printf("\n\t\tDELIVERY CHARGE : RM%.2f" ,delRate);
-			total=total+delRate;
-			System.out.println("\n\t\tCUSTOMER REQUEST: "+ specialReq);
-			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
-			
-			System.out.println("\n\t###########################################");
-			}
-		
-		else if(del==2) {	  //Pick-up Receipt
-			System.out.println("\n\t###########################################");
-			System.out.println("\t\tCUSTOMER'S RECEIPT");
-			System.out.println("\t\tORDER ID        : " +orderId);
-			System.out.println("\t\tCUSTOMER NAME   : " +name);
-			System.out.println("\t\tDATE OF BOOKING : "+ date_of_order);
-			System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
-			System.out.println("\t\tDATE TO PICK-UP : "+ pickDate);
-			System.out.println("\t\tTIME TO PICK-UP : "+ pickTime);
-			System.out.println("\n\t\tDETAILS");
-			System.out.println("\t\tPRODUCT ORDERED : ");
-			for(int i=0;i<x;i++) {
-			System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
-			}
-			System.out.println("\t\tCUSTOMER REQUEST: "+ specialReq);		
-			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
-			
-			System.out.println("\n\t###########################################");
-			}
-			
-		}
-	
-	public static void showReceiptAlaCarte(String staffName,int staffId,String cus_name, String date_of_order,String orderTime, String[] food,
-			   double[] price) {
-		Scanner sc = new Scanner(System.in);
-		String date_of_delivery ="" ,deliverTime="",pickDate="",pickTime="",orderId;		
-		double total = 0;
-		int x,choice;
-		//create 6-digit random number for ORDER ID 
-		orderId=Dessert.getRandomNumberString();
-
-		//User input how many type of product they want
-		System.out.println("Enter the number of item(s) to purchase:");
-		x=sc.nextInt();
-		
-		String[] foodChosen = new String[x];
-		int [] qttChosen = new int[x];
-		double[] priceChosen = new double [x];
-		
-		for(int i=0;i<x;i++) {
-			int y=i+1;
-			System.out.println("Item No. "+y);
-			choice=Dessert.getChoice();
-			foodChosen[i]=Dessert.getFoodName(food,choice);
-			qttChosen[i]=Dessert.getQuantity();
-			priceChosen[i]=Dessert.getFoodTotal(price,choice)*qttChosen[i];
-			}
-		
-		for(int i=0;i<x;i++) {
-			total=total+priceChosen[i];
-			}
-		
-		System.out.print("\nDelivery(1) or Pick-up(2)      : ");
-		int del = sc.nextInt();
-		if (del==1) {
-			System.out.println("\nWe only deliver up to 10 km from our place for RM 5.00");
-			System.out.print("Enter date of delivery (e.g., 12/2/22): ");
-			date_of_delivery = sc.next();
-			System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
-			deliverTime=sc.next();
-			System.out.println("We will deliver customer's order 15 minutes early.");
-			}
-		
-		else if(del==2) {
-			System.out.println("Enter date of Pick-up (e.g., 12/2/22): ");
-			pickDate=sc.next();
-			
-			System.out.println("Enter time to Pick-up (e.g.,12.30 P.M): ");
-			pickTime=sc.next();
-			System.out.println("\nPlease come early on the day to pick-up.");
-			}
-		
-		else
-			System.out.println("Invalid.");
-		
-		System.out.println("Customer's special request :");
-		String specialReq = sc.next();
-		if(del==1) { 		  //Delivery Receipt
-			double delRate=5;
-			System.out.println("\n\t###########################################");
-			System.out.println("\t\tCUSTOMER'S RECEIPT");
-			System.out.println("\t\tORDER ID        : " +orderId);
-			System.out.println("\n\t\tSTAFF NAME      : " +staffName);
-			System.out.println("\t\tSTAFF ID        : " +staffId);
-			System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
-			System.out.println("\t\tDATE OF BOOKING : "+ date_of_order );
-			System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
-			System.out.println("\t\tDATE TO DELIVER : "+ date_of_delivery);
-			System.out.println("\t\tTIME TO DELIVER : "+ deliverTime);
-			System.out.println("\n\t\tDETAILS");
-			System.out.println("\t\tPRODUCT ORDERED : ");
-			for(int i=0;i<x;i++) {
-			System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
-			}	
-			System.out.printf("\n\t\tSUBTOTAL        : RM%.2f", total);
-			System.out.printf("\n\t\tDELIVERY CHARGE : RM%.2f" ,delRate);
-			total=total+delRate;
-			System.out.println("\n\t\tCUSTOMER REQUEST: "+ specialReq);
-			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
-			
-			System.out.println("\n\t###########################################");
-			}
-		
-		else if(del==2) {	  //Pick-up Receipt
-			System.out.println("\n\t###########################################");
-			System.out.println("\t\tCUSTOMER'S RECEIPT");
-			System.out.println("\t\tORDER ID        : " +orderId);
-			System.out.println("\n\t\tSTAFF NAME      : " +staffName);
-			System.out.println("\t\tSTAFF ID        : " +staffId);
-			System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
-			System.out.println("\t\tDATE OF BOOKING : "+ date_of_order);
-			System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
-			System.out.println("\t\tDATE TO PICK-UP : "+ pickDate);
-			System.out.println("\t\tTIME TO PICK-UP : "+ pickTime);
-			System.out.println("\n\t\tDETAILS");
-			System.out.println("\t\tPRODUCT ORDERED : ");
-			for(int i=0;i<x;i++) {
-			System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
-			}
-			System.out.println("\t\tCUSTOMER REQUEST: "+ specialReq);		
-			System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
-			
-			System.out.println("\n\t###########################################");
-			}
-			
-		}
-	
-	public static String tarikh() {
-		System.out.println("\nPlease enter the date of month below");
-		System.out.print("Date\t: ");
-		tanggal = input.nextInt();
-		System.out.print("Month\t: ");
-		bulan = input.nextInt();
-		System.out.print("Year\t: ");
-		tahun = input.nextInt();
-
-		// tarikh2= tanggal1+bulan1+tahun1;
-		String tarikh2 = new String(), tanggal1 = Integer.toString(tanggal), bulan1 = Integer.toString(bulan),
-				tahun1 = String.valueOf(tahun);
-
-		tarikh2 = tanggal1 + "/" + bulan1 + "/" + tahun1;
-
-		return tarikh2;
-	}
-
-	// array
-	public static void listbuah() {
-
-		System.out.println("");
-
-		System.out.println("\t\t" + satu + "Fruits available now" + satu);
-		String[] barang = { "Apple🍎", "Grape🍇", "Lain\"" };
-
-		for (order = 0; order < barang.length; order++)
-			System.out.println(l++ + ". " + barang[order] + "\t");
-
-	}
-
-	public static void checkharga() {
-		System.out.println("");
-		System.out.println("🤑This system will check the price of fruit by entering the name of the fruit💰\n");
-
-		System.out.print("Enter N to stop checking fruit details\t: ");
-		choice = input.next().charAt(0);
-		System.out.println("");
-
-		while (choice != 'N') {
-
-			System.out.printf("Please enter the fruit name\t: ");
-			buah = input.next();
-
-			if (buah.equals("Grape")) {
-				fruitprice = 8;
-				System.out.printf("Fruit price per kilogram\t: " + "RM" + fruitprice + "\n");
-				System.out.print("Fruit code is\t\t\t: 111111\n");
-
-			} else if (buah.equals("Apple")) {
-				fruitprice = 10;
-				System.out.printf("Fruit price per kilogram\t: " + "RM" + fruitprice + "\n");
-				System.out.print("Fruit code is\t\t\t: 000000\n");
-
-			} else {
-				fruitprice = 15;
-				System.out.printf("Fruit price per kilogram\t: " + "RM" + fruitprice + "\n");
-				System.out.print("Fruit code is\t\t\t: xxxxxx\n");
-				System.out.println("This item is preorder");
-
-			}
-			System.out.print("\nEnter N to stop checking the price of fruit\t: ");
-			choice = input.next().charAt(0);
-
-			System.out.println("");
-		} // looping
-
-		System.out.println("\t\t" + satu + "Ready to take order" + satu);
-	}
-
-	public static void order(String cus_name,String tarikh,String orderTime) {
-		// user proceed order
-		
-		System.out.print("\nProceed if you want to order(Y/N)\t: ");
-		Y = input.next().charAt(0);
-		System.out.println();
-		String date_of_delivery = null;
-		String deliverTime = null;
-		// OTW Order
-		switch (Y) {
-
-		case 'Y':
-
-			// system taking order
-			System.out.print("Enter the number of item(s) to purchase (Only below 3): ");
-			item = input.nextInt();
-
-			fruitprice = 0;
-			// double totalorder1 ;
-
-			switch (item) {
-			case 1:
-
-				System.out.print("What do you want to order\t\t: ");
-				orderbuah = input.next();
-
-				if (orderbuah.equals("Grape")) {
-					fruitprice = 8;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else if (orderbuah.equals("Apple")) {
-					fruitprice = 10;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else {
-					fruitprice = 15;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					System.out.println("preorder");
-					// System.out.print("\n");
-				}
-
-				System.out.print("Total Kilogram you need (KG)\t\t: ");
-				kilogram1 = input.nextInt();
-
-				// Detect the price and kilogram
-				totalorder = (fruitprice * kilogram1);
-				System.out.printf("\nTotal fruit price : " + "RM%.2f" , totalorder);
-				break;
-
-			case 2:
-
-				System.out.print("What is your first order\t\t: ");
-				orderbuah = input.next();
-
-				if (orderbuah.equals("Grape")) {
-					fruitprice = 8;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else if (orderbuah.equals("Apple")) {
-					fruitprice = 10;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else {
-					fruitprice = 15;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					System.out.println("preorder");
-					// System.out.print("\n");
-				}
-
-				System.out.print("Total Kilogram for your first item (KG)\t: ");
-				kilogram1 = input.nextInt();
-				System.out.print("\n");
-
-				totalorder = fruitprice * kilogram1;
-
-				System.out.print("What is your second order\t\t: ");
-				orderbuah = input.next();
-
-				if (orderbuah.equals("Grape")) {
-					fruitprice = 8;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else if (orderbuah.equals("Apple")) {
-					fruitprice = 10;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else {
-					fruitprice = 15;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					System.out.println("preorder");
-					// System.out.print("\n");
-				}
-
-				System.out.print("Total Kilogram for your second item (KG): ");
-				kilogram2 = input.nextInt();
-
-				// Detect the price and kilogram
-				totalorder = (totalorder + (fruitprice * kilogram2));
-				System.out.printf("\nTotal fruit price : " + "RM%.2f" , totalorder);
-				break;
-
-			case 3:
-
-				System.out.print("What is your first order\t\t: ");
-				orderbuah = input.next();
-
-				if (orderbuah.equals("Grape")) {
-					fruitprice = 8;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else if (orderbuah.equals("Apple")) {
-					fruitprice = 10;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else {
-					fruitprice = 15;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					System.out.println("preorder");
-					// System.out.print("\n");
-				}
-
-				System.out.print("Total Kilogram for your first item (KG): ");
-				kilogram1 = input.nextInt();
-				System.out.print("\n");
-				totalorder = fruitprice * kilogram1;
-
-				System.out.print("What is your second order\t\t: ");
-				orderbuah = input.next();
-
-				if (orderbuah.equals("Grape")) {
-					fruitprice = 8;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else if (orderbuah.equals("Apple")) {
-					fruitprice = 10;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else {
-					fruitprice = 15;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					System.out.println("preorder");
-					// System.out.print("\n");
-				}
-
-				System.out.print("Total Kilogram for your second item (KG): ");
-				kilogram2 = input.nextInt();
-				System.out.print("\n");
-
-				totalorder = (totalorder + (fruitprice * kilogram2));
-
-				System.out.print("What is your third order\t\t: ");
-				orderbuah = input.next();
-
-				if (orderbuah.equals("Grape")) {
-					fruitprice = 8;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else if (orderbuah.equals("Apple")) {
-					fruitprice = 10;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					// System.out.print("\n");
-
-				} else {
-					fruitprice = 15;
-					System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
-					System.out.println("preorder");
-					// System.out.print("\n");
-				}
-
-				System.out.print("Total Kilogram for your third item (KG)\t: ");
-				kilogram3 = input.nextInt();
-
-				// Detect the price and kilogram
-				totalorder = (totalorder + (fruitprice * kilogram3));
-				System.out.printf("\nTotal fruit price : " + "RM%.2f" , totalorder);
-				break;
-
-			default: 
-				System.out.println("Your order is not valid");
-			}
-
-			// Stop system taking order
-
-			// discount from the spoiled fruit voucher
-
-			peratusdiskaun1 = 0;
-
-			System.out.print("\nDo you want to claim your voucher(Y/N): ");
-			claimVoucher = input.next().charAt(0);
-
-			switch (claimVoucher) {
-
-			case 'Y':
-
-				System.out.print("\nEnter your voucher code here: ");
-				peratusdiskaun1 = input.nextInt();
-
-				if (peratusdiskaun1 == 1111) {
-					System.out.println("You've claimed your 5 percent voucher");
-
-					percentage = 0.95; // detect dri kod diskaun
-					totalorder1 = (percentage * totalorder);
-					System.out.printf("Your Total fruit price is: RM%.2f", totalorder1);
-					System.out.println("");
-				} else if (peratusdiskaun1 == 1101) {
-					System.out.println("You've claimed your 8 percent voucher");
-
-					percentage = 0.92; // detect dri kod diskaun
-					totalorder1 = (percentage * totalorder);
-					System.out.printf("Your Total fruit price is: RM%.2f", totalorder1);
-					System.out.println("");
-				} else
-					System.out.println("Discount voucher not valid");
-
-				break;
-			}
-			// Stop discount from the spoiled fruit voucher
-
-			// Proceed Delivery
-			System.out.println("\nWe only deliver to Kg Bubul and Sepagaya ");
-			System.out.print("\nPlease enter Y to proceed with the delivery: ");
-			deliveryProceed = input.next().charAt(0);
-
-			switch (deliveryProceed) {
-			case 'Y':
-
-				System.out.print("Enter the delivery location\t: ");
-				
-				location = input.nextLine();
-				location = input.nextLine();
-				// Jarak perjalanan dan delivery fee
-
-				// Proceed location
-				if (location.equals("Kg Bubul")) {
-					jaraklokasi = 8;
-					cajpenghantaran = 8;
-					System.out.print("Enter date of delivery (e.g., 12/2/22): ");
-					date_of_delivery = input.next();
-					System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
-					deliverTime=input.next();
-					System.out.println("We will deliver customer's order 15 minutes early.");
-					System.out.println("Location distance\t\t: " + jaraklokasi + "KM");
-					System.out.println("Delivery fee to " + location + "\t: RM" + cajpenghantaran);
-					
-					total = totalorder + cajpenghantaran;
-					
-
-				} else if (location.equals("Sepagaya")) {
-					jaraklokasi = 5;
-					cajpenghantaran = 5;
-					System.out.print("Enter date of delivery (e.g., 12/2/22): ");
-					date_of_delivery = input.next();
-					System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
-					deliverTime=input.next();
-					System.out.println("We will deliver customer's order 15 minutes early.");
-					System.out.println("Location distance\t\t: " + jaraklokasi + "KM");
-					System.out.println("Delivery fee to " + location + "\t: RM" + cajpenghantaran);
-
-					total = totalorder + cajpenghantaran;
-
-				} else {
-
-					System.out.println("Sorry your address is not in our delivery range");
-
-					total = totalorder + cajpenghantaran;
-				}
-				// Stop proceed location
-				break;
-				
-				
-
-			}
-			// Stop proceed Delivery
-			//create 6-digit random number for ORDER ID 
-			String orderId=Dessert.getRandomNumberString();
-			// system check the total cost
-			System.out.println("\n\t###########################################");
-			System.out.println("\t\tCUSTOMER'S RECEIPT");
-			System.out.println("\t\tORDER ID        : " +orderId);
-			System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
-			System.out.println("\t\tDATE OF ORDER   : "+ tarikh );
-			System.out.println("\t\tTIME OF ORDER   : "+ orderTime);
-			System.out.println("\t\tDATE TO DELIVER : "+ date_of_delivery);
-			System.out.println("\t\tTIME TO DELIVER : "+ deliverTime);
-			System.out.println("\n\t\tDETAILS");			
-			System.out.printf("\t\tTOTAL PAYMENT   : RM%.2f", total);
-			
-			System.out.println("\n\t###########################################");
-		
-			System.out.println("\n\t\tThank you for purchasing with us.\n");
-
-			break;
-		// Stop OTW Order
-
-		case 'N':
-			System.out.println("\n\t\tWe're sorry to see you go. Thank You\n");
-		}// to not proceed order
-
-		// Stop user proceed order
-
-	}
-
-	public static void resistancecondition() {
-		// call method return_array that returns array
-		String[] str_Array = return_Array();
-		System.out.println("Fruit resistant in:\n" + Arrays.toString(str_Array) + " condition\n");
-
-	}
-
-	// passing array to method
-	public static String[] return_Array() {
-		// define string array
-		String[] ret_Array = { "\"RTP\"", "\"Refrigerator", "Freezer\"", "\"RTP/Refrigerator\"", "\"RTP/Freezer\"",
-				"\"Refrigerator/Freezer\"", "\"RTP/Refrigerator/Freezer\"" };
-		// return string array
-		return ret_Array;
-	}
-
-	public static void resistance() {
-
-		// Fruit Resistance
-		System.out.print("Do you want to check the resistance of the fruits received(Y/N)?: ");
-		checkFruitResistance = input.next().charAt(0);
-
-		while (checkFruitResistance != 'N') {
-
-			// System check the fruit details
-			System.out.println("System to check the resistance of the fruits received\n");
-
-			System.out.print("Enter the fruit name or code: ");
-			buah1 = input.next();
-
-			// System.out.print("Enter the fruit code: ");
-			// code=input.nextInt();//(6 number) Code buah terletak pada setiap buah merujuk
-			// kepada tarikh iya dipetik/ketahann dlm pelbagai keadaan
-
-			switch (buah1) {
-
-			case "00000011":
-			case "Apple":
-
-				// Check details
-
-				// suhu bilik
-				
-				System.out.print("Enter the fruit storage method(RTP/Refrigerator/Freezer): ");
-
-				suhubilik = input.next();
-
-				switch (suhubilik) {
-
-				case "RTP":
-					System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
-					System.out.println("Fruit durability to date: " + "10.12.2021");
-					// ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
-					break;
-
-				case "Refrigerator":
-					System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
-					System.out.println("Fruit durability to date: " + "20.12.2021");
-					break;
-
-				case "Freezer":
-					System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
-					System.out.println("Fruit durability to date: " + "30.12.2021");
-					break;
-
-				case "RTP/Refrigerator":
-					System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
-					System.out.println("Fruit durability to date: " + "10.12.2021");
-					// ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
-
-					System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
-					System.out.println("Fruit durability to date: " + "20.12.2021");
-					break;
-
-				case "RTP/Freezer":
-					System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
-					System.out.println("Fruit durability to date: " + "10.12.2021");
-					// ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
-
-					System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
-					System.out.println("Fruit durability to date: " + "30.12.2021");
-					break;
-
-				case "Refrigerator/Freezer":
-					System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
-					System.out.println("Fruit durability to date: " + "20.12.2021");
-
-					System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
-					System.out.println("Fruit durability to date: " + "30.12.2021");
-					break;
-
-				case "RTP/Refrigerator/Freezer":
-					System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
-					System.out.println("Fruit durability to date: " + "10.12.2021");
-					// ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
-
-					System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
-					System.out.println("Fruit durability to date: " + "20.12.2021");
-
-					System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
-					System.out.println("Fruit durability to date: " + "30.12.2021");
-					break;
-
-				}
-				break;
-
-			case "Grape":
-			case "11111100":
-
-				// Check details
-
-				// suhu bilik
-				
-				System.out.print("Enter the fruit storage method(RTP/Refrigerator/Freezer): ");
-
-				suhubilik = input.next();
-
-				switch (suhubilik) {
-
-				case "RTP":
-					System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
-					System.out.println("Fruit durability to date: " + "10.12.2021");
-					// ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
-					break;
-
-				case "Refrigerator":
-					System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
-					System.out.println("Fruit durability to date: " + "20.12.2021");
-					break;
-
-				case "Freezer":
-					System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
-					System.out.println("Fruit durability to date: " + "30.12.2021");
-					break;
-
-				case "RTP/Refrigerator":
-					System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
-					System.out.println("Fruit durability to date: " + "10.12.2021");
-					// ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
-
-					System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
-					System.out.println("Fruit durability to date: " + "20.12.2021");
-					break;
-
-				case "RTP/Freezer":
-					System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
-					System.out.println("Fruit durability to date: " + "10.12.2021");
-					// ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
-
-					System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
-					System.out.println("Fruit durability to date: " + "30.12.2021");
-					break;
-
-				case "Refrigerator/Freezer":
-					System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
-					System.out.println("Fruit durability to date: " + "20.12.2021");
-
-					System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
-					System.out.println("Fruit durability to date: " + "30.12.2021");
-					break;
-
-				case "RTP/Refrigerator/Freezer":
-					System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
-					System.out.println("Fruit durability to date: " + "10.12.2021");
-					// ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
-
-					System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
-					System.out.println("Fruit durability to date: " + "20.12.2021");
-
-					System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
-					System.out.println("Fruit durability to date: " + "30.12.2021");
-					break;
-
-				}
-				break;
-			// no more case anggur apple
-
-			default:
-				System.out.println("Please reach our staff");
-				break;
-			}
-			// Stop System check the fruit details
-
-			System.out.println("");
-			System.out.print("Do you want to check the resistance of the fruits received again(Y/N)?: ");
-			checkFruitResistance = input.next().charAt(0);
-			// Stop system check fruit resistance
-
-		}}
-
-	public static void discount() {
-		// claim coupon discount
-		System.out.print("Enter Y to claim your voucher here: ");
-		GetVoucher = input.next().charAt(0);
-
-		switch (GetVoucher) {
-
-		case 'Y':
-
-			System.out.println(
-					"Send your spoiled fruits to our marchandise and get up to 5 percent off from SDN for every purchase you made with us.");
-
-			System.out.print("Please enter the total weight of your spoiled fruit(gram): ");
-			gram = input.nextInt();
-			System.out.println("");
-
-			if (gram <= 499) {
-				System.out.println("\n\n\nYou are not valid to claim voucher yet");
-				gramneeded = 500 - gram;
-				System.out.println("You need another " + gramneeded + "gram");
-			} else if (gram >= 500 && gram <= 999) {
-				System.out.println("You just got a 5% voucher code");
-				System.out.println("Use the code below for your next purchase with us");
-				System.out.println("1111");
-			} else {
-				System.out.println("You just got a 8% voucher code");
-				System.out.println("Use the code below for your next purchase with us");
-				System.out.println("1101");
-
-			}
-
-			System.out.println("\n\n\nThank you for your contribution");
-			break;
-
-		default :
-			System.out.println("\n\n\nThank You for using our service");
-
-		}
-		// Stop claim coupon discount
-
-		System.out.println("Have a nice day");
-		input.close();
-	}
-	
-	public static int getTypeForProductInfo() {
-		// This method will return the type to main() whether e.g. 1-Tart,2-Pie or 3-Pudding
-		//declare and assign array donate
-		 	Scanner sc = new Scanner (System.in);
-			int num2;
-			
-			System.out.println("---------------Welcome to Product Information---------------- ");
-		    System.out.println("List of products: ");
-		    System.out.println("1-Grape ");
-		    System.out.println("2-Apple");
-		    // input 1 or 2 to view the information
-		    System.out.println("\nChoose 1 or 2 to view the information of Grape or Apple respectively.");
-		    num2=sc.nextInt();
-		    
-		    return num2;
-	 }
-	
-	public static String[] getInfoForProduct() {
-		 //This method will return the info from the array based on the type specified to main ()
-		//Declare and assign array product
-		 String[] product = {"A grape is a fruit, botanically a berry, of the deciduous woody vines of the flowering plant genus Vitis."
-		 					+ " \nGrapes can be eaten fresh as table grapes, used for making wine, jam, grape juice, jelly, grape seed extract,"
-		 					+ ""
-		 					+ "n vinegar, and grape seed oil, or dried as raisins, currants and sultanas",
-		 					"An apple is an edible fruit produced by an apple tree. Apple trees are cultivated worldwide and are the most widely grown species in the genus Malus."
-		 					+ " \nThe tree originated in Central Asia, where its wild ancestor, Malus sieversii, is still found today."};
-		 return product;
-	}
-	
+  static String satu = "😄";
+
+  static Scanner input = new Scanner(System.in);
+
+  public static void main(String[] args) {
+    System.out.println("\n----------------------Welcome to Fruit Shop---------------------");
+    
+    System.out.print("Do you want to join a survey about Healthy Life? (Y=Yes or N=No):");
+    con=input.next().charAt(0);
+    
+    if(con=='Y')
+      Rice.showSurvey();
+          
+    Dessert.showMainMenu();
+    num=input.nextInt();
+    
+    if(num==1) {
+    
+    do {
+      Dessert.showMainMenuStaff();
+          num1 = input.nextInt();
+      
+      if(num1==1)
+        getInputOutput();
+      
+      else if(num1==2) {
+        getDailyProfit();
+      }
+      else if (num1==3) {
+        
+        do {
+          System.out.println("\n----------------BOOKING AND ORDER-------------");
+          System.out.println("1-Fruit Order");
+          System.out.println("2-Ala Carte");
+          System.out.println("3-Back to Main Menu");
+          num2=input.nextInt();
+          
+          if(num2==1) {      
+            getCustomerOrder(staffName,staffId);
+            resistancecondition();
+            resistance();
+            
+          }
+          
+          else if(num2==2) {
+            //this is the Ala carte system which customers can customize their order
+            System.out.println("\n------------ ALA CARTE SYSTEM------------");
+            //get staff details
+            System.out.println("Staff Details:");
+            staffName=Rice.getName(staffName);
+              staffId=Rice.getStaffId(staffId);
+            System.out.println("\nWelcome "+staffName+"!");
+          //get customer details
+            System.out.print("\nEnter customer's name : ");
+          cus_name = input.next();
+          System.out.print("Enter date of booking (e.g.,1/2/22): ");
+          date_of_booking = input.next();
+          System.out.print("Enter time of booking (e.g.,1.30P.M): ");
+          orderTime = input.next();
+        
+          String [] food = {"Apple(5pc)", "Grape(1Box)","Orange(5pc)" };
+          double [] price = {8.00, 15.00, 10.00};
+        
+          //return 2 data (food and price)
+          FastFood.showMenu(food, price);
+        
+          showReceiptAlaCarte(staffName,staffId,cus_name,date_of_booking,orderTime, food, price);
+          }
+          }while(num2!=3);
+      }
+                 
+    else
+      System.out.println("Thank you for using our system!");
+    }while(num1!=4);
+  }
+    
+    //customer code
+    else if(num==2) {
+      do {
+        Dessert.showMainMenuCustomer();
+          num1 = input.nextInt();
+          
+          if(num1==1) {
+            getSelfOrder();
+          }
+          else if(num1==2) {
+            do {
+            System.out.println("\n----------------View Information-------------");
+            System.out.println("1-View Donation Centre");
+            System.out.println("2-View Product Information");
+            System.out.println("3-Back to Main Menu");
+            num2=input.nextInt();
+        
+            if (num2==1) {
+
+
+String [] a = Dessert.getInfoForDonationCentre();
+              int x = Dessert.getTypeForDonationCentre();
+            if(x==1)
+              System.out.println(a[0]);
+            else if(x==2)
+              System.out.println(a[1]);
+            }
+            else if(num2==2) {
+            String [] b = getInfoForProduct();
+            int x = getTypeForProductInfo();
+            if(x==1)
+              System.out.println(b[0]);
+            else if(x==2)
+              System.out.println(b[1]);
+            }
+            }while(num2!=3);
+          }
+          else
+          System.out.println("Thank you for using our system!");
+      }while(num1!=3);
+    }
+    
+      
+
+  }
+  
+  public static void getInputOutput() {
+    Scanner sc = new Scanner (System.in);
+
+    
+    System.out.println("\n---------------Welcome to Input and Output Data---------------- ");
+    //declare variable for number of product type
+    int x;
+    
+    //input amount of product type
+    System.out.println("Please enter the number of product types:");
+    x = sc.nextInt();
+    
+    //declare all the array for each of the product type
+    double[]  productSoldLastMonth = new double [x];
+      int [] productMade   = new int [x];
+      int [] productSold   = new int [x];
+      int [] productLeft   = new int [x];
+      int [] productDonate = new int [x];
+      
+    // declare an array for productName[]
+    String [] productName = new String [x];
+    
+    // input product name for every product type
+    System.out.println("Please enter the products name:");
+    for(int i =0; i<productName.length; i++) {
+      productName[i] = sc.next();
+    }
+                
+    for(int i =0; i<productName.length; i++) {
+          
+      //User input product sold last month
+      System.out.println("\nPlease enter the amounts of "+productName[i]+" sold last month:");
+      productSoldLastMonth[i] = sc.nextDouble();
+
+      //User input product made today
+      System.out.println("\nPlease enter the amounts of "+productName[i]+" bought this month:");
+      productMade[i] = sc.nextInt();
+
+      //User input product sold today
+      System.out.println("Please enter the amounts of "+productName[i]+" sold this month:");
+      productSold[i] = sc.nextInt();
+
+      //Calculation for leftovers product
+      productLeft[i]= productMade[i]-productSold[i];
+      
+      //Calculation for product donated to be equally distributed
+      productDonate[i]=productLeft[i]/2;
+      
+    }
+    
+    
+    System.out.println("\nAmounts of product donated to food bank:");
+    for(int i =0; i<productName.length; i++) {
+      //Output the amount of product donated to food bank      
+      System.out.println(productName[i]+" donated is " + productDonate[i]+" PACK");
+    }
+    
+    System.out.println("\nAmount of product donated to homeless people:");
+    for(int i =0; i<productName.length; i++) {
+      //Output the amount of product donated to homeless people    
+      System.out.println(productName[i]+" donated is " + productDonate[i]+" PACK");
+    }
+   }
+  
+  public static void getDailyProfit() {
+    Scanner sc = new Scanner(System.in);
+    String username;
+    String day,date;
+    int  employee;
+    double salary,bill1,bill2,totalBillPrice,rentalCosts,hiddenCosts,netProfits;
+    System.out.println("\n------------ DAILY PROFIT CALCULATION SYSTEM------------");
+    System.out.println("\nDo you want to know your profit amount today?");
+    System.out.println("You need to enter all the details below.");
+    System.out.println();
+    //user need to enter their name, day and date 
+    System.out.print("Username : ");
+    username = sc.next();
+    System.out.print("Day : ");
+    day = sc.next();
+    System.out.print("Date: ");
+    date = sc.next();
+    //user need to enter how much the available fast food and beverage for that day
+    //declare variable for number of product type
+    int x;
+    double sum = 0;
+    //input amount of product type
+    System.out.print("Number of available fruit : ");
+    x = sc.nextInt();
+    String [] fruitName   = new String [x];
+    double [] fruitSold   = new double [x];
+    // input product name for every product type
+    System.out.println("Please enter the fruit name:");
+    for(int i =0; i<fruitName.length; i++) {
+      fruitName[i] = sc.next();
+    }  
+    //calculate the gross profit
+    for(int i =0; i<fruitName.length; i++) {
+      System.out.print("Please enter the total price for "+fruitName[i]+" sold today: RM");
+      fruitSold[i] = sc.nextDouble();
+      sum+=fruitSold[i];
+    }
+    
+    System.out.printf("\nYour gross profit for today is RM%.2f" , sum);
+    //calculate the hidden costs
+    System.out.print("\nEnter the number of employee you have : ");
+    employee=sc.nextInt();
+    
+    System.out.print("\nEnter employee's daily wage : RM");
+    salary=sc.nextDouble();
+    //Let RM 3000 as rent price for a month, so RM3000/30=RM100
+    System.out.print("Enter daily store rental costs : RM");
+    rentalCosts=sc.nextDouble();
+    //let RM900 be the basic a month electric bill, so RRM900/30=RM30 
+    System.out.print("Enter daily electric bill price : RM");
+    bill1=sc.nextDouble();
+    //let RM200 be the basic a month electric bill, so RM300/30=RM10 
+    System.out.print("Enter daily water bill price : RM");
+    bill2=sc.nextDouble();
+    
+    totalBillPrice = bill1 + bill2;
+    System.out.printf("Total bill price : RM%.2f " , totalBillPrice);
+    
+    hiddenCosts = employee*salary + rentalCosts +  totalBillPrice;
+    System.out.printf("\nYour hidden costs is RM%.2f" , hiddenCosts);
+    
+    //calculate the net profit
+    netProfits = sum - hiddenCosts;
+    System.out.printf("\nYour net profit for today is RM%.2f " , netProfits);
+    System.out.println();
+    System.out.println();
+    
+    System.out.println("\t\t**************************************************");
+    System.out.println("\t\t**********************Summary*********************");    
+    System.out.println("\t\tUsername : " + username);
+    System.out.println("\t\tDay : " + day);
+    System.out.println("\t\tDate: " + date);
+    System.out.println("\t\tNumber of available fruit: " + x);
+    System.out.println("\t\tAvailable fruit: " );
+    for(int i =0; i<fruitName.length; i++) {
+      System.out.println("\t\t--> " + fruitName[i]);
+    }
+
+
+System.out.printf("\n\t\tGross profit for today is RM%.2f" , sum);
+    System.out.printf("\n\t\tNet profit for today is RM%.2f " , netProfits);
+    System.out.println();
+    System.out.println("\n\t\t**************************************************");
+    System.out.println("\t\t**************************************************");
+  }
+  
+  public static void getCustomerOrder(String staffName2, int staffId2) {
+    Scanner sc = new Scanner (System.in);
+    String tarikh;
+    System.out.println("\n------------BULK ORDER SYSTEM------------");
+    //get staff detail
+    System.out.println("Staff Details:");
+    staffName=Rice.getName(staffName);
+      staffId=Rice.getStaffId(staffId);
+    System.out.println("\nWelcome "+staffName+"!");
+    System.out.println("\nDo you have booking from customers?");
+    System.out.println("You need to enter all the customer's details and customer orders below.");
+    //get customer's detail
+    System.out.print("\nEnter customer's name : ");
+    cus_name = sc.next();
+    
+    System.out.print("Enter time of booking (e.g.,1.20P.M): ");
+    orderTime = sc.next();
+    
+    tarikh=tarikh();    
+    listbuah();
+    checkharga();
+    order(cus_name,tarikh,orderTime);
+    
+    
+  }
+  
+  public static void getSelfOrder() {
+    Scanner sc=new Scanner(System.in);
+    
+    String name,date_of_order,orderDay,orderTime;
+    
+    //this is the Ala carte system which customers can customize their order
+    System.out.println("\n------------ WELCOME TO SELF-ORDER SYSTEM------------");
+    System.out.print("\nEnter your name : ");
+    name = sc.next();
+    System.out.print("Enter date of order (e.g., 12/2/22): ");
+    date_of_order = sc.next();  
+    System.out.print("Enter day of order (e.g.,SATURDAY): ");
+    orderDay = sc.next();
+    System.out.print("Enter time of order (e.g.,12.30 P.M): ");
+    orderTime = sc.next();
+  
+    String [] food = {"Apple(5pc)", "Grape(1Box)","Orange(5pc)" };
+    double [] price = {5.00, 5.00, 5.00};
+    
+    //return 2 data (food and price)
+    FastFood.showMenu(food, price);
+  
+    showReceiptSelfOrder(name,date_of_order,orderDay, food, price); 
+
+    }
+  
+  public static void showReceiptSelfOrder(String name, String date_of_order,String orderTime, String[] food,
+         double[] price) {
+    Scanner sc = new Scanner(System.in);
+    String date_of_delivery ="" ,deliverTime="",pickDate="",pickTime="",orderId;    
+    double total = 0;
+    int x,choice;
+    //create 6-digit random number for ORDER ID 
+    orderId=Dessert.getRandomNumberString();
+
+
+//User input how many type of product they want
+    System.out.println("Enter the number of item(s) to purchase:");
+    x=sc.nextInt();
+    
+    String[] foodChosen = new String[x];
+    int [] qttChosen = new int[x];
+    double[] priceChosen = new double [x];
+    
+    for(int i=0;i<x;i++) {
+      int y=i+1;
+      System.out.println("Item No. "+y);
+      choice=Dessert.getChoice();
+      foodChosen[i]=Dessert.getFoodName(food,choice);
+      qttChosen[i]=Dessert.getQuantity();
+      priceChosen[i]=Dessert.getFoodTotal(price,choice)*qttChosen[i];
+      }
+    
+    for(int i=0;i<x;i++) {
+      total=total+priceChosen[i];
+      }
+    
+    System.out.print("\nDelivery(1) or Pick-up(2)      : ");
+    int del = sc.nextInt();
+    if (del==1) {
+      System.out.println("\nWe only deliver up to 10 km from our place for RM 5.00");
+      System.out.print("Enter date of delivery (e.g., 12/2/22): ");
+      date_of_delivery = sc.next();
+      System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
+      deliverTime=sc.next();
+      System.out.println("We will deliver customer's order 15 minutes early.");
+      }
+    
+    else if(del==2) {
+      System.out.println("Enter date of Pick-up (e.g., 12/2/22): ");
+      pickDate=sc.next();
+      
+      System.out.println("Enter time to Pick-up (e.g.,12.30 P.M): ");
+      pickTime=sc.next();
+      System.out.println("\nPlease come early on the day to pick-up.");
+      }
+    
+    else
+      System.out.println("Invalid.");
+    
+    System.out.println("Customer's special request :");
+    String specialReq = sc.next();
+    if(del==1) {       //Delivery Receipt
+      double delRate=5;
+      System.out.println("\n\t###########################################");
+      System.out.println("\t\tCUSTOMER'S RECEIPT");
+      System.out.println("\t\tORDER ID        : " +orderId);
+      System.out.println("\t\tCUSTOMER NAME   : " +name);
+      System.out.println("\t\tDATE OF BOOKING : "+ date_of_order );
+      System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
+      System.out.println("\t\tDATE TO DELIVER : "+ date_of_delivery);
+      System.out.println("\t\tTIME TO DELIVER : "+ deliverTime);
+      System.out.println("\n\t\tDETAILS");
+      System.out.println("\t\tPRODUCT ORDERED : ");
+      for(int i=0;i<x;i++) {
+      System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+      }  
+      System.out.printf("\n\t\tSUBTOTAL        : RM%.2f", total);
+      System.out.printf("\n\t\tDELIVERY CHARGE : RM%.2f" ,delRate);
+      total=total+delRate;
+      System.out.println("\n\t\tCUSTOMER REQUEST: "+ specialReq);
+      System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+      
+      System.out.println("\n\t###########################################");
+      }
+    
+    else if(del==2) {    //Pick-up Receipt
+      System.out.println("\n\t###########################################");
+      System.out.println("\t\tCUSTOMER'S RECEIPT");
+      System.out.println("\t\tORDER ID        : " +orderId);
+      System.out.println("\t\tCUSTOMER NAME   : " +name);
+      System.out.println("\t\tDATE OF BOOKING : "+ date_of_order);
+      System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
+      System.out.println("\t\tDATE TO PICK-UP : "+ pickDate);
+      System.out.println("\t\tTIME TO PICK-UP : "+ pickTime);
+      System.out.println("\n\t\tDETAILS");
+      System.out.println("\t\tPRODUCT ORDERED : ");
+      for(int i=0;i<x;i++) {
+      System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+      }
+      System.out.println("\t\tCUSTOMER REQUEST: "+ specialReq);    
+      System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+      
+      System.out.println("\n\t###########################################");
+      }
+      
+    }
+  
+  public static void showReceiptAlaCarte(String staffName,int staffId,String cus_name, String date_of_order,String orderTime, String[] food,
+         double[] price) {
+    Scanner sc = new Scanner(System.in);
+    String date_of_delivery ="" ,deliverTime="",pickDate="",pickTime="",orderId;    
+    double total = 0;
+    int x,choice;
+
+
+//create 6-digit random number for ORDER ID 
+    orderId=Dessert.getRandomNumberString();
+
+    //User input how many type of product they want
+    System.out.println("Enter the number of item(s) to purchase:");
+    x=sc.nextInt();
+    
+    String[] foodChosen = new String[x];
+    int [] qttChosen = new int[x];
+    double[] priceChosen = new double [x];
+    
+    for(int i=0;i<x;i++) {
+      int y=i+1;
+      System.out.println("Item No. "+y);
+      choice=Dessert.getChoice();
+      foodChosen[i]=Dessert.getFoodName(food,choice);
+      qttChosen[i]=Dessert.getQuantity();
+      priceChosen[i]=Dessert.getFoodTotal(price,choice)*qttChosen[i];
+      }
+    
+    for(int i=0;i<x;i++) {
+      total=total+priceChosen[i];
+      }
+    
+    System.out.print("\nDelivery(1) or Pick-up(2)      : ");
+    int del = sc.nextInt();
+    if (del==1) {
+      System.out.println("\nWe only deliver up to 10 km from our place for RM 5.00");
+      System.out.print("Enter date of delivery (e.g., 12/2/22): ");
+      date_of_delivery = sc.next();
+      System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
+      deliverTime=sc.next();
+      System.out.println("We will deliver customer's order 15 minutes early.");
+      }
+    
+    else if(del==2) {
+      System.out.println("Enter date of Pick-up (e.g., 12/2/22): ");
+      pickDate=sc.next();
+      
+      System.out.println("Enter time to Pick-up (e.g.,12.30 P.M): ");
+      pickTime=sc.next();
+      System.out.println("\nPlease come early on the day to pick-up.");
+      }
+    
+    else
+      System.out.println("Invalid.");
+    
+    System.out.println("Customer's special request :");
+    String specialReq = sc.next();
+    if(del==1) {       //Delivery Receipt
+      double delRate=5;
+      System.out.println("\n\t###########################################");
+      System.out.println("\t\tCUSTOMER'S RECEIPT");
+      System.out.println("\t\tORDER ID        : " +orderId);
+      System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+      System.out.println("\t\tSTAFF ID        : " +staffId);
+      System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
+      System.out.println("\t\tDATE OF BOOKING : "+ date_of_order );
+      System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
+      System.out.println("\t\tDATE TO DELIVER : "+ date_of_delivery);
+      System.out.println("\t\tTIME TO DELIVER : "+ deliverTime);
+      System.out.println("\n\t\tDETAILS");
+      System.out.println("\t\tPRODUCT ORDERED : ");
+      for(int i=0;i<x;i++) {
+      System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+      }  
+      System.out.printf("\n\t\tSUBTOTAL        : RM%.2f", total);
+      System.out.printf("\n\t\tDELIVERY CHARGE : RM%.2f" ,delRate);
+      total=total+delRate;
+      System.out.println("\n\t\tCUSTOMER REQUEST: "+ specialReq);
+      System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+      
+      System.out.println("\n\t###########################################");
+      }
+    
+    else if(del==2) {    //Pick-up Receipt
+      System.out.println("\n\t###########################################");
+      System.out.println("\t\tCUSTOMER'S RECEIPT");
+      System.out.println("\t\tORDER ID        : " +orderId);
+      System.out.println("\n\t\tSTAFF NAME      : " +staffName);
+      System.out.println("\t\tSTAFF ID        : " +staffId);
+      System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
+      System.out.println("\t\tDATE OF BOOKING : "+ date_of_order);
+      System.out.println("\t\tTIME OF BOOKING : "+ orderTime);
+      System.out.println("\t\tDATE TO PICK-UP : "+ pickDate);
+      System.out.println("\t\tTIME TO PICK-UP : "+ pickTime);
+      System.out.println("\n\t\tDETAILS");
+      System.out.println("\t\tPRODUCT ORDERED : ");
+      for(int i=0;i<x;i++) {
+      System.out.println("\t\t -"+foodChosen[i]+"x"+qttChosen[i]);
+      }
+      System.out.println("\t\tCUSTOMER REQUEST: "+ specialReq);    
+      System.out.printf("\n\t\tTOTAL PAYMENT   : RM%.2f", total);
+      
+      System.out.println("\n\t###########################################");
+      }
+      
+    }
+
+public static String tarikh() {
+    System.out.println("\nPlease enter the date of month below");
+    System.out.print("Date\t: ");
+    tanggal = input.nextInt();
+    System.out.print("Month\t: ");
+    bulan = input.nextInt();
+    System.out.print("Year\t: ");
+    tahun = input.nextInt();
+
+    // tarikh2= tanggal1+bulan1+tahun1;
+    String tarikh2 = new String(), tanggal1 = Integer.toString(tanggal), bulan1 = Integer.toString(bulan),
+        tahun1 = String.valueOf(tahun);
+
+    tarikh2 = tanggal1 + "/" + bulan1 + "/" + tahun1;
+
+    return tarikh2;
+  }
+
+  // array
+  public static void listbuah() {
+
+    System.out.println("");
+
+    System.out.println("\t\t" + satu + "Fruits available now" + satu);
+    String[] barang = { "Apple🍎", "Grape🍇", "Lain\"" };
+
+    for (order = 0; order < barang.length; order++)
+      System.out.println(l++ + ". " + barang[order] + "\t");
+
+  }
+
+  public static void checkharga() {
+    System.out.println("");
+    System.out.println("🤑This system will check the price of fruit by entering the name of the fruit💰\n");
+
+    System.out.print("Enter N to stop checking fruit details\t: ");
+    choice = input.next().charAt(0);
+    System.out.println("");
+
+    while (choice != 'N') {
+
+      System.out.printf("Please enter the fruit name\t: ");
+      buah = input.next();
+
+      if (buah.equals("Grape")) {
+        fruitprice = 8;
+        System.out.printf("Fruit price per kilogram\t: " + "RM" + fruitprice + "\n");
+        System.out.print("Fruit code is\t\t\t: 111111\n");
+
+      } else if (buah.equals("Apple")) {
+        fruitprice = 10;
+        System.out.printf("Fruit price per kilogram\t: " + "RM" + fruitprice + "\n");
+        System.out.print("Fruit code is\t\t\t: 000000\n");
+
+      } else {
+        fruitprice = 15;
+        System.out.printf("Fruit price per kilogram\t: " + "RM" + fruitprice + "\n");
+        System.out.print("Fruit code is\t\t\t: xxxxxx\n");
+        System.out.println("This item is preorder");
+
+      }
+      System.out.print("\nEnter N to stop checking the price of fruit\t: ");
+      choice = input.next().charAt(0);
+
+      System.out.println("");
+    } // looping
+
+    System.out.println("\t\t" + satu + "Ready to take order" + satu);
+  }
+
+  public static void order(String cus_name,String tarikh,String orderTime) {
+    // user proceed order
+    
+    System.out.print("\nProceed if you want to order(Y/N)\t: ");
+    Y = input.next().charAt(0);
+    System.out.println();
+    
+    
+    test(cus_name, tarikh, orderTime);
+  }
+    public static void test(String cus_name,String tarikh,String orderTime) {
+      String date_of_delivery = null;
+      String deliverTime = null;
+    // OTW Order
+    switch (Y) {
+
+    case 'Y':
+
+      // system taking order
+      System.out.print("Enter the number of item(s) to purchase (Only below 3): ");
+      item = input.nextInt();
+
+      fruitprice = 0;
+      // double totalorder1 ;
+
+      switch (item) {
+      case 1:
+
+        System.out.print("What do you want to order\t\t: ");
+        orderbuah = input.next();
+
+        if (orderbuah.equals("Grape")) {
+          fruitprice = 8;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+        } else if (orderbuah.equals("Apple")) {
+          fruitprice = 10;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+        } else {
+          fruitprice = 15;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          System.out.println("preorder");
+          // System.out.print("\n");
+        }
+
+        System.out.print("Total Kilogram you need (KG)\t\t: ");
+        kilogram1 = input.nextInt();
+
+        // Detect the price and kilogram
+        totalorder = (fruitprice * kilogram1);
+        System.out.printf("\nTotal fruit price : " + "RM%.2f" , totalorder);
+        break;
+
+      case 2:
+
+        System.out.print("What is your first order\t\t: ");
+        orderbuah = input.next();
+
+
+if (orderbuah.equals("Grape")) {
+          fruitprice = 8;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+        } else if (orderbuah.equals("Apple")) {
+          fruitprice = 10;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+        } else {
+          fruitprice = 15;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          System.out.println("preorder");
+          // System.out.print("\n");
+        }
+
+        System.out.print("Total Kilogram for your first item (KG)\t: ");
+        kilogram1 = input.nextInt();
+        System.out.print("\n");
+
+        totalorder = fruitprice * kilogram1;
+
+        System.out.print("What is your second order\t\t: ");
+        orderbuah = input.next();
+
+        if (orderbuah.equals("Grape")) {
+          fruitprice = 8;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+        } else if (orderbuah.equals("Apple")) {
+          fruitprice = 10;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+        } else {
+          fruitprice = 15;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          System.out.println("preorder");
+          // System.out.print("\n");
+        }
+
+        System.out.print("Total Kilogram for your second item (KG): ");
+        kilogram2 = input.nextInt();
+
+        // Detect the price and kilogram
+        totalorder = (totalorder + (fruitprice * kilogram2));
+        System.out.printf("\nTotal fruit price : " + "RM%.2f" , totalorder);
+        break;
+
+      case 3:
+
+        System.out.print("What is your first order\t\t: ");
+        orderbuah = input.next();
+
+        if (orderbuah.equals("Grape")) {
+          fruitprice = 8;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+        } else if (orderbuah.equals("Apple")) {
+          fruitprice = 10;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+        } else {
+          fruitprice = 15;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          System.out.println("preorder");
+          // System.out.print("\n");
+        }
+
+        System.out.print("Total Kilogram for your first item (KG): ");
+        kilogram1 = input.nextInt();
+        System.out.print("\n");
+        totalorder = fruitprice * kilogram1;
+
+        System.out.print("What is your second order\t\t: ");
+        orderbuah = input.next();
+
+        if (orderbuah.equals("Grape")) {
+          fruitprice = 8;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+        } else if (orderbuah.equals("Apple")) {
+          fruitprice = 10;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+        } else {
+          fruitprice = 15;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          System.out.println("preorder");
+          // System.out.print("\n");
+        }
+
+        System.out.print("Total Kilogram for your second item (KG): ");
+        kilogram2 = input.nextInt();
+        System.out.print("\n");
+
+        totalorder = (totalorder + (fruitprice * kilogram2));
+
+        System.out.print("What is your third order\t\t: ");
+        orderbuah = input.next();
+
+        if (orderbuah.equals("Grape")) {
+          fruitprice = 8;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+
+        } else if (orderbuah.equals("Apple")) {
+          fruitprice = 10;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          // System.out.print("\n");
+
+        } else {
+          fruitprice = 15;
+          System.out.printf("Fruit price per kilogram\t\t: " + "RM" + fruitprice + "\n");
+          System.out.println("preorder");
+          // System.out.print("\n");
+        }
+
+        System.out.print("Total Kilogram for your third item (KG)\t: ");
+        kilogram3 = input.nextInt();
+
+        // Detect the price and kilogram
+        totalorder = (totalorder + (fruitprice * kilogram3));
+        System.out.printf("\nTotal fruit price : " + "RM%.2f" , totalorder);
+        break;
+
+      default: 
+        System.out.println("Your order is not valid");
+      }
+
+      // Stop system taking order
+
+      // discount from the spoiled fruit voucher
+
+      peratusdiskaun1 = 0;
+
+      System.out.print("\nDo you want to claim your voucher(Y/N): ");
+      claimVoucher = input.next().charAt(0);
+
+      switch (claimVoucher) {
+
+      case 'Y':
+
+        System.out.print("\nEnter your voucher code here: ");
+        peratusdiskaun1 = input.nextInt();
+
+        if (peratusdiskaun1 == 1111) {
+          System.out.println("You've claimed your 5 percent voucher");
+
+          percentage = 0.95; // detect dri kod diskaun
+          totalorder1 = (percentage * totalorder);
+          System.out.printf("Your Total fruit price is: RM%.2f", totalorder1);
+          System.out.println("");
+        } else if (peratusdiskaun1 == 1101) {
+          System.out.println("You've claimed your 8 percent voucher");
+
+          percentage = 0.92; // detect dri kod diskaun
+          totalorder1 = (percentage * totalorder);
+          System.out.printf("Your Total fruit price is: RM%.2f", totalorder1);
+          System.out.println("");
+        } else
+          totalorder1 = totalorder;
+          System.out.println("Discount voucher not valid");
+
+        break;
+      }
+      // Stop discount from the spoiled fruit voucher
+
+      // Proceed Delivery
+      System.out.println("\nWe only deliver to Kg Bubul and Sepagaya ");
+      System.out.print("\nPlease enter Y to proceed with the delivery: ");
+      deliveryProceed = input.next().charAt(0);
+
+      if(deliveryProceed=='Y') {
+
+        System.out.print("Enter the delivery location\t: ");
+        
+        location = input.nextLine();
+        location = input.nextLine();
+        // Jarak perjalanan dan delivery fee
+
+        // Proceed location
+        if (location.equals("Kg Bubul")) {
+          jaraklokasi = 8;
+          cajpenghantaran = 8;
+          System.out.print("Enter date of delivery (e.g., 12/2/22): ");
+          date_of_delivery = input.next();
+          System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
+          deliverTime=input.next();
+          System.out.println("We will deliver customer's order 15 minutes early.");
+          System.out.println("Location distance\t\t: " + jaraklokasi + "KM");
+          System.out.println("Delivery fee to " + location + "\t: RM" + cajpenghantaran);
+          
+          total = totalorder + cajpenghantaran;
+          
+
+        } else if (location.equals("Sepagaya")) {
+          jaraklokasi = 5;
+          cajpenghantaran = 5;
+          System.out.print("Enter date of delivery (e.g., 12/2/22): ");
+          date_of_delivery = input.next();
+          System.out.println("Enter time of delivery (e.g.,12.30 P.M): ");
+          deliverTime=input.next();
+          System.out.println("We will deliver customer's order 15 minutes early.");
+          System.out.println("Location distance\t\t: " + jaraklokasi + "KM");
+          System.out.println("Delivery fee to " + location + "\t: RM" + cajpenghantaran);
+
+          total = totalorder + cajpenghantaran;
+
+        } else {
+
+          System.out.println("Sorry your address is not in our delivery range");
+
+          total = totalorder;
+        }
+      }
+      else if(deliveryProceed=='N') {
+    	  total = totalorder;
+        
+      }
+      
+      if (deliveryProceed == 'N') {
+        
+        String orderId=Dessert.getRandomNumberString();
+        // system check the total cost
+        System.out.println("\n\t###########################################");
+        System.out.println("\t\tCUSTOMER'S RECEIPT");
+        System.out.println("\t\tORDER ID        : " +orderId);
+        System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
+        System.out.println("\t\tDATE OF ORDER   : "+ tarikh );
+        System.out.println("\t\tTIME OF ORDER   : "+ orderTime);
+        System.out.println("\n\t\tDETAILS");      
+        System.out.printf("\t\tTOTAL PAYMENT   : RM%.2f", total);
+        
+        System.out.println("\n\t###########################################");
+      
+        System.out.println("\n\t\tThank you for purchasing with us.\n");
+      }else if (deliveryProceed == 'Y'){
+      // Stop proceed Delivery
+      //create 6-digit random number for ORDER ID 
+      String orderId=Dessert.getRandomNumberString();
+      // system check the total cost
+      System.out.println("\n\t###########################################");
+      System.out.println("\t\tCUSTOMER'S RECEIPT");
+      System.out.println("\t\tORDER ID        : " +orderId);
+      System.out.println("\t\tCUSTOMER NAME   : " +cus_name);
+      System.out.println("\t\tDATE OF ORDER   : "+ tarikh );
+      System.out.println("\t\tTIME OF ORDER   : "+ orderTime);
+      System.out.println("\t\tDATE TO DELIVER : "+ date_of_delivery);
+      System.out.println("\t\tTIME TO DELIVER : "+ deliverTime);
+      System.out.println("\n\t\tDETAILS");      
+      System.out.printf("\t\tTOTAL PAYMENT   : RM%.2f", total);
+      
+      System.out.println("\n\t###########################################");
+    
+      System.out.println("\n\t\tThank you for purchasing with us.\n");
+      }
+      break;
+    // Stop OTW Order
+
+    case 'N':
+      System.out.println("\n\t\tWe're sorry to see you go. Thank You\n");
+    }// to not proceed order
+
+    // Stop user proceed order
+
+  }
+
+  public static void resistancecondition() {
+    // call method return_array that returns array
+    String[] str_Array = return_Array();
+    System.out.println("Fruit resistant in:\n" + Arrays.toString(str_Array) + " condition\n");
+
+  }
+
+  // passing array to method
+  public static String[] return_Array() {
+    // define string array
+    String[] ret_Array = { "\"RTP\"", "\"Refrigerator", "Freezer\"", "\"RTP/Refrigerator\"", "\"RTP/Freezer\"",
+        "\"Refrigerator/Freezer\"", "\"RTP/Refrigerator/Freezer\"" };
+    // return string array
+    return ret_Array;
+  }
+
+  public static void resistance() {
+
+    // Fruit Resistance
+    System.out.print("Do you want to check the resistance of the fruits received(Y/N)?: ");
+    checkFruitResistance = input.next().charAt(0);
+
+    while (checkFruitResistance != 'N') {
+
+      // System check the fruit details
+      System.out.println("System to check the resistance of the fruits received\n");
+
+      System.out.print("Enter the fruit name or code: ");
+      buah1 = input.next();
+
+      // System.out.print("Enter the fruit code: ");
+      // code=input.nextInt();//(6 number) Code buah terletak pada setiap buah merujuk
+      // kepada tarikh iya dipetik/ketahann dlm pelbagai keadaan
+
+      switch (buah1) {
+
+      case "00000011":
+      case "Apple":
+
+        // Check details
+
+        // suhu bilik
+        
+        System.out.print("Enter the fruit storage method(RTP/Refrigerator/Freezer): ");
+
+        suhubilik = input.next();
+
+        switch (suhubilik) {
+
+        case "RTP":
+          System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
+          System.out.println("Fruit durability to date: " + "10.12.2021");
+          // ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
+          break;
+
+        case "Refrigerator":
+          System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
+          System.out.println("Fruit durability to date: " + "20.12.2021");
+          break;
+
+case "Freezer":
+          System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
+          System.out.println("Fruit durability to date: " + "30.12.2021");
+          break;
+
+        case "RTP/Refrigerator":
+          System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
+          System.out.println("Fruit durability to date: " + "10.12.2021");
+          // ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
+
+          System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
+          System.out.println("Fruit durability to date: " + "20.12.2021");
+          break;
+
+        case "RTP/Freezer":
+          System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
+          System.out.println("Fruit durability to date: " + "10.12.2021");
+          // ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
+
+          System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
+          System.out.println("Fruit durability to date: " + "30.12.2021");
+          break;
+
+        case "Refrigerator/Freezer":
+          System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
+          System.out.println("Fruit durability to date: " + "20.12.2021");
+
+          System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
+          System.out.println("Fruit durability to date: " + "30.12.2021");
+          break;
+
+        case "RTP/Refrigerator/Freezer":
+          System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
+          System.out.println("Fruit durability to date: " + "10.12.2021");
+          // ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
+
+          System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
+          System.out.println("Fruit durability to date: " + "20.12.2021");
+
+          System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
+          System.out.println("Fruit durability to date: " + "30.12.2021");
+          break;
+
+        }
+        break;
+
+      case "Grape":
+      case "11111100":
+
+        // Check details
+
+        // suhu bilik
+        
+        System.out.print("Enter the fruit storage method(RTP/Refrigerator/Freezer): ");
+
+        suhubilik = input.next();
+
+        switch (suhubilik) {
+
+        case "RTP":
+          System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
+          System.out.println("Fruit durability to date: " + "10.12.2021");
+          // ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
+          break;
+
+        case "Refrigerator":
+          System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
+          System.out.println("Fruit durability to date: " + "20.12.2021");
+          break;
+
+        case "Freezer":
+          System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
+          System.out.println("Fruit durability to date: " + "30.12.2021");
+          break;
+
+        case "RTP/Refrigerator":
+          System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
+          System.out.println("Fruit durability to date: " + "10.12.2021");
+          // ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
+
+          System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
+          System.out.println("Fruit durability to date: " + "20.12.2021");
+          break;
+
+        case "RTP/Freezer":
+          System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
+          System.out.println("Fruit durability to date: " + "10.12.2021");
+          // ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
+
+          System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
+          System.out.println("Fruit durability to date: " + "30.12.2021");
+          break;
+
+
+case "Refrigerator/Freezer":
+          System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
+          System.out.println("Fruit durability to date: " + "20.12.2021");
+
+          System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
+          System.out.println("Fruit durability to date: " + "30.12.2021");
+          break;
+
+        case "RTP/Refrigerator/Freezer":
+          System.out.println("Fruit resistance at room temperature (day): " + k_buah_bilik);
+          System.out.println("Fruit durability to date: " + "10.12.2021");
+          // ketahanan buah dalam peti ais dan tarikh sehingga ianya tahan
+
+          System.out.println("Fruit resistance in Refrigerator (day): " + k_buah_peti);
+          System.out.println("Fruit durability to date: " + "20.12.2021");
+
+          System.out.println("Fruit resistance at Freezer (day): " + k_buah_sejuk);
+          System.out.println("Fruit durability to date: " + "30.12.2021");
+          break;
+
+        }
+        break;
+      // no more case anggur apple
+
+      default:
+        System.out.println("Please reach our staff");
+        break;
+      }
+      // Stop System check the fruit details
+
+      System.out.println("");
+      System.out.print("Do you want to check the resistance of the fruits received again(Y/N)?: ");
+      checkFruitResistance = input.next().charAt(0);
+      // Stop system check fruit resistance
+
+    }
+    }
+
+  public static void discount() {
+    // claim coupon discount
+    System.out.print("Enter Y to claim your voucher here: ");
+    GetVoucher = input.next().charAt(0);
+
+    switch (GetVoucher) {
+
+    case 'Y':
+
+      System.out.println(
+          "Send your spoiled fruits to our marchandise and get up to 5 percent off from SDN for every purchase you made with us.");
+
+      System.out.print("Please enter the total weight of your spoiled fruit(gram): ");
+      gram = input.nextInt();
+      System.out.println("");
+
+      if (gram <= 499) {
+        System.out.println("\n\n\nYou are not valid to claim voucher yet");
+        gramneeded = 500 - gram;
+        System.out.println("You need another " + gramneeded + "gram");
+      } else if (gram >= 500 && gram <= 999) {
+        System.out.println("You just got a 5% voucher code");
+        System.out.println("Use the code below for your next purchase with us");
+        System.out.println("1111");
+      } else {
+        System.out.println("You just got a 8% voucher code");
+        System.out.println("Use the code below for your next purchase with us");
+        System.out.println("1101");
+
+      }
+
+      System.out.println("\n\n\nThank you for your contribution");
+      break;
+
+    default :
+      System.out.println("\n\n\nThank You for using our service");
+
+    }
+    // Stop claim coupon discount
+
+
+System.out.println("Have a nice day");
+    input.close();
+  }
+  
+  public static int getTypeForProductInfo() {
+    // This method will return the type to main() whether e.g. 1-Tart,2-Pie or 3-Pudding
+    //declare and assign array donate
+       Scanner sc = new Scanner (System.in);
+      int num2;
+      
+      System.out.println("---------------Welcome to Product Information---------------- ");
+        System.out.println("List of products: ");
+        System.out.println("1-Grape ");
+        System.out.println("2-Apple");
+        // input 1 or 2 to view the information
+        System.out.println("\nChoose 1 or 2 to view the information of Grape or Apple respectively.");
+        num2=sc.nextInt();
+        
+        return num2;
+   }
+  
+  public static String[] getInfoForProduct() {
+     //This method will return the info from the array based on the type specified to main ()
+    //Declare and assign array product
+     String[] product = {"A grape is a fruit, botanically a berry, of the deciduous woody vines of the flowering plant genus Vitis."
+               + " \nGrapes can be eaten fresh as table grapes, used for making wine, jam, grape juice, jelly, grape seed extract,"
+               + ""
+               + "n vinegar, and grape seed oil, or dried as raisins, currants and sultanas",
+               "An apple is an edible fruit produced by an apple tree. Apple trees are cultivated worldwide and are the most widely grown species in the genus Malus."
+               + " \nThe tree originated in Central Asia, where its wild ancestor, Malus sieversii, is still found today."};
+     return product;
+  }
+  
 }

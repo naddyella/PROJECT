@@ -353,7 +353,7 @@ System.out.printf("\n\t\tGross profit for today is RM%.2f" , sum);
     orderTime = sc.next();
   
     String [] food = {"Apple(5pc)", "Grape(1Box)","Orange(5pc)" };
-    double [] price = {5.00, 5.00, 5.00};
+    double [] price = {5.00, 8.00, 10.00};
     
     //return 2 data (food and price)
     FastFood.showMenu(food, price);
@@ -967,6 +967,14 @@ if (orderbuah.equals("Grape")) {
     
       System.out.println("\n\t\tThank you for purchasing with us.\n");
       }
+      
+      if (totalorder>=100)
+		{
+			GenerateRandom();
+		}
+		else {
+			
+		}
       break;
     // Stop OTW Order
 
@@ -981,7 +989,7 @@ if (orderbuah.equals("Grape")) {
   public static void resistancecondition() {
     // call method return_array that returns array
     String[] str_Array = return_Array();
-    System.out.println("Fruit resistant in:\n" + Arrays.toString(str_Array) + " condition\n");
+    System.out.println("\n\nFruit resistant in:\n" + Arrays.toString(str_Array) + " condition\n");
 
   }
 
@@ -1166,8 +1174,10 @@ case "Refrigerator/Freezer":
       System.out.print("Do you want to check the resistance of the fruits received again(Y/N)?: ");
       checkFruitResistance = input.next().charAt(0);
       // Stop system check fruit resistance
+      
 
     }
+    discount();
     }
 
   public static void discount() {
@@ -1179,8 +1189,7 @@ case "Refrigerator/Freezer":
 
     case 'Y':
 
-      System.out.println(
-          "Send your spoiled fruits to our marchandise and get up to 5 percent off from SDN for every purchase you made with us.");
+      System.out.println("Send your spoiled fruits to our marchandise and get up to 5 percent off from SDN for every purchase you made with us.");
 
       System.out.print("Please enter the total weight of your spoiled fruit(gram): ");
       gram = input.nextInt();
@@ -1212,7 +1221,7 @@ case "Refrigerator/Freezer":
 
 
 System.out.println("Have a nice day");
-    input.close();
+    //input.close();
   }
   
   public static int getTypeForProductInfo() {
@@ -1244,4 +1253,36 @@ System.out.println("Have a nice day");
      return product;
   }
   
+  public static void GenerateRandom() {
+	    
+      int min = 1;
+      int max = 3;
+        
+      //Generate random int value from 50 to 100 
+      System.out.println("You've got 1 chances to get random fruits! Good luck");
+      System.out.println("Random value :");
+      int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+      System.out.println(random_int);
+    
+      Gatcha();
+}
+
+public static void Gatcha() {
+	System.out.print("Enter random value you got ");
+	int random = input.nextInt();
+	
+	switch (random) {
+	case 1 :
+		System.out.println("YEAY ! Get 50g apple");
+		break;
+	case 2 :
+		System.out.println("YEAY ! Get 50g Anggur");
+		break;
+	case 3 :
+	default :
+		System.out.println("Better luck next time");
+		
+	}
+}
+
 }
